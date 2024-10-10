@@ -4,9 +4,13 @@ DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE users (
     Id INTEGER PRIMARY KEY,
-    UserName VARCHAR(50),
-    DisplayName VARCHAR(50),
-    RegisterDate DATE,
-    PerformanceTier INTEGER, 
-    Country VARCHAR(50)
+    UserName VARCHAR(60),
+    DisplayName VARCHAR(260),
+    RegisterDate DATE NOT NULL,
+    PerformanceTier SMALLINT NOT NULL, 
+    Country VARCHAR(40)
 )
+
+-- organizations
+
+-- user organizations

@@ -67,10 +67,10 @@ def insert_users(input_file, query, max_chunk=10):
         # print(chunk) 
         df_values = list(chunk.itertuples(index=False, name=None))
         execute_df_values(query, df_values)
-
         c_count += 1
-        if c_count >= max_chunk:
-            break
+
+        # if c_count >= max_chunk:
+        #     break
 
 
 def report_db_statistics():
