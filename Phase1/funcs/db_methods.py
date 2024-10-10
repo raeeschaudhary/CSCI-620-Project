@@ -1,5 +1,6 @@
-from code.globals import chunk_size, data_directory, input_files
-from code.db_utils import *
+from funcs.globals import chunk_size, data_directory, input_files
+from funcs.db_utils import *
+import pandas as pd
 
 # This method removes entries with non-existent FK Ids from chunk_data.
 def remove_invalid_entries_links(chunk_data, valid_ids, loc):
@@ -55,6 +56,22 @@ def run_schema_script(file):
 def run_commit_query(query):
     # Run single query
     exec_commit(query)
+
+# This method Inserst users
+def insert_users(input_file, query, max_chunk=10):
+    csv_file = data_directory + input_file
+    chunks = pd.read_csv(csv_file, chunksize=chunk_size)
+
+    c_count = 1
+    for chunk in chunks:
+        # print(chunk) 
+        df_values = list(chunk.itertuples(index=False, name=None))
+        execute_df_values(query, df_values)
+
+        c_count += 1
+        if c_count >= max_chunk:
+            break
+
 
 def report_db_statistics():
     # loop over all the tables

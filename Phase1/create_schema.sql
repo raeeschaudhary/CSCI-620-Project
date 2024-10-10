@@ -1,76 +1,12 @@
 -- Schema creation goes here
 
+DROP TABLE IF EXISTS users CASCADE;
+
 CREATE TABLE users (
     Id INTEGER PRIMARY KEY,
-    AccountId INTEGER,
-    DisplayName VARCHAR(50) NOT NULL,
-    AboutMe TEXT,
-    CreationDate TIMESTAMPTZ NOT NULL,
-    Reputation INTEGER NOT NULL
-);
-
-DROP TABLE IF EXISTS tags CASCADE;
-
-CREATE TABLE tags (
-    Id INTEGER PRIMARY KEY,
-    TagName VARCHAR(40) NOT NULL
-);
-
-DROP TABLE IF EXISTS badges;
-
-CREATE TABLE badges (
-    Id INTEGER PRIMARY KEY,
-    UserId INTEGER NOT NULL,
-    FOREIGN KEY (UserId) REFERENCES users (Id),
-    Name VARCHAR(30) NOT NULL,
-    Date TIMESTAMPTZ NOT NULL
-);
-
-DROP TABLE IF EXISTS dummy; 
-
-CREATE TABLE dummy (
-    Id INTEGER, 
-    ParentId INTEGER, 
-    OwnerUserId INTEGER, 
-    AcceptedAnswerId INTEGER
-    );
-
-DROP TABLE IF EXISTS posts CASCADE;
-
-CREATE TABLE posts (
-    Id INTEGER PRIMARY KEY,
-    ParentId INTEGER,
-    -- FOREIGN KEY (ParentId) REFERENCES posts (Id) ON DELETE CASCADE,
-    OwnerUserId INTEGER NOT NULL,
-    FOREIGN KEY (OwnerUserId) REFERENCES users (Id), 
-    AcceptedAnswerId INTEGER,
-    -- FOREIGN KEY (AcceptedAnswerId) REFERENCES posts (Id) ON DELETE CASCADE, 
-    Title VARCHAR(160),
-    Body TEXT,
-    Score SMALLINT NOT NULL,
-    ViewCount INTEGER,
-    CreationDate TIMESTAMPTZ NOT NULL
-);
-
-DROP TABLE IF EXISTS posttags;
-
-CREATE TABLE posttags (
-    PostId INTEGER NOT NULL,
-    TagId INTEGER NOT NULL,
-    PRIMARY KEY (PostId, TagId),
-    FOREIGN KEY (PostId) REFERENCES posts (Id) ON DELETE CASCADE, 
-    FOREIGN KEY (TagId) REFERENCES tags (Id) ON DELETE CASCADE
-);
-
-DROP TABLE IF EXISTS comments;
-
-CREATE TABLE comments (
-    Id INTEGER PRIMARY KEY,
-    PostId INTEGER NOT NULL,
-    FOREIGN KEY (PostId) REFERENCES posts (Id) ON DELETE CASCADE,
-    Score SMALLINT NOT NULL,
-    Text TEXT,
-    CreationDate TIMESTAMPTZ NOT NULL,
-    UserId INTEGER NOT NULL,
-    FOREIGN KEY (UserId) REFERENCES users (Id)
-);
+    UserName VARCHAR(50),
+    DisplayName VARCHAR(50),
+    RegisterDate DATE,
+    PerformanceTier INTEGER, 
+    Country VARCHAR(50)
+)

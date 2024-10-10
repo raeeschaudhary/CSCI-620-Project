@@ -2,7 +2,7 @@ import psycopg2
 import psycopg2.extras as extras
 import os
 
-from code.globals import *
+from funcs.globals import *
 
 # This file contains methods for connecting and executing operations on the database.
 # Each method is self explanatory
