@@ -88,18 +88,88 @@
 
 -- Tags
 
-DROP TABLE IF EXISTS Tags CASCADE;
+-- DROP TABLE IF EXISTS Tags CASCADE;
 
-CREATE TABLE Tags (
-    Id INTEGER PRIMARY KEY,
-    ParentTagId FLOAT,
-    Name VARCHAR(50) NOT NULL,
-    Slug VARCHAR(85) NOT NULL,
-    FullPath VARCHAR(95) NOT NULL,
-    Description VARCHAR(300),
-    DatasetCount INTEGER NOT NULL,
-    CompetitionCount INTEGER NOT NULL,
-    KernelCount INTEGER NOT NULL
-)
+-- CREATE TABLE Tags (
+--     Id INTEGER PRIMARY KEY,
+--     ParentTagId FLOAT,
+--     Name VARCHAR(50) NOT NULL,
+--     Slug VARCHAR(85) NOT NULL,
+--     FullPath VARCHAR(95) NOT NULL,
+--     Description VARCHAR(300),
+--     DatasetCount INTEGER NOT NULL,
+--     CompetitionCount INTEGER NOT NULL,
+--     KernelCount INTEGER NOT NULL
+-- )
          
+-- CompetitionTags
 
+-- DROP TABLE IF EXISTS CompetitionTags CASCADE;
+
+-- CREATE TABLE CompetitionTags (
+--     Id INTEGER PRIMARY KEY,
+--     CompetitionId INTEGER NOT NULL,
+--     TagId INTEGER NOT NULL
+-- )
+
+-- Datasets
+
+-- DROP TABLE IF EXISTS Datasets CASCADE;
+
+-- CREATE TABLE Datasets (
+--     Id INTEGER PRIMARY KEY,
+--     CreatorUserId INTEGER NOT NULL,
+--     ForumId INTEGER NOT NULL, 
+--     CreationDate TIMESTAMP NOT NULL,
+--     LastActivityDate TIMESTAMP NOT NULL,
+--     TotalViews INTEGER NOT NULL, 
+--     TotalDownloads INTEGER NOT NULL, 
+--     TotalVotes INTEGER NOT NULL, 
+--     TotalKernels SMALLINT NOT NULL
+-- )
+
+-- DatasetTags
+
+-- DROP TABLE IF EXISTS DatasetTags CASCADE;
+
+-- CREATE TABLE DatasetTags (
+--     Id INTEGER PRIMARY KEY,
+--     DatasetId INTEGER NOT NULL,
+--     TagId INTEGER NOT NULL
+-- )
+
+-- DatasetTags
+
+-- DROP TABLE IF EXISTS Forums CASCADE;
+
+-- CREATE TABLE Forums (
+--     Id INTEGER PRIMARY KEY,
+--     ParentForumId FLOAT,
+--     Title VARCHAR(100)
+-- )
+
+-- Teams
+
+-- DROP TABLE IF EXISTS Teams CASCADE;
+
+-- CREATE TABLE Teams (
+--     Id INTEGER PRIMARY KEY,
+--     CompetitionId INTEGER NOT NULL,
+--     TeamLeaderId FLOAT,
+--     TeamName VARCHAR(260)
+-- )
+
+-- Submissions
+
+-- DROP TABLE IF EXISTS Submissions CASCADE;
+
+-- CREATE TABLE Submissions (
+--     Id INTEGER PRIMARY KEY,
+--     SubmittedUserId FLOAT,
+--     TeamId INTEGER NOT NULL,
+--     SubmissionDate DATE NOT NULL,
+--     IsAfterDeadline BOOLEAN NOT NULL,
+--     PublicScoreLeaderboardDisplay FLOAT,
+--     PrivateScoreLeaderboardDisplay FLOAT
+-- )
+ 

@@ -38,3 +38,36 @@ tags_insert_query = """
     CompetitionCount, KernelCount)
     VALUES %s
 """
+
+# Tags
+competition_tags_insert_query = """
+    INSERT INTO CompetitionTags (Id, CompetitionId, TagId)
+    VALUES %s
+"""
+# CleanedDatasets
+cleaned_dataset_insert_query = """
+    INSERT INTO Datasets (Id, CreatorUserId, ForumId, CreationDate, LastActivityDate,
+    TotalViews, TotalDownloads, TotalVotes, TotalKernels)
+    VALUES %s
+"""
+# DatasetTags
+dataset_tags_insert_query = """
+    INSERT INTO DatasetTags (Id, DatasetId, TagId)
+    VALUES %s
+"""
+# Forums
+forums_insert_query = """
+    INSERT INTO Forums (Id, ParentForumId, Title)
+    VALUES %s
+"""
+# Teams
+teams_insert_query = """
+    INSERT INTO Teams (Id, CompetitionId, TeamLeaderId, TeamName)
+    VALUES %s
+"""
+#  Submissions
+submission_insert_query = """
+    INSERT INTO Submissions(Id, SubmittedUserId, TeamId, SubmissionDate, IsAfterDeadline, PublicScoreLeaderboardDisplay,
+    PrivateScoreLeaderboardDisplay)
+    VALUES %s 
+    """

@@ -44,10 +44,52 @@ if __name__=="__main__":
     # print("CleanedCompetitions Created")
 
     # CleanedCompetitions
-    print('++++++++++++++++++++++++++++++++++++++++++++++')
-    print("Inserting Tags")
-    insert_tags("Tags.csv", tags_insert_query)
-    print("Tags Created")
+    # print('++++++++++++++++++++++++++++++++++++++++++++++')
+    # print("Inserting Tags")
+    # insert_tags("Tags.csv", tags_insert_query)
+    # print("Tags Created")
+
+    # CompetitionTags
+    # print('++++++++++++++++++++++++++++++++++++++++++++++')
+    # print("Inserting CompetitionTags")
+    # insert_competition_tags("CompetitionTags.csv", competition_tags_insert_query)
+    # print("CompetitionTags Created")
+
+    # Datasets
+    # print('++++++++++++++++++++++++++++++++++++++++++++++')
+    # print("Inserting Datasets")
+    # insert_cleaned_datasets("CleanedDatasets.csv", cleaned_dataset_insert_query)
+    # print("Datasets Created")
+
+    # Datasets
+    # print('++++++++++++++++++++++++++++++++++++++++++++++')
+    # print("Inserting DatasetTags")
+    # insert_dataset_tags("DatasetTags.csv", dataset_tags_insert_query)
+    # print("DatasetTags Created")
+
+    # Forums
+    # print('++++++++++++++++++++++++++++++++++++++++++++++')
+    # print("Inserting Forums")
+    # insert_forums("Forums.csv", forums_insert_query)
+    # print("DatasetTags Created")
+
+    # Teams
+    # print('++++++++++++++++++++++++++++++++++++++++++++++')
+    # print("Inserting Teams")
+    # insert_teams("CleanedTeams.csv", teams_insert_query)
+    # print("Teams Created")
+
+    # CleanedSubmissions
+    # print('++++++++++++++++++++++++++++++++++++++++++++++')
+    # print("Inserting Submissions")
+    # insert_submissions("CleanedSubmissions.csv", submission_insert_query)
+    # print("Submissions Created")
+
+
+    print("=================================================")
+    print("Reporting Database Statistics")
+    report_db_statistics()
+    print("=================================================")
 
     end_time = time.time()
     run_time = end_time - start_time
