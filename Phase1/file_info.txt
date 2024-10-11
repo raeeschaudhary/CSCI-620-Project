@@ -1,26 +1,51 @@
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-File: C:\Users\mr2714\Desktop\venvs\pdata\UserOrganizations.csv
-Total Records: 2908
+File: C:\Users\mr2714\Desktop\venvs\pdata\Tags.csv
+Total Records: 820
 Key information with max value lengths, longest values, and null counts:
+Key: CompetitionCount
+Longest Value Length: 5
+Longest Value: 12150
+Null count: 0
+Unique Count: 46
+Key: DatasetCount
+Longest Value Length: 6
+Longest Value: 222542
+Null count: 0
+Unique Count: 317
+Key: Description
+Longest Value Length: 291
+Longest Value: South America is a continent located in the western hemisphere, mostly in the southern hemisphere, with a relatively small portion in the northern hemisphere. It may also be considered a subcontinent of the Americas, which is how it is viewed in the Spanish-speaking regions of the Americas.
+Null count: 675
+Unique Count: 145
+Key: FullPath
+Longest Value Length: 84
+Longest Value: subject > health and fitness > health > healthcare > hospitals and treatment centers
+Null count: 0
+Unique Count: 820
 Key: Id
-Longest Value Length: 4
-Longest Value: 1028
+Longest Value Length: 5
+Longest Value: 10000
 Null count: 0
-Unique Count: 2908
-Key: JoinDate
-Longest Value Length: 10
-Longest Value: 09/23/2016
+Unique Count: 820
+Key: KernelCount
+Longest Value Length: 7
+Longest Value: 4104629
 Null count: 0
-Unique Count: 914
-Key: OrganizationId
-Longest Value Length: 4
-Longest Value: 1000
+Unique Count: 321
+Key: Name
+Longest Value Length: 48
+Longest Value: deeplab (mobilenetv3_large_cityscapes_trainfine)
 Null count: 0
-Unique Count: 1496
-Key: UserId
-Longest Value Length: 8
-Longest Value: 14692874
+Unique Count: 820
+Key: ParentTagId
+Longest Value Length: 7
+Longest Value: 12116.0
+Null count: 10
+Unique Count: 61
+Key: Slug
+Longest Value Length: 47
+Longest Value: mobilebert-uncased-l-24-h-128-b-512-a-4-f-4-opt
 Null count: 0
-Unique Count: 2116
+Unique Count: 820
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

@@ -114,6 +114,62 @@ def insert_user_organizations(input_file, query, max_chunk=10):
         # if c_count >= max_chunk:
         #     break
 
+def insert_user_followers(input_file, query, max_chunk=10):
+    csv_file = data_directory + input_file
+    chunks = get_csv_chunker(csv_file)
+
+    c_count = 1
+    for chunk in chunks:
+        # print(chunk) 
+        df_values = list(chunk.itertuples(index=False, name=None))
+        execute_df_values(query, df_values)
+        c_count += 1
+
+        # if c_count >= max_chunk:
+        #     break
+
+def insert_user_achievements(input_file, query, max_chunk=10):
+    csv_file = data_directory + input_file
+    chunks = get_csv_chunker(csv_file)
+
+    c_count = 1
+    for chunk in chunks:
+        # print(chunk) 
+        df_values = list(chunk.itertuples(index=False, name=None))
+        execute_df_values(query, df_values)
+        c_count += 1
+
+        # if c_count >= max_chunk:
+        #     break
+
+def insert_cleaned_competitions(input_file, query, max_chunk=10):
+    csv_file = data_directory + input_file
+    chunks = get_csv_chunker(csv_file)
+
+    c_count = 1
+    for chunk in chunks:
+        # print(chunk) 
+        df_values = list(chunk.itertuples(index=False, name=None))
+        execute_df_values(query, df_values)
+        c_count += 1
+
+        # if c_count >= max_chunk:
+        #     break
+
+def insert_tags(input_file, query, max_chunk=10):
+    csv_file = data_directory + input_file
+    chunks = get_csv_chunker(csv_file)
+
+    c_count = 1
+    for chunk in chunks:
+        # print(chunk) 
+        df_values = list(chunk.itertuples(index=False, name=None))
+        execute_df_values(query, df_values)
+        c_count += 1
+
+        # if c_count >= max_chunk:
+        #     break
+
 def report_db_statistics():
     # loop over all the tables
     for table in input_files:
