@@ -57,10 +57,38 @@ def run_commit_query(query):
     # Run single query
     exec_commit(query)
 
+def get_csv_chunker(csv_file):
+    try:
+        chunks = pd.read_csv(csv_file, chunksize=chunk_size)
+        return chunks
+    except:
+        print("=======================================================")
+        print("Wrong file or file path; ", csv_file, " Does not Exists")
+        print("=======================================================")
+        return None
+
+    
+
+        # if c_count >= max_chunk:
+        #     break
+
+
 # This method Inserst users
 def insert_users(input_file, query, max_chunk=10):
     csv_file = data_directory + input_file
-    chunks = pd.read_csv(csv_file, chunksize=chunk_size)
+    chunks = get_csv_chunker(csv_file)
+
+    c_count = 1
+    for chunk in chunks:
+        # print(chunk) 
+        df_values = list(chunk.itertuples(index=False, name=None))
+        execute_df_values(query, df_values)
+        c_count += 1
+
+# This method Inserst users
+def insert_organizations(input_file, query, max_chunk=10):
+    csv_file = data_directory + input_file
+    chunks = get_csv_chunker(csv_file)
 
     c_count = 1
     for chunk in chunks:
@@ -72,6 +100,19 @@ def insert_users(input_file, query, max_chunk=10):
         # if c_count >= max_chunk:
         #     break
 
+def insert_user_organizations(input_file, query, max_chunk=10):
+    csv_file = data_directory + input_file
+    chunks = get_csv_chunker(csv_file)
+
+    c_count = 1
+    for chunk in chunks:
+        # print(chunk) 
+        df_values = list(chunk.itertuples(index=False, name=None))
+        execute_df_values(query, df_values)
+        c_count += 1
+
+        # if c_count >= max_chunk:
+        #     break
 
 def report_db_statistics():
     # loop over all the tables
