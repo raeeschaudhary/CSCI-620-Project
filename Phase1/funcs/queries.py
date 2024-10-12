@@ -19,16 +19,16 @@ user_followers_insert_query = """
     INSERT INTO UserFollowers (Id, UserId, FollowingUserId, CreationDate)
     VALUES %s
 """
-# UserAchievements
+# CleanedUserAchievements
 user_achievements_insert_query = """
-    INSERT INTO UserAchievements (Id, UserId, AchievementType, Tier, TierAchievementDate, Points, CurrentRanking, 
+    INSERT INTO CleanedUserAchievements (Id, UserId, AchievementType, Tier, TierAchievementDate, Points, CurrentRanking, 
     HighestRanking, TotalGold, TotalSilver, TotalBronze)
     VALUES %s
 """
 
-# Competitions
-cleaned_competitions_insert_query = """
-    INSERT INTO Competitions (Id, Slug, Title, ForumId, EnabledDate, DeadlineDate, EvaluationAlgorithmName, 
+# CleanedCompetitions
+competitions_insert_query = """
+    INSERT INTO CleanedCompetitions (Id, Slug, Title, ForumId, EnabledDate, DeadlineDate, EvaluationAlgorithmName, 
     MaxTeamSize, NumPrizes, TotalTeams, TotalCompetitors, TotalSubmissions)
     VALUES %s
 """
@@ -45,8 +45,8 @@ competition_tags_insert_query = """
     VALUES %s
 """
 # CleanedDatasets
-cleaned_dataset_insert_query = """
-    INSERT INTO Datasets (Id, CreatorUserId, ForumId, CreationDate, LastActivityDate,
+dataset_insert_query = """
+    INSERT INTO CleanedDatasets (Id, CreatorUserId, ForumId, CreationDate, LastActivityDate,
     TotalViews, TotalDownloads, TotalVotes, TotalKernels)
     VALUES %s
 """
@@ -60,14 +60,14 @@ forums_insert_query = """
     INSERT INTO Forums (Id, ParentForumId, Title)
     VALUES %s
 """
-# Teams
+# CleanedTeams
 teams_insert_query = """
-    INSERT INTO Teams (Id, CompetitionId, TeamLeaderId, TeamName)
+    INSERT INTO CleanedTeams (Id, CompetitionId, TeamLeaderId, TeamName)
     VALUES %s
 """
-#  Submissions
+#  CleanedSubmissions
 submission_insert_query = """
-    INSERT INTO Submissions(Id, SubmittedUserId, TeamId, SubmissionDate, IsAfterDeadline, PublicScoreLeaderboardDisplay,
+    INSERT INTO CleanedSubmissions(Id, SubmittedUserId, TeamId, SubmissionDate, IsAfterDeadline, PublicScoreLeaderboardDisplay,
     PrivateScoreLeaderboardDisplay)
     VALUES %s 
     """

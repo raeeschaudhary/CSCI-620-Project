@@ -1,4 +1,4 @@
-from funcs.globals import chunk_size, data_directory, input_files
+from funcs.globals import chunk_size, data_directory, cleaned_files
 from funcs.db_utils import *
 import pandas as pd
 
@@ -40,7 +40,7 @@ def check_valid_fk_ids(table, ids):
     valid_ids = set()
     if ids:
         # Make sure that only to check for valid table names to avoid SQL injection. 
-        if table.lower() not in {t.lower() for t in input_files}:
+        if table.lower() not in {t.lower() for t in cleaned_files}:
             raise ValueError("Invalid table name")
         sql = "SELECT Id FROM " + table + " WHERE Id IN %s"
         result = exec_get_all(sql, (tuple(ids),))
@@ -253,7 +253,7 @@ def insert_submissions(input_file, query, max_chunk=10):
         
 def report_db_statistics():
     # loop over all the tables
-    for table in table_names:
+    for table in cleaned_files:
         # input files are known to avoid SQL injection
         query = "SELECT COUNT(*) FROM " + table + ";"
         result = exec_get_one(query)
