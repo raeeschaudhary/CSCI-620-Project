@@ -1,61 +1,79 @@
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-File: C:\Users\mr2714\Desktop\venvs\pdata\Submissions.csv
-Total Records: 14765084
+File: C:\Users\mr2714\Desktop\venvs\pdata\UserFollowers.csv
+Total Records: 1547986
 Key information with max value lengths, longest values, and null counts:
+Key: CreationDate
+Longest Value Length: 10
+Longest Value: 06/21/2021
+Null count: 0
+Unique Count: 50
+Key: FollowingUserId
+Longest Value Length: 8
+Longest Value: 10254700
+Null count: 0
+Unique Count: 50
 Key: Id
+Longest Value Length: 7
+Longest Value: 1000000
+Null count: 0
+Unique Count: 50
+Key: UserId
 Longest Value Length: 8
-Longest Value: 10000000
-Null count: 0
-Unique Count: 50
-Key: IsAfterDeadline
-Longest Value Length: 5
-Longest Value: False
-Null count: 0
-Unique Count: 50
-Key: PrivateScoreFullPrecision
-Longest Value Length: 24
-Longest Value: -2.4910790855140672e+148
-Null count: 579285
-Unique Count: 50
-Key: PrivateScoreLeaderboardDisplay
-Longest Value Length: 23
-Longest Value: 4.0722577441181936e+287
-Null count: 579285
-Unique Count: 50
-Key: PublicScoreFullPrecision
-Longest Value Length: 24
-Longest Value: -4.1855869471090157e+102
-Null count: 579285
-Unique Count: 50
-Key: PublicScoreLeaderboardDisplay
-Longest Value Length: 23
-Longest Value: 5.1490095309829366e+228
-Null count: 579097
-Unique Count: 50
-Key: ScoreDate
-Longest Value Length: 10
-Longest Value: 02/18/2014
-Null count: 534044
-Unique Count: 50
-Key: SourceKernelVersionId
-Longest Value Length: 11
-Longest Value: 101211710.0
-Null count: 9738004
-Unique Count: 50
-Key: SubmissionDate
-Longest Value Length: 10
-Longest Value: 02/18/2014
-Null count: 0
-Unique Count: 50
-Key: SubmittedUserId
-Longest Value Length: 9
-Longest Value: 1001247.0
-Null count: 1346
-Unique Count: 50
-Key: TeamId
-Longest Value Length: 8
-Longest Value: 10092503
+Longest Value: 10000014
 Null count: 0
 Unique Count: 50
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+File: C:\Users\mr2714\Desktop\venvs\pdata\Tags.csv
+Total Records: 820
+Key information with max value lengths, longest values, and null counts:
+Key: CompetitionCount
+Longest Value Length: 5
+Longest Value: 12150
+Null count: 0
+Unique Count: 46
+Key: DatasetCount
+Longest Value Length: 6
+Longest Value: 222542
+Null count: 0
+Unique Count: 317
+Key: Description
+Longest Value Length: 291
+Longest Value: South America is a continent located in the western hemisphere, mostly in the southern hemisphere, with a relatively small portion in the northern hemisphere. It may also be considered a subcontinent of the Americas, which is how it is viewed in the Spanish-speaking regions of the Americas.
+Null count: 675
+Unique Count: 145
+Key: FullPath
+Longest Value Length: 84
+Longest Value: subject > health and fitness > health > healthcare > hospitals and treatment centers
+Null count: 0
+Unique Count: 820
+Key: Id
+Longest Value Length: 5
+Longest Value: 10000
+Null count: 0
+Unique Count: 820
+Key: KernelCount
+Longest Value Length: 7
+Longest Value: 4104629
+Null count: 0
+Unique Count: 321
+Key: Name
+Longest Value Length: 48
+Longest Value: deeplab (mobilenetv3_large_cityscapes_trainfine)
+Null count: 0
+Unique Count: 820
+Key: ParentTagId
+Longest Value Length: 7
+Longest Value: 12116.0
+Null count: 10
+Unique Count: 61
+Key: Slug
+Longest Value Length: 47
+Longest Value: mobilebert-uncased-l-24-h-128-b-512-a-4-f-4-opt
+Null count: 0
+Unique Count: 820
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+File: C:\Users\mr2714\Desktop\venvs\pdata\UserAchievements.csv

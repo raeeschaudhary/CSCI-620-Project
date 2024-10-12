@@ -14,7 +14,7 @@ data_directory = 'C:\\Users\\mr2714\\Desktop\\venvs\\pdata\\'
 chunk_size = 100000
 
 # these are the list of tables in the db; I use it check table results; to avoid sql injection
-cleaned_files = ["Users", "Organizations", "UserOrganizations", "UserFollowers", "CleanedUserAchievements", "CleanedCompetitions", 
+cleaned_files = ["Users", "Organizations", "UserOrganizations", "UserFollowers", "UserAchievements", "CleanedCompetitions", 
 "Tags", "CompetitionTags", "CleanedDatasets", "DatasetTags", "Forums", "CleanedSubmissions", "CleanedTeams"]
 # input_files = ["CleanedSubmissions"]
 

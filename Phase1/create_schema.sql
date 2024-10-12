@@ -11,7 +11,7 @@ CREATE TABLE Users (
     RegisterDate DATE NOT NULL,
     PerformanceTier SMALLINT NOT NULL, 
     Country VARCHAR(40)
-)
+);
 
 -- -- Organizations
 
@@ -23,7 +23,7 @@ CREATE TABLE Organizations (
     Slug VARCHAR(60) NOT NULL,
     CreationDate DATE NOT NULL,
     Description TEXT    
-)
+);
 
 -- -- UserOrganizations
 
@@ -34,7 +34,7 @@ CREATE TABLE UserOrganizations (
     UserId INTEGER NOT NULL,
     OrganizationId SMALLINT NOT NULL,
     JoinDate DATE NOT NULL
-)
+);
 
 -- -- UserFollowers
 
@@ -45,25 +45,25 @@ CREATE TABLE UserFollowers (
     UserId INTEGER NOT NULL,
     FollowingUserId INTEGER NOT NULL,
     CreationDate DATE NOT NULL
-)
+);
 
 -- -- CleanedUserAchievements
 
-DROP TABLE IF EXISTS CleanedUserAchievements CASCADE;
+DROP TABLE IF EXISTS UserAchievements CASCADE;
 
-CREATE TABLE CleanedUserAchievements (
+CREATE TABLE UserAchievements (
     Id INTEGER PRIMARY KEY,
     UserId INTEGER NOT NULL,
     AchievementType VARCHAR(15) NOT NULL,
     Tier SMALLINT NOT NULL,
-    TierAchievementDate DATE,
+    TierAchievementDate VARCHAR(30), --  this needs to be DATE but needs cleaning
     Points INTEGER NOT NULL,
     CurrentRanking FLOAT,
     HighestRanking FLOAT,
     TotalGold SMALLINT NOT NULL,
     TotalSilver SMALLINT NOT NULL,
     TotalBronze SMALLINT NOT NULL
-)
+);
 
 
 -- -- CleanedCompetitions
@@ -83,7 +83,7 @@ CREATE TABLE CleanedCompetitions (
     TotalTeams SMALLINT NOT NULL,
     TotalCompetitors SMALLINT NOT NULL,
     TotalSubmissions INTEGER NOT NULL
-)
+);
 
 
 -- -- Tags
@@ -100,7 +100,7 @@ CREATE TABLE Tags (
     DatasetCount INTEGER NOT NULL,
     CompetitionCount INTEGER NOT NULL,
     KernelCount INTEGER NOT NULL
-)
+);
          
 -- -- CompetitionTags
 
@@ -110,7 +110,7 @@ CREATE TABLE CompetitionTags (
     Id INTEGER PRIMARY KEY,
     CompetitionId INTEGER NOT NULL,
     TagId INTEGER NOT NULL
-)
+);
 
 -- -- CleanedDatasets
 
@@ -126,7 +126,7 @@ CREATE TABLE CleanedDatasets (
     TotalDownloads INTEGER NOT NULL, 
     TotalVotes INTEGER NOT NULL, 
     TotalKernels SMALLINT NOT NULL
-)
+);
 
 -- -- DatasetTags
 
@@ -136,7 +136,7 @@ CREATE TABLE DatasetTags (
     Id INTEGER PRIMARY KEY,
     DatasetId INTEGER NOT NULL,
     TagId INTEGER NOT NULL
-)
+);
 
 -- -- DatasetTags
 
@@ -146,7 +146,7 @@ CREATE TABLE Forums (
     Id INTEGER PRIMARY KEY,
     ParentForumId FLOAT,
     Title VARCHAR(100)
-)
+);
 
 -- -- CleanedTeams
 
@@ -157,7 +157,7 @@ CREATE TABLE CleanedTeams (
     CompetitionId INTEGER NOT NULL,
     TeamLeaderId FLOAT,
     TeamName VARCHAR(260)
-)
+);
 
 -- -- CleanedSubmissions
 
@@ -171,5 +171,5 @@ CREATE TABLE CleanedSubmissions (
     IsAfterDeadline BOOLEAN NOT NULL,
     PublicScoreLeaderboardDisplay FLOAT,
     PrivateScoreLeaderboardDisplay FLOAT
-)
+);
  

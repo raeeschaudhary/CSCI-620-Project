@@ -19,9 +19,9 @@ user_followers_insert_query = """
     INSERT INTO UserFollowers (Id, UserId, FollowingUserId, CreationDate)
     VALUES %s
 """
-# CleanedUserAchievements
+# UserAchievements
 user_achievements_insert_query = """
-    INSERT INTO CleanedUserAchievements (Id, UserId, AchievementType, Tier, TierAchievementDate, Points, CurrentRanking, 
+    INSERT INTO UserAchievements (Id, UserId, AchievementType, Tier, TierAchievementDate, Points, CurrentRanking, 
     HighestRanking, TotalGold, TotalSilver, TotalBronze)
     VALUES %s
 """

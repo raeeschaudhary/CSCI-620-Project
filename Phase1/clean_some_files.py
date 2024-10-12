@@ -70,13 +70,14 @@ if __name__=="__main__":
     clean_csv_columns_to_keep(input_file, output_file, columns_to_keep)
     print('++++++++++++++++++++++++++++++++++++++++++++++')
 
-    ### Clean UserAchievements
-    print('++++++++++++++++++++++++++++++++++++++++++++++')
-    print("Cleaning UserAchievements")
-    input_file = 'UserAchievements.csv'
-    output_file = 'CleanedUserAchievements.csv'
-    clean_csv_dates(input_file, output_file)
-    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    ### Clean UserAchievements Dates cleaning need to be checked later; so far it is not processing well
+    # therefore keeping the type of this field as varchar 30
+    # print('++++++++++++++++++++++++++++++++++++++++++++++')
+    # print("Cleaning UserAchievements")
+    # input_file = 'UserAchievements.csv'
+    # output_file = 'CleanedUserAchievements.csv'
+    # clean_csv_dates(input_file, output_file)
+    # print('++++++++++++++++++++++++++++++++++++++++++++++')
 
 
     ### Clean Teams
