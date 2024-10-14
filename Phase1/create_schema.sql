@@ -1,76 +1,10 @@
--- -- Schema creation goes here
+--  -- Schema creation goes here
 
--- -- Users
+-- -- CompetitionsCleaned
 
-DROP TABLE IF EXISTS Users CASCADE;
+DROP TABLE IF EXISTS CompetitionsCleaned CASCADE;
 
-CREATE TABLE Users (
-    Id INTEGER PRIMARY KEY,
-    UserName VARCHAR(60),
-    DisplayName VARCHAR(260),
-    RegisterDate DATE NOT NULL,
-    PerformanceTier SMALLINT NOT NULL, 
-    Country VARCHAR(40)
-);
-
--- -- Organizations
-
-DROP TABLE IF EXISTS Organizations CASCADE;
-
-CREATE TABLE Organizations (
-    Id SMALLINT PRIMARY KEY,
-    Name VARCHAR(60) NOT NULL,
-    Slug VARCHAR(60) NOT NULL,
-    CreationDate DATE NOT NULL,
-    Description TEXT    
-);
-
--- -- UserOrganizations
-
-DROP TABLE IF EXISTS UserOrganizations CASCADE;
-
-CREATE TABLE UserOrganizations (
-    Id SMALLINT PRIMARY KEY,
-    UserId INTEGER NOT NULL,
-    OrganizationId SMALLINT NOT NULL,
-    JoinDate DATE NOT NULL
-);
-
--- -- UserFollowers
-
-DROP TABLE IF EXISTS UserFollowers CASCADE;
-
-CREATE TABLE UserFollowers (
-    Id INTEGER PRIMARY KEY,
-    UserId INTEGER NOT NULL,
-    FollowingUserId INTEGER NOT NULL,
-    CreationDate DATE NOT NULL
-);
-
--- -- CleanedUserAchievements
-
-DROP TABLE IF EXISTS UserAchievements CASCADE;
-
-CREATE TABLE UserAchievements (
-    Id INTEGER PRIMARY KEY,
-    UserId INTEGER NOT NULL,
-    AchievementType VARCHAR(15) NOT NULL,
-    Tier SMALLINT NOT NULL,
-    TierAchievementDate VARCHAR(30), --  this needs to be DATE but needs cleaning
-    Points INTEGER NOT NULL,
-    CurrentRanking FLOAT,
-    HighestRanking FLOAT,
-    TotalGold SMALLINT NOT NULL,
-    TotalSilver SMALLINT NOT NULL,
-    TotalBronze SMALLINT NOT NULL
-);
-
-
--- -- CleanedCompetitions
-
-DROP TABLE IF EXISTS CleanedCompetitions CASCADE;
-
-CREATE TABLE CleanedCompetitions (
+CREATE TABLE CompetitionsCleaned (
     Id INTEGER PRIMARY KEY,
     Slug VARCHAR(80) NOT NULL,
     Title VARCHAR(95) NOT NULL,
@@ -84,7 +18,6 @@ CREATE TABLE CleanedCompetitions (
     TotalCompetitors SMALLINT NOT NULL,
     TotalSubmissions INTEGER NOT NULL
 );
-
 
 -- -- Tags
 
@@ -101,7 +34,7 @@ CREATE TABLE Tags (
     CompetitionCount INTEGER NOT NULL,
     KernelCount INTEGER NOT NULL
 );
-         
+
 -- -- CompetitionTags
 
 DROP TABLE IF EXISTS CompetitionTags CASCADE;
@@ -109,17 +42,81 @@ DROP TABLE IF EXISTS CompetitionTags CASCADE;
 CREATE TABLE CompetitionTags (
     Id INTEGER PRIMARY KEY,
     CompetitionId INTEGER NOT NULL,
-    TagId INTEGER NOT NULL
+    FOREIGN KEY (CompetitionId) REFERENCES CompetitionsCleaned (Id),
+    TagId INTEGER NOT NULL,
+    FOREIGN KEY (TagId) REFERENCES Tags (Id)
+);
+
+-- -- Forums
+
+DROP TABLE IF EXISTS Forums CASCADE;
+
+CREATE TABLE Forums (
+    Id INTEGER PRIMARY KEY,
+    ParentForumId FLOAT,
+    Title VARCHAR(100)
+);
+
+-- -- Organizations
+
+DROP TABLE IF EXISTS Organizations CASCADE;
+
+CREATE TABLE Organizations (
+    Id SMALLINT PRIMARY KEY,
+    Name VARCHAR(60) NOT NULL,
+    Slug VARCHAR(60) NOT NULL,
+    CreationDate DATE NOT NULL,
+    Description TEXT    
+);
+
+-- -- Users
+
+DROP TABLE IF EXISTS Users CASCADE;
+
+CREATE TABLE Users (
+    Id INTEGER PRIMARY KEY,
+    UserName VARCHAR(60),
+    DisplayName VARCHAR(260),
+    RegisterDate DATE NOT NULL,
+    PerformanceTier SMALLINT NOT NULL, 
+    Country VARCHAR(40)
+);
+
+-- -- UserOrganizations
+
+DROP TABLE IF EXISTS UserOrganizations CASCADE;
+
+CREATE TABLE UserOrganizations (
+    Id SMALLINT PRIMARY KEY,
+    UserId INTEGER NOT NULL,
+    -- FOREIGN KEY (UserId) REFERENCES Users (Id), -- need to clean in Phase 3
+    OrganizationId SMALLINT NOT NULL,
+    FOREIGN KEY (OrganizationId) REFERENCES Organizations (Id), 
+    JoinDate DATE NOT NULL
+);
+
+-- -- CleanedTeams
+
+DROP TABLE IF EXISTS TeamsCleaned CASCADE;
+
+CREATE TABLE TeamsCleaned (
+    Id INTEGER PRIMARY KEY,
+    CompetitionId INTEGER NOT NULL,
+    -- FOREIGN KEY (CompetitionId) REFERENCES CompetitionsCleaned (Id), -- need to clean in Phase 3
+    TeamLeaderId FLOAT, -- need to clean from float to int Phase 3
+    TeamName VARCHAR(260)
 );
 
 -- -- CleanedDatasets
 
-DROP TABLE IF EXISTS CleanedDatasets CASCADE;
+DROP TABLE IF EXISTS DatasetsCleaned CASCADE;
 
-CREATE TABLE CleanedDatasets (
+CREATE TABLE DatasetsCleaned (
     Id INTEGER PRIMARY KEY,
     CreatorUserId INTEGER NOT NULL,
+    -- FOREIGN KEY (CreatorUserId) REFERENCES Users (Id), -- need to clean in phase 3
     ForumId INTEGER NOT NULL, 
+    -- FOREIGN KEY (ForumId) REFERENCES Forums (Id), -- need to clean in phase 3
     CreationDate TIMESTAMP NOT NULL,
     LastActivityDate TIMESTAMP NOT NULL,
     TotalViews INTEGER NOT NULL, 
@@ -135,41 +132,55 @@ DROP TABLE IF EXISTS DatasetTags CASCADE;
 CREATE TABLE DatasetTags (
     Id INTEGER PRIMARY KEY,
     DatasetId INTEGER NOT NULL,
-    TagId INTEGER NOT NULL
+    FOREIGN KEY (DatasetId) REFERENCES DatasetsCleaned (Id),
+    TagId INTEGER NOT NULL,
+    FOREIGN KEY (TagId) REFERENCES Tags (Id)
 );
 
--- -- DatasetTags
 
-DROP TABLE IF EXISTS Forums CASCADE;
+-- -- UserFollowers
 
-CREATE TABLE Forums (
+DROP TABLE IF EXISTS UserFollowers CASCADE;
+
+CREATE TABLE UserFollowers (
     Id INTEGER PRIMARY KEY,
-    ParentForumId FLOAT,
-    Title VARCHAR(100)
-);
-
--- -- CleanedTeams
-
-DROP TABLE IF EXISTS CleanedTeams CASCADE;
-
-CREATE TABLE CleanedTeams (
-    Id INTEGER PRIMARY KEY,
-    CompetitionId INTEGER NOT NULL,
-    TeamLeaderId FLOAT,
-    TeamName VARCHAR(260)
+    UserId INTEGER NOT NULL,
+    -- FOREIGN KEY (UserId) REFERENCES Users (Id),  -- need to clean in Phase 3
+    FollowingUserId INTEGER NOT NULL,
+    -- FOREIGN KEY (FollowingUserId) REFERENCES Users (Id),  -- need to clean in Phase 3
+    CreationDate DATE NOT NULL
 );
 
 -- -- CleanedSubmissions
 
-DROP TABLE IF EXISTS CleanedSubmissions CASCADE;
+DROP TABLE IF EXISTS SubmissionsCleaned CASCADE;
 
-CREATE TABLE CleanedSubmissions (
+CREATE TABLE SubmissionsCleaned (
     Id INTEGER PRIMARY KEY,
-    SubmittedUserId FLOAT,
+    SubmittedUserId FLOAT, -- need to clean float to int Phase 3
     TeamId INTEGER NOT NULL,
+    FOREIGN KEY (TeamId) REFERENCES TeamsCleaned (Id),
     SubmissionDate DATE NOT NULL,
     IsAfterDeadline BOOLEAN NOT NULL,
     PublicScoreLeaderboardDisplay FLOAT,
     PrivateScoreLeaderboardDisplay FLOAT
 );
- 
+
+-- -- -- UserAchievements
+
+DROP TABLE IF EXISTS UserAchievements CASCADE;
+
+CREATE TABLE UserAchievements (
+    Id INTEGER PRIMARY KEY,
+    UserId INTEGER NOT NULL,
+    -- FOREIGN KEY (UserId) REFERENCES Users (Id), -- need to clean Phase 3
+    AchievementType VARCHAR(15) NOT NULL,
+    Tier SMALLINT NOT NULL,
+    TierAchievementDate VARCHAR(30), --  this needs to be DATE but needs cleaning
+    Points INTEGER NOT NULL,
+    CurrentRanking FLOAT,
+    HighestRanking FLOAT,
+    TotalGold SMALLINT NOT NULL,
+    TotalSilver SMALLINT NOT NULL,
+    TotalBronze SMALLINT NOT NULL
+);

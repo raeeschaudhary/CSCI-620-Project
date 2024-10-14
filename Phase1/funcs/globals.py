@@ -14,13 +14,13 @@ data_directory = 'C:\\Users\\mr2714\\Desktop\\venvs\\pdata\\'
 chunk_size = 100000
 
 # these are the list of tables in the db; I use it check table results; to avoid sql injection
-cleaned_files = ["Users", "Organizations", "UserOrganizations", "UserFollowers", "UserAchievements", "CleanedCompetitions", 
-"Tags", "CompetitionTags", "CleanedDatasets", "DatasetTags", "Forums", "CleanedSubmissions", "CleanedTeams"]
-# input_files = ["CleanedSubmissions"]
+cleaned_files = ["Users", "Organizations", "UserOrganizations", "UserFollowers", "UserAchievements", "CompetitionsCleaned", 
+"Tags", "CompetitionTags", "DatasetsCleaned", "DatasetTags", "Forums", "SubmissionsCleaned", "TeamsCleaned"]
+# input_files = ["SubmissionsCleaned"]
 
 input_files = ["UserFollowers", "Tags", "UserAchievements", "Forums", "CompetitionTags", "Teams", "Users", "Organizations",
                "Competitions", "Submissions", "Datasets", "UserOrganizations", "DatasetTags"]
 
 
-# "Organizations", "UserOrganizations", "UserFollowers", "CleanedUserAchievements", "CleanedCompetitions", "Tags", "CompetitionTags", 
-# "Datasets", "DatasetTags", "Forums", "CleanedSubmissions", "CleanedTeams"
+# "Organizations", "UserOrganizations", "UserFollowers", "CleanedUserAchievements", "CompetitionsCleaned", "Tags", "CompetitionTags", 
+# "DatasetsCleaned", "DatasetTags", "Forums", "SubmissionsCleaned", "TeamsCleaned"

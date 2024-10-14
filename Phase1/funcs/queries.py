@@ -28,7 +28,7 @@ user_achievements_insert_query = """
 
 # CleanedCompetitions
 competitions_insert_query = """
-    INSERT INTO CleanedCompetitions (Id, Slug, Title, ForumId, EnabledDate, DeadlineDate, EvaluationAlgorithmName, 
+    INSERT INTO CompetitionsCleaned (Id, Slug, Title, ForumId, EnabledDate, DeadlineDate, EvaluationAlgorithmName, 
     MaxTeamSize, NumPrizes, TotalTeams, TotalCompetitors, TotalSubmissions)
     VALUES %s
 """
@@ -44,9 +44,9 @@ competition_tags_insert_query = """
     INSERT INTO CompetitionTags (Id, CompetitionId, TagId)
     VALUES %s
 """
-# CleanedDatasets
+# DatasetsCleaned
 dataset_insert_query = """
-    INSERT INTO CleanedDatasets (Id, CreatorUserId, ForumId, CreationDate, LastActivityDate,
+    INSERT INTO DatasetsCleaned (Id, CreatorUserId, ForumId, CreationDate, LastActivityDate,
     TotalViews, TotalDownloads, TotalVotes, TotalKernels)
     VALUES %s
 """
@@ -60,14 +60,14 @@ forums_insert_query = """
     INSERT INTO Forums (Id, ParentForumId, Title)
     VALUES %s
 """
-# CleanedTeams
+# TeamsCleaned
 teams_insert_query = """
-    INSERT INTO CleanedTeams (Id, CompetitionId, TeamLeaderId, TeamName)
+    INSERT INTO TeamsCleaned (Id, CompetitionId, TeamLeaderId, TeamName)
     VALUES %s
 """
-#  CleanedSubmissions
+#  SubmissionsCleaned
 submission_insert_query = """
-    INSERT INTO CleanedSubmissions(Id, SubmittedUserId, TeamId, SubmissionDate, IsAfterDeadline, PublicScoreLeaderboardDisplay,
+    INSERT INTO SubmissionsCleaned (Id, SubmittedUserId, TeamId, SubmissionDate, IsAfterDeadline, PublicScoreLeaderboardDisplay,
     PrivateScoreLeaderboardDisplay)
     VALUES %s 
     """

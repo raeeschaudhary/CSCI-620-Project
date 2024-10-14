@@ -53,10 +53,20 @@ if __name__=="__main__":
     'EvaluationAlgorithmName', 'MaxTeamSize', 'NumPrizes', 'TotalTeams', 'TotalCompetitors', 'TotalSubmissions'
     ]
     input_file = 'Competitions.csv'
-    output_file = 'CleanedCompetitions.csv'
+    output_file = 'CompetitionsCleaned.csv'
     clean_csv_columns_to_keep(input_file, output_file, columns_to_keep)
     print('++++++++++++++++++++++++++++++++++++++++++++++')
 
+    ### Clean Teams
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Cleaning Teams")
+    columns_to_keep = [
+    'Id', 'CompetitionId', 'TeamLeaderId', 'TeamName'
+    ]   
+    input_file = 'Teams.csv'
+    output_file = 'TeamsCleaned.csv'
+    clean_csv_columns_to_keep(input_file, output_file, columns_to_keep)
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
 
     ### Clean Datasets
     print('++++++++++++++++++++++++++++++++++++++++++++++')
@@ -66,31 +76,9 @@ if __name__=="__main__":
     'LastActivityDate', 'TotalViews', 'TotalDownloads', 'TotalVotes', 'TotalKernels'
     ]
     input_file = 'Datasets.csv'
-    output_file = 'CleanedDatasets.csv'
+    output_file = 'DatasetsCleaned.csv'
     clean_csv_columns_to_keep(input_file, output_file, columns_to_keep)
     print('++++++++++++++++++++++++++++++++++++++++++++++')
-
-    ### Clean UserAchievements Dates cleaning need to be checked later; so far it is not processing well
-    # therefore keeping the type of this field as varchar 30
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
-    # print("Cleaning UserAchievements")
-    # input_file = 'UserAchievements.csv'
-    # output_file = 'CleanedUserAchievements.csv'
-    # clean_csv_dates(input_file, output_file)
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
-
-
-    ### Clean Teams
-    print('++++++++++++++++++++++++++++++++++++++++++++++')
-    print("Cleaning Teams")
-    columns_to_keep = [
-    'Id', 'CompetitionId', 'TeamLeaderId', 'TeamName'
-    ]   
-    input_file = 'Teams.csv'
-    output_file = 'CleanedTeams.csv'
-    clean_csv_columns_to_keep(input_file, output_file, columns_to_keep)
-    print('++++++++++++++++++++++++++++++++++++++++++++++')
-     
 
     ### Clean Submissions
     print('++++++++++++++++++++++++++++++++++++++++++++++')
@@ -99,9 +87,19 @@ if __name__=="__main__":
         'Id', 'SubmittedUserId', 'TeamId', 'SubmissionDate', 'IsAfterDeadline', 'PublicScoreLeaderboardDisplay', 'PrivateScoreLeaderboardDisplay'
     ] 
     input_file = 'Submissions.csv'
-    output_file = 'CleanedSubmissions.csv'
+    output_file = 'SubmissionsCleaned.csv'
     clean_csv_columns_to_keep(input_file, output_file, columns_to_keep)
     print('++++++++++++++++++++++++++++++++++++++++++++++')
+
+    # The following code needs to adjusted for processing incorrect tier dates
+    ### Clean UserAchievements Dates cleaning need to be checked later; so far it is not processing well
+    # therefore keeping the type of this field as varchar 30
+    # print('++++++++++++++++++++++++++++++++++++++++++++++')
+    # print("Cleaning UserAchievements")
+    # input_file = 'UserAchievements.csv'
+    # output_file = 'CleanedUserAchievements.csv'
+    # clean_csv_dates(input_file, output_file)
+    # print('++++++++++++++++++++++++++++++++++++++++++++++')
 
     end_time = time.time()
     run_time = end_time - start_time
