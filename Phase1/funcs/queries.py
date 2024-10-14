@@ -1,4 +1,4 @@
-# insert queries for each table are provided under. 
+# insert queries for each table are provided as under. 
 # users
 users_insert_query = """
     INSERT INTO users (Id, UserName, DisplayName, RegisterDate, PerformanceTier, Country)

@@ -2,254 +2,276 @@ from funcs.globals import chunk_size, data_directory, cleaned_files
 from funcs.db_utils import *
 import pandas as pd
 
-# This method removes entries with non-existent FK Ids from chunk_data.
-def remove_invalid_entries_links(chunk_data, valid_ids, loc):
-    # return only data that contains valid ids
-    return [data for data in chunk_data if int(data[loc]) in valid_ids]
-
-# This methods removes entries with non-existent FK Ids from chunk_data but ignore entries where the FK Id is None.
-def remove_invalid_entries_links_ignore_none(chunk_data, valid_ids, loc):
-    # return only data that contains valid ids and None ids
-    return [data for data in chunk_data if data[loc] is None or int(data[loc]) in valid_ids]
-
-# This method extract ids from chunk_data on give location to compare FK ids with existing Ids in the database.
-def extract_ids_from_chunk(chunk_data, loc):
-    # return ids extracted from given location from chunk_data
-    return [int(data[loc]) for data in chunk_data]
-
-
-# This method extract ids from chunk_data on give location to compare FK ids with existing Ids in the database. Only includes non-None values.
-def extract_ids_from_chunk_none(chunk_data, loc):
-    # # return ids extracted from given location from chunk_data only where is not None
-    return [int(data[loc]) for data in chunk_data if data[loc] is not None]
-
-# This method removes entries with non-existent FK Ids from chunk_data.
-def remove_invalid_entries_links_chunked(chunk_data, valid_ids, loc, chunk_size=5000):
-    # return only data that contains valid ids and None ids
-    valid_ids_set = set(valid_ids)
-    filtered_data = []
-    # Process in chunks
-    for i in range(0, len(chunk_data), chunk_size):
-        chunk = chunk_data[i:i + chunk_size]
-        filtered_data.extend(data for data in chunk if int(data[loc]) in valid_ids_set)
-    
-    return filtered_data
-
-# This method checks which ids are valid by querying the database and returns only valid_ids to ensure fk is not violated.
-def check_valid_fk_ids(table, ids):
-    valid_ids = set()
-    if ids:
-        # Make sure that only to check for valid table names to avoid SQL injection. 
-        if table.lower() not in {t.lower() for t in cleaned_files}:
-            raise ValueError("Invalid table name")
-        sql = "SELECT Id FROM " + table + " WHERE Id IN %s"
-        result = exec_get_all(sql, (tuple(ids),))
-        valid_ids = [row[0] for row in result]
-    return valid_ids
-
-# This method takes an sql script file from root; and executes it
 def run_schema_script(file):
-    # Run the script file to create schema. 
+    """
+    Run the script file to create schema. 
+    
+    :param file: Name of the sql file. e.g., create_schema.sql
+    """
+    # call call db util methods to execute query
     exec_sql_file(file)
 
-# This method takes an sql query; and executes it
 def run_commit_query(query):
+    """
+    Takes a sql query; and executes it
+    
+    :param query: SQL query as input.
+    """
     # Run single query
     exec_commit(query)
 
 def get_csv_chunker(csv_file):
+    """
+    Takes a input csv file and reads it into chunks.
+    
+    :param csv_file: Path to input csv file.
+    :return: pandas chunks to read data in chunks.
+    """
     try:
+        # chunk_size is a global variable set it globals.py
+        # read the chunks based on chunk size and return to function call.
         chunks = pd.read_csv(csv_file, chunksize=chunk_size)
         return chunks
     except:
+        # print the error if the file read fails. 
         print("=======================================================")
         print("Wrong file or file path; ", csv_file, " Does not Exists")
         print("=======================================================")
         return None
 
+def insert_users(input_file, query):
+    """
+    This method Insert users
     
-
-        # if c_count >= max_chunk:
-        #     break
-
-
-# This method Inserst users
-def insert_users(input_file, query, max_chunk=10):
+    :param input_file: Name of the CSV file.
+    :param query: Query to be executed.
+    """
+    # merge the file name with the data_directory provided in globals.py
     csv_file = data_directory + input_file
     chunks = get_csv_chunker(csv_file)
-
-    c_count = 1
+    # process each chunk
     for chunk in chunks:
-        # print(chunk) 
+        # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # insert tuple into database
         execute_df_values(query, df_values)
-        c_count += 1
 
-# This method Inserst users
-def insert_organizations(input_file, query, max_chunk=10):
+def insert_organizations(input_file, query):
+    """
+    This method Insert organizations
+    
+    :param input_file: Name of the CSV file.
+    :param query: Query to be executed.
+    """
+    # merge the file name with the data_directory provided in globals.py
     csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
-
-    c_count = 1
+    # process each chunk
     for chunk in chunks:
-        # print(chunk) 
+        # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # insert tuple into database
         execute_df_values(query, df_values)
-        c_count += 1
 
-        # if c_count >= max_chunk:
-        #     break
-
-def insert_user_organizations(input_file, query, max_chunk=10):
+def insert_user_organizations(input_file, query):
+    """
+    This method Insert user organizations
+    
+    :param input_file: Name of the CSV file.
+    :param query: Query to be executed.
+    """
+    # merge the file name with the data_directory provided in globals.py
     csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
-
-    c_count = 1
+    # process each chunk
     for chunk in chunks:
-        # print(chunk) 
+        # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # insert tuple into database
         execute_df_values(query, df_values)
-        c_count += 1
 
-        # if c_count >= max_chunk:
-        #     break
-
-def insert_user_followers(input_file, query, max_chunk=10):
+def insert_user_followers(input_file, query):
+    """
+    This method Insert user followers
+    
+    :param input_file: Name of the CSV file.
+    :param query: Query to be executed.
+    """
+    # merge the file name with the data_directory provided in globals.py
     csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
-
-    c_count = 1
+    # process each chunk
     for chunk in chunks:
-        # print(chunk) 
+        # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # insert tuple into database
         execute_df_values(query, df_values)
-        c_count += 1
 
-        # if c_count >= max_chunk:
-        #     break
-
-def insert_user_achievements(input_file, query, max_chunk=10):
+def insert_user_achievements(input_file, query):
+    """
+    This method Insert user achievements
+    
+    :param input_file: Name of the CSV file.
+    :param query: Query to be executed.
+    """
+    # merge the file name with the data_directory provided in globals.py
     csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
-
-    c_count = 1
+    # process each chunk
     for chunk in chunks:
-        # print(chunk) 
+        # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # insert tuple into database
         execute_df_values(query, df_values)
-        c_count += 1
 
-        # if c_count >= max_chunk:
-        #     break
-
-def insert_cleaned_competitions(input_file, query, max_chunk=10):
+def insert_cleaned_competitions(input_file, query):
+    """
+    This method Insert competitions
+    
+    :param input_file: Name of the CSV file.
+    :param query: Query to be executed.
+    """
+    # merge the file name with the data_directory provided in globals.py
     csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
-
-    c_count = 1
+    # process each chunk
     for chunk in chunks:
-        # print(chunk) 
+        # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # insert tuple into database
         execute_df_values(query, df_values)
-        c_count += 1
 
-        # if c_count >= max_chunk:
-        #     break
-
-def insert_tags(input_file, query, max_chunk=10):
+def insert_tags(input_file, query):
+    """
+    This method Insert tags
+    
+    :param input_file: Name of the CSV file.
+    :param query: Query to be executed.
+    """
+    # merge the file name with the data_directory provided in globals.py
     csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
-
-    c_count = 1
+    # process each chunk
     for chunk in chunks:
-        # print(chunk) 
+        # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # insert tuple into database
         execute_df_values(query, df_values)
-        c_count += 1
 
-        # if c_count >= max_chunk:
-        #     break
-def insert_competition_tags(input_file, query, max_chunk=10):
+def insert_competition_tags(input_file, query):
+    """
+    This method Insert competition tags
+    
+    :param input_file: Name of the CSV file.
+    :param query: Query to be executed.
+    """
+    # merge the file name with the data_directory provided in globals.py
     csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
-
-    c_count = 1
+    # process each chunk
     for chunk in chunks:
-        # print(chunk) 
+        # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # insert tuple into database
         execute_df_values(query, df_values)
-        c_count += 1
 
-        # if c_count >= max_chunk:
-        #     break
-
-def insert_cleaned_datasets(input_file, query, max_chunk=10):
+def insert_cleaned_datasets(input_file, query):
+    """
+    This method Insert datasets
+    
+    :param input_file: Name of the CSV file.
+    :param query: Query to be executed.
+    """
+    # merge the file name with the data_directory provided in globals.py
     csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
-
-    c_count = 1
+    # process each chunk
     for chunk in chunks:
-        # print(chunk) 
+        # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # insert tuple into database
         execute_df_values(query, df_values)
-        c_count += 1
 
-        # if c_count >= max_chunk:
-        #     break
-
-def insert_dataset_tags(input_file, query, max_chunk=10):
+def insert_dataset_tags(input_file, query):
+    """
+    This method Insert dataset tags
+    
+    :param input_file: Name of the CSV file.
+    :param query: Query to be executed.
+    """
+    # merge the file name with the data_directory provided in globals.py
     csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
-
-    c_count = 1
+    # process each chunk
     for chunk in chunks:
-        # print(chunk) 
+        # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # insert tuple into database
         execute_df_values(query, df_values)
-        c_count += 1
 
-        # if c_count >= max_chunk:
-        #     break
-
-def insert_forums(input_file, query, max_chunk=10):
+def insert_forums(input_file, query):
+    """
+    This method Insert forums
+    
+    :param input_file: Name of the CSV file.
+    :param query: Query to be executed.
+    """
+    # merge the file name with the data_directory provided in globals.py
     csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
-
-    c_count = 1
+    # process each chunk
     for chunk in chunks:
-        # print(chunk) 
+        # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # insert tuple into database
         execute_df_values(query, df_values)
-        c_count += 1
 
-        # if c_count >= max_chunk:
-        #     break
-def insert_teams(input_file, query, max_chunk=10):
+def insert_teams(input_file, query):
+    """
+    This method Insert teams
+    
+    :param input_file: Name of the CSV file.
+    :param query: Query to be executed.
+    """
+    # merge the file name with the data_directory provided in globals.py
     csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
-
-    c_count = 1
+    # process each chunk
     for chunk in chunks:
-        # print(chunk) 
+        # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # insert tuple into database
         execute_df_values(query, df_values)
-        c_count += 1
-
-        # if c_count >= max_chunk:
-        #     break
-def insert_submissions(input_file, query, max_chunk=10):
+        
+def insert_submissions(input_file, query):
+    """
+    This method Insert submissions
+    
+    :param input_file: Name of the CSV file.
+    :param query: Query to be executed.
+    """
+    # merge the file name with the data_directory provided in globals.py
     csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
-
-    c_count = 1
+    # process each chunk
     for chunk in chunks:
-        # print(chunk) 
+        # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # insert tuple into database
         execute_df_values(query, df_values)
-        c_count += 1
 
-        # if c_count >= max_chunk:
-        #     break
         
 def report_db_statistics():
     # loop over all the tables

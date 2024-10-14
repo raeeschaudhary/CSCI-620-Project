@@ -1,4 +1,5 @@
---  -- Schema creation goes here
+--  -- Schema creation goes here; 
+-- -- This file contains the SQL scripts to create tables 
 
 -- -- CompetitionsCleaned
 

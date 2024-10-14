@@ -6,6 +6,7 @@ db_config = {
     'password': 'root',
     'port': '5432'
 }
+
 # provide the dataset folder; make sure to include the last slash(es).
 # data_directory = 'C:\\Users\\Muhammad Raees\\Desktop\\venvs\\pdata\\'
 data_directory = 'C:\\Users\\mr2714\\Desktop\\venvs\\pdata\\'
@@ -13,14 +14,10 @@ data_directory = 'C:\\Users\\mr2714\\Desktop\\venvs\\pdata\\'
 # this is static; increasing uses more memory but less connections to db; reducing make more connection to db
 chunk_size = 100000
 
-# these are the list of tables in the db; I use it check table results; to avoid sql injection
+# these are the list of tables in the db; We use it check table results; to avoid sql injection
 cleaned_files = ["Users", "Organizations", "UserOrganizations", "UserFollowers", "UserAchievements", "CompetitionsCleaned", 
 "Tags", "CompetitionTags", "DatasetsCleaned", "DatasetTags", "Forums", "SubmissionsCleaned", "TeamsCleaned"]
-# input_files = ["SubmissionsCleaned"]
 
+# input files to be processed for cleaning
 input_files = ["UserFollowers", "Tags", "UserAchievements", "Forums", "CompetitionTags", "Teams", "Users", "Organizations",
                "Competitions", "Submissions", "Datasets", "UserOrganizations", "DatasetTags"]
-
-
-# "Organizations", "UserOrganizations", "UserFollowers", "CleanedUserAchievements", "CompetitionsCleaned", "Tags", "CompetitionTags", 
-# "DatasetsCleaned", "DatasetTags", "Forums", "SubmissionsCleaned", "TeamsCleaned"

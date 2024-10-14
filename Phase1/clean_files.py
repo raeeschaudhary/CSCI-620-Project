@@ -5,41 +5,22 @@ import pandas as pd
 
 
 def clean_csv_columns_to_keep(csv_file, output_file, columns_to_keep):
+    """
+    Takes a input csv file and removes the columns not provided and stores the cleaned file.
+    
+    :param csv_file: Name to input csv file.
+    :param output_file: Name to output csv file.
+    :param columns_to_keep: List of columns to keep in the output csv file.
+    """
+    # combine the csv_file and output_file, with data_directory given in the globals.py
     input_file = data_directory + csv_file
     output_file = data_directory + output_file
     # Read the entire CSV file into a DataFrame
     df = pd.read_csv(input_file)
-    
     # Filter the DataFrame to keep only the specified columns
     cleaned_df = df[columns_to_keep]
-    
     # Save the cleaned DataFrame to a new CSV file
     cleaned_df.to_csv(output_file, index=False)
-
-def clean_csv_dates(csv_file, output_file, chunk_size=100000):
-    input_file = data_directory + csv_file
-    output_file = data_directory + output_file
-    # Function to check if a date is valid
-    def is_valid_date(date_str):
-        try:
-            pd.to_datetime(date_str, format='%m/%d/%Y', errors='raise')
-            return True
-        except ValueError:
-            return False
-
-    # Use an empty file or create the output file with headers
-    first_chunk = True
-
-    # Read the CSV in chunks
-    for chunk in pd.read_csv(input_file, chunksize=chunk_size):
-        # Filter out rows with invalid dates
-        valid_chunk = chunk[chunk['TierAchievementDate'].apply(is_valid_date)]
-        
-        # Write the valid chunk to the output file
-        valid_chunk.to_csv(output_file, mode='a', header=first_chunk, index=False)
-        
-        # Set header to False for subsequent writes
-        first_chunk = False
 
 
 if __name__=="__main__":
@@ -90,16 +71,6 @@ if __name__=="__main__":
     output_file = 'SubmissionsCleaned.csv'
     clean_csv_columns_to_keep(input_file, output_file, columns_to_keep)
     print('++++++++++++++++++++++++++++++++++++++++++++++')
-
-    # The following code needs to adjusted for processing incorrect tier dates
-    ### Clean UserAchievements Dates cleaning need to be checked later; so far it is not processing well
-    # therefore keeping the type of this field as varchar 30
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
-    # print("Cleaning UserAchievements")
-    # input_file = 'UserAchievements.csv'
-    # output_file = 'CleanedUserAchievements.csv'
-    # clean_csv_dates(input_file, output_file)
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
 
     end_time = time.time()
     run_time = end_time - start_time
