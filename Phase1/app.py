@@ -5,76 +5,76 @@ import time
 if __name__=="__main__":
     start_time = time.time()
     
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
-    # print("Creating Database Schema")
-    # run_schema_script('create_schema.sql')
-    # print("Database Schema Created")
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Creating Database Schema")
+    run_schema_script('create_schema.sql')
+    print("Database Schema Created")
 
-    # # # CompetitionsCleaned
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
-    # print("Inserting Cleaned Competitions")
-    # insert_cleaned_competitions("CompetitionsCleaned.csv", competitions_insert_query)
-    # print("CompetitionsCleaned Created")
+    # # CompetitionsCleaned
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Inserting Cleaned Competitions")
+    insert_cleaned_competitions("CompetitionsCleaned.csv", competitions_insert_query)
+    print("CompetitionsCleaned Created")
 
-    # # # Tags
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
-    # print("Inserting Tags")
-    # insert_tags("Tags.csv", tags_insert_query)
-    # print("Tags Created")
+    # # Tags
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Inserting Tags")
+    insert_tags("Tags.csv", tags_insert_query)
+    print("Tags Created")
 
-    # # # CompetitionTags
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
-    # print("Inserting CompetitionTags")
-    # insert_competition_tags("CompetitionTags.csv", competition_tags_insert_query)
-    # print("CompetitionTags Created")
+    # # CompetitionTags
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Inserting CompetitionTags")
+    insert_competition_tags("CompetitionTags.csv", competition_tags_insert_query)
+    print("CompetitionTags Created")
 
-    # # # Forums
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
-    # print("Inserting Forums")
-    # insert_forums("Forums.csv", forums_insert_query)
-    # print("Forums Created")
+    # # Forums
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Inserting Forums")
+    insert_forums("Forums.csv", forums_insert_query)
+    print("Forums Created")
 
-    #  # # Organizations
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
-    # print("Inserting Organizations")
-    # insert_organizations("Organizations.csv", organizations_insert_query)
-    # print("Organizations Created")
+     # # Organizations
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Inserting Organizations")
+    insert_organizations("Organizations.csv", organizations_insert_query)
+    print("Organizations Created")
 
-    # # # Users
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
-    # print("Inserting Users")
-    # insert_users("Users.csv", users_insert_query)
-    # print("Users Inserted")
+    # # Users
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Inserting Users")
+    insert_users("Users.csv", users_insert_query)
+    print("Users Inserted")
 
-    # # # UserOrganizations
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
-    # print("Inserting User Organizations")
-    # insert_user_organizations("UserOrganizations.csv", user_organizations_insert_query)
-    # print("UserOrganizations Created")
+    # # UserOrganizations
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Inserting User Organizations")
+    insert_user_organizations("UserOrganizations.csv", user_organizations_insert_query)
+    print("UserOrganizations Created")
 
-    # # # TeamsCleaned
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
-    # print("Inserting Teams")
-    # insert_teams("TeamsCleaned.csv", teams_insert_query)
-    # print("Teams Created")
+    # # TeamsCleaned
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Inserting Teams")
+    insert_teams("TeamsCleaned.csv", teams_insert_query)
+    print("Teams Created")
 
-    # # # Datasets
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
-    # print("Inserting Datasets")
-    # insert_cleaned_datasets("DatasetsCleaned.csv", dataset_insert_query)
-    # print("Datasets Created")
+    # # Datasets
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Inserting Datasets")
+    insert_cleaned_datasets("DatasetsCleaned.csv", dataset_insert_query)
+    print("Datasets Created")
 
-    # # # DatasetTags
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
-    # print("Inserting DatasetTags")
-    # insert_dataset_tags("DatasetTags.csv", dataset_tags_insert_query)
-    # print("DatasetTags Created")
+    # # DatasetTags
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Inserting DatasetTags")
+    insert_dataset_tags("DatasetTags.csv", dataset_tags_insert_query)
+    print("DatasetTags Created")
 
-    # # # Followers
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
-    # print("Inserting User Followers")
-    # insert_user_followers("UserFollowers.csv", user_followers_insert_query)
-    # print("UserFollowers Created")
+    # # Followers
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Inserting User Followers")
+    insert_user_followers("UserFollowers.csv", user_followers_insert_query)
+    print("UserFollowers Created")
 
     # SubmissionsCleaned
     print('++++++++++++++++++++++++++++++++++++++++++++++')
