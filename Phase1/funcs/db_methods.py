@@ -350,8 +350,19 @@ def insert_submissions(input_file, query):
     for chunk in chunks:
         # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
-        # insert tuple into database
-        execute_df_values(query, df_values)
+        # get the FK ids from the chunck; provide the FK index
+        team_ids = extract_ids_from_chunk(df_values, -5)
+        # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set
+        valid_team_ids = check_valid_fk_ids('TeamsCleaned', team_ids)
+        # if length of valid_ids and set of Ids is same it means all ids are present in the db. 
+        if len(set(team_ids)) == len(set(valid_team_ids)):
+            # Proceed to insert all chuncked data; as it is valid
+            execute_df_values(query, df_values)
+        else:
+            # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
+            valid_df_values = remove_invalid_entries_links_chunked(df_values, valid_team_ids, -5)
+            # insert tuple into database
+            execute_df_values(query, valid_df_values)
 
 def insert_user_achievements(input_file, query):
     """
