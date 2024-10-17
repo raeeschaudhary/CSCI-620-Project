@@ -2,6 +2,47 @@ from funcs.globals import chunk_size, data_directory, cleaned_files
 from funcs.db_utils import *
 import pandas as pd
 
+def extract_ids_from_chunk(chunk_data, loc):
+    """
+    Extract ids from chunk_data on give location to compare FK ids with existing Ids in the database.
+    
+    :param chunk_data: the chunk of the data to be processed.
+    :param loc: location of the attribute in the chunk_data tuple to be extracted
+    :return: list of values extracted from chunk_data at loc.
+    """
+    # return ids extracted from given location from chunk_data
+    return [int(data[loc]) for data in chunk_data]
+
+def check_valid_fk_ids(table, ids):
+    """
+    Check which ids are valid by querying the database and returns only valid_ids to ensure fk is not violated.
+    
+    :param table: the name of the table to extract ids from.
+    :param ids: list of ids to compare against. 
+    :return: list of valid ids that match with existing table.
+    """
+    valid_ids = set()
+    if ids:
+        # Make sure that only to check for valid table names to avoid SQL injection. 
+        if table.lower() not in {t.lower() for t in cleaned_files}:
+            raise ValueError("Invalid table name")
+        sql = "SELECT Id FROM " + table + " WHERE Id IN %s"
+        result = exec_get_all(sql, (tuple(ids),))
+        valid_ids = [row[0] for row in result]
+    return valid_ids
+
+# This method removes entries with non-existent FK Ids from chunk_data.
+def remove_invalid_entries_links_chunked(chunk_data, valid_ids, loc, chunk_size=5000):
+    # return only data that contains valid ids and None ids
+    valid_ids_set = set(valid_ids)
+    filtered_data = []
+    # Process in chunks
+    for i in range(0, len(chunk_data), chunk_size):
+        chunk = chunk_data[i:i + chunk_size]
+        filtered_data.extend(data for data in chunk if int(data[loc]) in valid_ids_set)
+    
+    return filtered_data
+
 def run_schema_script(file):
     """
     Run the script file to create schema. 
@@ -89,8 +130,19 @@ def insert_user_organizations(input_file, query):
     for chunk in chunks:
         # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
-        # insert tuple into database
-        execute_df_values(query, df_values)
+        # get the FK ids from the chunck; provide the FK index
+        users_ids = extract_ids_from_chunk(df_values, -3)
+        # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set
+        valid_users_ids = check_valid_fk_ids('Users', users_ids)
+        # if length of valid_ids and set of Ids is same it means all ids are present in the db. 
+        if len(set(users_ids)) == len(set(valid_users_ids)):
+            # Proceed to insert all chuncked data; as it is valid
+            execute_df_values(query, df_values)
+        else:
+            # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
+            valid_df_values = remove_invalid_entries_links_chunked(df_values, valid_users_ids, -3)
+            # insert tuple into database
+            execute_df_values(query, valid_df_values)
 
 def insert_user_followers(input_file, query):
     """
@@ -107,8 +159,20 @@ def insert_user_followers(input_file, query):
     for chunk in chunks:
         # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # get the FK ids from the chunck; provide the FK index
+        follower_ids = extract_ids_from_chunk(df_values, -2)
+        # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set
+        valid_follower_ids = check_valid_fk_ids('Users', follower_ids)
+        # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
+        valid_df_values = remove_invalid_entries_links_chunked(df_values, valid_follower_ids, -2)
+        # get the FK ids from the chunck; provide the FK index
+        user_ids = extract_ids_from_chunk(valid_df_values, -3)
+        # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set
+        valid_user_ids = check_valid_fk_ids('Users', user_ids)
+        # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
+        valid_df_values = remove_invalid_entries_links_chunked(valid_df_values, valid_user_ids, -3)
         # insert tuple into database
-        execute_df_values(query, df_values)
+        execute_df_values(query, valid_df_values)
 
 def insert_user_achievements(input_file, query):
     """
@@ -125,8 +189,19 @@ def insert_user_achievements(input_file, query):
     for chunk in chunks:
         # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
-        # insert tuple into database
-        execute_df_values(query, df_values)
+        # get the FK ids from the chunck; provide the FK index
+        users_ids = extract_ids_from_chunk(df_values, -10)
+        # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set
+        valid_users_ids = check_valid_fk_ids('Users', users_ids)
+        # if length of valid_ids and set of Ids is same it means all ids are present in the db. 
+        if len(set(users_ids)) == len(set(valid_users_ids)):
+            # Proceed to insert all chuncked data; as it is valid
+            execute_df_values(query, df_values)
+        else:
+            # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
+            valid_df_values = remove_invalid_entries_links_chunked(df_values, valid_users_ids, -10)
+            # insert tuple into database
+            execute_df_values(query, valid_df_values)
 
 def insert_cleaned_competitions(input_file, query):
     """
@@ -197,8 +272,20 @@ def insert_cleaned_datasets(input_file, query):
     for chunk in chunks:
         # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # get the FK ids from the chunck; provide the FK index
+        forums_ids = extract_ids_from_chunk(df_values, -7)
+        # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set
+        valid_forums_ids = check_valid_fk_ids('Forums', forums_ids)
+        # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
+        valid_df_values = remove_invalid_entries_links_chunked(df_values, valid_forums_ids, -7)
+        # get the FK ids from the chunck; provide the FK index
+        user_ids = extract_ids_from_chunk(valid_df_values, -8)
+        # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set
+        valid_user_ids = check_valid_fk_ids('Users', user_ids)
+        # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
+        valid_df_values = remove_invalid_entries_links_chunked(valid_df_values, valid_user_ids, -8)
         # insert tuple into database
-        execute_df_values(query, df_values)
+        execute_df_values(query, valid_df_values)
 
 def insert_dataset_tags(input_file, query):
     """
@@ -251,9 +338,20 @@ def insert_teams(input_file, query):
     for chunk in chunks:
         # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
-        # insert tuple into database
-        execute_df_values(query, df_values)
-        
+        # get the FK ids from the chunck; provide the FK index
+        competition_ids = extract_ids_from_chunk(df_values, -3)
+        # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set
+        valid_competition_ids = check_valid_fk_ids('CompetitionsCleaned', competition_ids)
+        # if length of valid_ids and set of Ids is same it means all ids are present in the db. 
+        if len(set(competition_ids)) == len(set(valid_competition_ids)):
+            # Proceed to insert all chuncked data; as it is valid
+            execute_df_values(query, df_values)
+        else:
+            # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
+            valid_df_values = remove_invalid_entries_links_chunked(df_values, valid_competition_ids, -3)
+            # insert tuple into database
+            execute_df_values(query, valid_df_values)
+
 def insert_submissions(input_file, query):
     """
     This method Insert submissions
