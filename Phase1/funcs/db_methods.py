@@ -290,8 +290,20 @@ def insert_dataset_tags(input_file, query):
     for chunk in chunks:
         # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # get the FK ids from the chunck; provide the FK index
+        tag_ids = extract_ids_from_chunk(df_values, -1)
+        # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set
+        valid_tag_ids = check_valid_fk_ids('Tags', tag_ids)
+        # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
+        valid_df_values = remove_invalid_entries_links_chunked(df_values, valid_tag_ids, -1)
+        # get the FK ids from the chunck; provide the FK index
+        dataset_ids = extract_ids_from_chunk(valid_df_values, -2)
+        # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set
+        valid_dataset_ids = check_valid_fk_ids('DatasetsCleaned', dataset_ids)
+        # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
+        valid_df_values = remove_invalid_entries_links_chunked(valid_df_values, valid_dataset_ids, -2)
         # insert tuple into database
-        execute_df_values(query, df_values)
+        execute_df_values(query, valid_df_values)
 
 def insert_user_followers(input_file, query):
     """
