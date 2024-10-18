@@ -1,23 +1,17 @@
 --  -- Schema creation goes here; 
 -- -- This file contains the SQL scripts to create tables 
 
--- -- -- CompetitionsCleaned
+-- -- Users
 
-DROP TABLE IF EXISTS CompetitionsCleaned CASCADE;
+DROP TABLE IF EXISTS Users CASCADE;
 
-CREATE TABLE CompetitionsCleaned (
+CREATE TABLE Users (
     Id INTEGER PRIMARY KEY,
-    Slug VARCHAR(80) NOT NULL,
-    Title VARCHAR(95) NOT NULL,
-    ForumId INTEGER NOT NULL,
-    EnabledDate TIMESTAMP NOT NULL,
-    DeadlineDate TIMESTAMP NOT NULL,
-    EvaluationAlgorithmName VARCHAR(70),
-    MaxTeamSize SMALLINT NOT NULL,
-    NumPrizes SMALLINT NOT NULL,
-    TotalTeams SMALLINT NOT NULL,
-    TotalCompetitors SMALLINT NOT NULL,
-    TotalSubmissions INTEGER NOT NULL
+    UserName VARCHAR(60),
+    DisplayName VARCHAR(260),
+    RegisterDate DATE NOT NULL,
+    PerformanceTier SMALLINT NOT NULL, 
+    Country VARCHAR(40)
 );
 
 -- -- Tags
@@ -34,18 +28,6 @@ CREATE TABLE Tags (
     DatasetCount INTEGER NOT NULL,
     CompetitionCount INTEGER NOT NULL,
     KernelCount INTEGER NOT NULL
-);
-
--- -- CompetitionTags
-
-DROP TABLE IF EXISTS CompetitionTags CASCADE;
-
-CREATE TABLE CompetitionTags (
-    Id INTEGER PRIMARY KEY,
-    CompetitionId INTEGER NOT NULL,
-    FOREIGN KEY (CompetitionId) REFERENCES CompetitionsCleaned (Id),
-    TagId INTEGER NOT NULL,
-    FOREIGN KEY (TagId) REFERENCES Tags (Id)
 );
 
 -- -- Forums
@@ -70,19 +52,6 @@ CREATE TABLE Organizations (
     Description TEXT    
 );
 
--- -- Users
-
-DROP TABLE IF EXISTS Users CASCADE;
-
-CREATE TABLE Users (
-    Id INTEGER PRIMARY KEY,
-    UserName VARCHAR(60),
-    DisplayName VARCHAR(260),
-    RegisterDate DATE NOT NULL,
-    PerformanceTier SMALLINT NOT NULL, 
-    Country VARCHAR(40)
-);
-
 -- -- -- UserOrganizations
 
 DROP TABLE IF EXISTS UserOrganizations CASCADE;
@@ -96,16 +65,17 @@ CREATE TABLE UserOrganizations (
     JoinDate DATE NOT NULL
 );
 
--- -- -- CleanedTeams
+-- -- UserFollowers
 
-DROP TABLE IF EXISTS TeamsCleaned CASCADE;
+DROP TABLE IF EXISTS UserFollowers CASCADE;
 
-CREATE TABLE TeamsCleaned (
+CREATE TABLE UserFollowers (
     Id INTEGER PRIMARY KEY,
-    CompetitionId INTEGER NOT NULL,
-    FOREIGN KEY (CompetitionId) REFERENCES CompetitionsCleaned (Id),
-    TeamLeaderId FLOAT, -- need to clean from float to int in Phase 3
-    TeamName VARCHAR(260)
+    UserId INTEGER NOT NULL,
+    FOREIGN KEY (UserId) REFERENCES Users (Id),
+    FollowingUserId INTEGER NOT NULL,
+    FOREIGN KEY (FollowingUserId) REFERENCES Users (Id),
+    CreationDate DATE NOT NULL
 );
 
 -- -- -- CleanedDatasets
@@ -138,18 +108,48 @@ CREATE TABLE DatasetTags (
     FOREIGN KEY (TagId) REFERENCES Tags (Id)
 );
 
+-- -- -- CompetitionsCleaned
 
--- -- UserFollowers
+DROP TABLE IF EXISTS CompetitionsCleaned CASCADE;
 
-DROP TABLE IF EXISTS UserFollowers CASCADE;
-
-CREATE TABLE UserFollowers (
+CREATE TABLE CompetitionsCleaned (
     Id INTEGER PRIMARY KEY,
-    UserId INTEGER NOT NULL,
-    FOREIGN KEY (UserId) REFERENCES Users (Id),
-    FollowingUserId INTEGER NOT NULL,
-    FOREIGN KEY (FollowingUserId) REFERENCES Users (Id),
-    CreationDate DATE NOT NULL
+    Slug VARCHAR(80) NOT NULL,
+    Title VARCHAR(95) NOT NULL,
+    ForumId INTEGER NOT NULL,
+    FOREIGN KEY (ForumId) REFERENCES Forums (Id),
+    EnabledDate TIMESTAMP NOT NULL,
+    DeadlineDate TIMESTAMP NOT NULL,
+    EvaluationAlgorithmName VARCHAR(70),
+    MaxTeamSize SMALLINT NOT NULL,
+    NumPrizes SMALLINT NOT NULL,
+    TotalTeams SMALLINT NOT NULL,
+    TotalCompetitors SMALLINT NOT NULL,
+    TotalSubmissions INTEGER NOT NULL
+);
+
+-- -- CompetitionTags
+
+DROP TABLE IF EXISTS CompetitionTags CASCADE;
+
+CREATE TABLE CompetitionTags (
+    Id INTEGER PRIMARY KEY,
+    CompetitionId INTEGER NOT NULL,
+    FOREIGN KEY (CompetitionId) REFERENCES CompetitionsCleaned (Id),
+    TagId INTEGER NOT NULL,
+    FOREIGN KEY (TagId) REFERENCES Tags (Id)
+);
+
+-- -- -- CleanedTeams
+
+DROP TABLE IF EXISTS TeamsCleaned CASCADE;
+
+CREATE TABLE TeamsCleaned (
+    Id INTEGER PRIMARY KEY,
+    CompetitionId INTEGER NOT NULL,
+    FOREIGN KEY (CompetitionId) REFERENCES CompetitionsCleaned (Id),
+    TeamLeaderId FLOAT, -- need to clean from float to int in Phase 3
+    TeamName VARCHAR(260)
 );
 
 -- -- CleanedSubmissions

@@ -10,23 +10,17 @@ if __name__=="__main__":
     run_schema_script('create_schema.sql')
     print("Database Schema Created")
 
-    # # CompetitionsCleaned
+    # # Users
     print('++++++++++++++++++++++++++++++++++++++++++++++')
-    print("Inserting Cleaned Competitions")
-    insert_cleaned_competitions("CompetitionsCleaned.csv", competitions_insert_query)
-    print("CompetitionsCleaned Created")
+    print("Inserting Users")
+    insert_users("Users.csv", users_insert_query)
+    print("Users Inserted")
 
     # # Tags
     print('++++++++++++++++++++++++++++++++++++++++++++++')
     print("Inserting Tags")
     insert_tags("Tags.csv", tags_insert_query)
     print("Tags Created")
-
-    # # CompetitionTags
-    print('++++++++++++++++++++++++++++++++++++++++++++++')
-    print("Inserting CompetitionTags")
-    insert_competition_tags("CompetitionTags.csv", competition_tags_insert_query)
-    print("CompetitionTags Created")
 
     # # Forums
     print('++++++++++++++++++++++++++++++++++++++++++++++')
@@ -40,23 +34,17 @@ if __name__=="__main__":
     insert_organizations("Organizations.csv", organizations_insert_query)
     print("Organizations Created")
 
-    # # Users
-    print('++++++++++++++++++++++++++++++++++++++++++++++')
-    print("Inserting Users")
-    insert_users("Users.csv", users_insert_query)
-    print("Users Inserted")
-
     # # UserOrganizations
     print('++++++++++++++++++++++++++++++++++++++++++++++')
     print("Inserting User Organizations")
     insert_user_organizations("UserOrganizations.csv", user_organizations_insert_query)
     print("UserOrganizations Created")
 
-    # # TeamsCleaned
+    # # UserFollowers
     print('++++++++++++++++++++++++++++++++++++++++++++++')
-    print("Inserting Teams")
-    insert_teams("TeamsCleaned.csv", teams_insert_query)
-    print("Teams Created")
+    print("Inserting User Followers")
+    insert_user_followers("UserFollowers.csv", user_followers_insert_query)
+    print("UserFollowers Created")
 
     # # Datasets
     print('++++++++++++++++++++++++++++++++++++++++++++++')
@@ -70,18 +58,29 @@ if __name__=="__main__":
     insert_dataset_tags("DatasetTags.csv", dataset_tags_insert_query)
     print("DatasetTags Created")
 
-    # # Followers
+    # # CompetitionsCleaned
     print('++++++++++++++++++++++++++++++++++++++++++++++')
-    print("Inserting User Followers")
-    insert_user_followers("UserFollowers.csv", user_followers_insert_query)
-    print("UserFollowers Created")
+    print("Inserting Cleaned Competitions")
+    insert_cleaned_competitions("CompetitionsCleaned.csv", competitions_insert_query)
+    print("CompetitionsCleaned Created")
+
+    # # CompetitionTags
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Inserting CompetitionTags")
+    insert_competition_tags("CompetitionTags.csv", competition_tags_insert_query)
+    print("CompetitionTags Created")
+    
+    # # TeamsCleaned
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Inserting Teams")
+    insert_teams("TeamsCleaned.csv", teams_insert_query)
+    print("Teams Created")
 
     # SubmissionsCleaned
     print('++++++++++++++++++++++++++++++++++++++++++++++')
     print("Inserting Submissions")
     insert_submissions("SubmissionsCleaned.csv", submission_insert_query)
     print("Submissions Created")
-    
 
     # UserAchievements
     print('++++++++++++++++++++++++++++++++++++++++++++++')

@@ -15,9 +15,9 @@ data_directory = 'C:\\Users\\mr2714\\Desktop\\venvs\\pdata\\'
 chunk_size = 100000
 
 # these are the list of tables in the db; We use it check table results; to avoid sql injection
-cleaned_files = ["Users", "Organizations", "UserOrganizations", "UserFollowers", "UserAchievements", "CompetitionsCleaned", 
-"Tags", "CompetitionTags", "DatasetsCleaned", "DatasetTags", "Forums", "SubmissionsCleaned", "TeamsCleaned"]
+cleaned_files = ["Users", "Tags", "Forums", "Organizations", "UserOrganizations", "UserFollowers", "DatasetsCleaned", "DatasetTags", 
+                 "CompetitionsCleaned", "CompetitionTags", "TeamsCleaned", "SubmissionsCleaned", "UserAchievements"]
 
 # input files to be processed for cleaning
-input_files = ["UserFollowers", "Tags", "UserAchievements", "Forums", "CompetitionTags", "Teams", "Users", "Organizations",
-               "Competitions", "Submissions", "Datasets", "UserOrganizations", "DatasetTags"]
+input_files = ["Users", "Tags", "Forums", "Organizations", "UserOrganizations", "UserFollowers", "Datasets", "DatasetTags",
+               "Competitions", "CompetitionTags", "Teams", "Submissions", "UserAchievements"]

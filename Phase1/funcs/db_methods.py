@@ -80,16 +80,15 @@ def get_csv_chunker(csv_file):
         print("=======================================================")
         return None
 
-def insert_cleaned_competitions(input_file, query):
+def insert_users(input_file, query):
     """
-    This method Insert competitions
+    This method Insert users
     
     :param input_file: Name of the CSV file.
     :param query: Query to be executed.
     """
     # merge the file name with the data_directory provided in globals.py
     csv_file = data_directory + input_file
-    # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
     # process each chunk
     for chunk in chunks:
@@ -101,24 +100,6 @@ def insert_cleaned_competitions(input_file, query):
 def insert_tags(input_file, query):
     """
     This method Insert tags
-    
-    :param input_file: Name of the CSV file.
-    :param query: Query to be executed.
-    """
-    # merge the file name with the data_directory provided in globals.py
-    csv_file = data_directory + input_file
-    # read the chunks of file by providing the path to file. 
-    chunks = get_csv_chunker(csv_file)
-    # process each chunk
-    for chunk in chunks:
-        # convert chunk into a list of tuples
-        df_values = list(chunk.itertuples(index=False, name=None))
-        # insert tuple into database
-        execute_df_values(query, df_values)
-
-def insert_competition_tags(input_file, query):
-    """
-    This method Insert competition tags
     
     :param input_file: Name of the CSV file.
     :param query: Query to be executed.
@@ -170,23 +151,6 @@ def insert_organizations(input_file, query):
         # insert tuple into database
         execute_df_values(query, df_values)
 
-def insert_users(input_file, query):
-    """
-    This method Insert users
-    
-    :param input_file: Name of the CSV file.
-    :param query: Query to be executed.
-    """
-    # merge the file name with the data_directory provided in globals.py
-    csv_file = data_directory + input_file
-    chunks = get_csv_chunker(csv_file)
-    # process each chunk
-    for chunk in chunks:
-        # convert chunk into a list of tuples
-        df_values = list(chunk.itertuples(index=False, name=None))
-        # insert tuple into database
-        execute_df_values(query, df_values)
-
 def insert_user_organizations(input_file, query):
     """
     This method Insert user organizations
@@ -216,9 +180,9 @@ def insert_user_organizations(input_file, query):
             # insert tuple into database
             execute_df_values(query, valid_df_values)
 
-def insert_teams(input_file, query):
+def insert_user_followers(input_file, query):
     """
-    This method Insert teams
+    This method Insert user followers
     
     :param input_file: Name of the CSV file.
     :param query: Query to be executed.
@@ -232,18 +196,19 @@ def insert_teams(input_file, query):
         # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
         # get the FK ids from the chunck; provide the FK index
-        competition_ids = extract_ids_from_chunk(df_values, -3)
+        follower_ids = extract_ids_from_chunk(df_values, -2)
         # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set
-        valid_competition_ids = check_valid_fk_ids('CompetitionsCleaned', competition_ids)
-        # if length of valid_ids and set of Ids is same it means all ids are present in the db. 
-        if len(set(competition_ids)) == len(set(valid_competition_ids)):
-            # Proceed to insert all chuncked data; as it is valid
-            execute_df_values(query, df_values)
-        else:
-            # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
-            valid_df_values = remove_invalid_entries_links_chunked(df_values, valid_competition_ids, -3)
-            # insert tuple into database
-            execute_df_values(query, valid_df_values)
+        valid_follower_ids = check_valid_fk_ids('Users', follower_ids)
+        # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
+        valid_df_values = remove_invalid_entries_links_chunked(df_values, valid_follower_ids, -2)
+        # get the FK ids from the chunck; provide the FK index
+        user_ids = extract_ids_from_chunk(valid_df_values, -3)
+        # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set
+        valid_user_ids = check_valid_fk_ids('Users', user_ids)
+        # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
+        valid_df_values = remove_invalid_entries_links_chunked(valid_df_values, valid_user_ids, -3)
+        # insert tuple into database
+        execute_df_values(query, valid_df_values)
 
 def insert_cleaned_datasets(input_file, query):
     """
@@ -305,9 +270,9 @@ def insert_dataset_tags(input_file, query):
         # insert tuple into database
         execute_df_values(query, valid_df_values)
 
-def insert_user_followers(input_file, query):
+def insert_cleaned_competitions(input_file, query):
     """
-    This method Insert user followers
+    This method Insert competitions
     
     :param input_file: Name of the CSV file.
     :param query: Query to be executed.
@@ -321,19 +286,78 @@ def insert_user_followers(input_file, query):
         # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
         # get the FK ids from the chunck; provide the FK index
-        follower_ids = extract_ids_from_chunk(df_values, -2)
+        forum_ids = extract_ids_from_chunk(df_values, -9)
         # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set
-        valid_follower_ids = check_valid_fk_ids('Users', follower_ids)
-        # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
-        valid_df_values = remove_invalid_entries_links_chunked(df_values, valid_follower_ids, -2)
+        valid_forum_ids = check_valid_fk_ids('Forums', forum_ids)
+        # if length of valid_ids and set of Ids is same it means all ids are present in the db. 
+        if len(set(forum_ids)) == len(set(valid_forum_ids)):
+            # Proceed to insert all chuncked data; as it is valid
+            execute_df_values(query, df_values)
+        else:
+            # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
+            valid_df_values = remove_invalid_entries_links_chunked(df_values, valid_forum_ids, -9)
+            # insert tuple into database
+            execute_df_values(query, valid_df_values)
+
+def insert_competition_tags(input_file, query):
+    """
+    This method Insert competition tags
+    
+    :param input_file: Name of the CSV file.
+    :param query: Query to be executed.
+    """
+    # merge the file name with the data_directory provided in globals.py
+    csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
+    chunks = get_csv_chunker(csv_file)
+    # process each chunk
+    for chunk in chunks:
+        # convert chunk into a list of tuples
+        df_values = list(chunk.itertuples(index=False, name=None))
         # get the FK ids from the chunck; provide the FK index
-        user_ids = extract_ids_from_chunk(valid_df_values, -3)
+        tag_ids = extract_ids_from_chunk(df_values, -1)
         # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set
-        valid_user_ids = check_valid_fk_ids('Users', user_ids)
+        valid_tag_ids = check_valid_fk_ids('Tags', tag_ids)
         # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
-        valid_df_values = remove_invalid_entries_links_chunked(valid_df_values, valid_user_ids, -3)
+        valid_df_values = remove_invalid_entries_links_chunked(df_values, valid_tag_ids, -1)
+        # get the FK ids from the chunck; provide the FK index
+        compt_ids = extract_ids_from_chunk(valid_df_values, -2)
+        # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set
+        valid_compt_ids = check_valid_fk_ids('CompetitionsCleaned', compt_ids)
+        # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
+        valid_df_values = remove_invalid_entries_links_chunked(valid_df_values, valid_compt_ids, -2)
         # insert tuple into database
         execute_df_values(query, valid_df_values)
+
+def insert_teams(input_file, query):
+    """
+    This method Insert teams
+    
+    :param input_file: Name of the CSV file.
+    :param query: Query to be executed.
+    """
+    # merge the file name with the data_directory provided in globals.py
+    csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
+    chunks = get_csv_chunker(csv_file)
+    # process each chunk
+    for chunk in chunks:
+        # convert chunk into a list of tuples
+        df_values = list(chunk.itertuples(index=False, name=None))
+        # get the FK ids from the chunck; provide the FK index
+        competition_ids = extract_ids_from_chunk(df_values, -3)
+        # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set
+        valid_competition_ids = check_valid_fk_ids('CompetitionsCleaned', competition_ids)
+        # if length of valid_ids and set of Ids is same it means all ids are present in the db. 
+        if len(set(competition_ids)) == len(set(valid_competition_ids)):
+            # Proceed to insert all chuncked data; as it is valid
+            execute_df_values(query, df_values)
+        else:
+            # In case some ids are are invalid (do not link to primary table), filter out invalid ids; provide the FK index 
+            valid_df_values = remove_invalid_entries_links_chunked(df_values, valid_competition_ids, -3)
+            # insert tuple into database
+            execute_df_values(query, valid_df_values)
+
 
 def insert_submissions(input_file, query):
     """
