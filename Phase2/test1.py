@@ -1,5 +1,5 @@
-from funcs.db_methods import *
-from funcs.queries import *
+from sql.db_methods import *
+from sql.queries import *
 import time
 
 if __name__=="__main__":

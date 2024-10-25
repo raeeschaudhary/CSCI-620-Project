@@ -1,6 +1,8 @@
-from funcs.db_methods import *
-from funcs.queries import *
+from sql.db_methods import *
+from sql.queries import *
 import time
+
+glo = "hello"
 
 if __name__=="__main__":
     start_time = time.time()

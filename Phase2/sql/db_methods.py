@@ -1,5 +1,5 @@
-from funcs.globals import chunk_size, data_directory, cleaned_files
-from funcs.db_utils import *
+from globals import chunk_size, data_directory, cleaned_files
+from sql.db_utils import *
 import pandas as pd
 
 def extract_ids_from_chunk(chunk_data, loc):
