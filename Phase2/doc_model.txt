@@ -1,0 +1,87 @@
+Organizations: [ {
+_id: _,
+Name: _,
+Slug: _,
+Description: _,
+CreationDate: _,},
+… ]
+
+
+Forums:
+{ _id : _, Title: _, }
+
+
+Tags:
+{ _id : _,
+Name: _, Slug: _,
+FullPath: _, Description: _,
+DatasetCount: _, CompetitionCount: _,
+KernelCount: _,
+}
+
+
+Users:
+{ _id : _,
+UserName: _, DisplayName: _,
+RegisterDate: _, PerformanceTier: _,
+Country: _,
+Organizations: [ {
+OrganizationId, JoinDate: _,},
+… ]
+Followers: [{
+FollowingUserId: _, (Creation)Date: _,},
+… }],
+Achievements: [{
+AchievementType: _, Tier:_,
+TierAchievementDate: _, Points: _,
+CurrentRanking: _, HighestRanking: _,
+TotalGold: _, TotalSilver: _,
+TotalBronze: _,
+  },
+… }],
+}
+
+Teams:
+{ _id : _, TeamLeaderId: _, 
+TeamName: _, }
+
+
+Datasets:
+{ _id : _,
+CreatorUserId: _,
+ForumId: _,
+CreationDate: _,
+LastActivityDate: _,
+TotalViews: _,
+TotalDownloads: _,
+TotalVotes: _,
+TotalKernels: _,
+DatasetTags: [{
+TagId: _, },
+… }]
+}
+
+
+Competitions:
+{ _id : _,
+Slug: _, Title: _, ForumId: _, 
+EnabledDate: _, DeadlineDate: _, 
+EvaluationAlgorithmName: _,
+MaxTeamSize: _, NumPrizes: _,
+TotalTeams: _, TotalCompetitors: _,
+TotalSubmissions: _,
+CompetitionTags: [{
+TagId: _,  },
+… }],,
+}
+
+
+Submissions:
+{ _id : _,
+SubmittedUserId: _, SubmissionDate: _,
+TeamId: _, IsAfterDeadline: _,
+PublicScoreLeaderboardDisplay: _,
+PrivateScoreLeaderboardDisplay: _,
+}
+
+
