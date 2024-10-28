@@ -373,6 +373,445 @@ def insert_competition_tags(input_file):
         if valid_chunk_data:
             bulk_update_competitions_with_tags(valid_chunk_data)
 
+def insert_users(input_file):
+    """
+    This method Insert Users
+    
+    :param input_file: Name of the CSV file.
+    """
+    # merge the file name with the data_directory provided in globals.py
+    csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
+    chunks = get_csv_chunker(csv_file)
+    # connect to the database
+    db = connect()
+    # get a reference to users collection
+    collection = db['users']
+    # process each chunk
+    for chunk in chunks:
+        # Set chunk data for document
+        chunk_data = []  
+        # convert chunk into a list of tuples
+        df_values = list(chunk.itertuples(index=False, name=None))
+        # iterate over the df_values to create document
+        for elem in df_values:
+            # Collect data from element attributes as document
+            document = {
+                "Id": elem[0],
+                "UserName": elem[1],
+                "DisplayName": elem[2],
+                "RegisterDate": datetime.strptime(elem[3], '%m/%d/%Y'),
+                "PerformanceTier": elem[4],
+                "Country": elem[5],
+                "Organizations": [],
+                "Followers": [],
+                "Achievements": []
+            }
+            chunk_data.append(document)
+        collection.insert_many(chunk_data)
+
+def bulk_update_users_with_organizations(chunk_data):
+    """
+    This method updates users collection with orgnizations insertion.
+    
+    :param chunk_data: the chunk of data containing orgniazations read from the user organizations input file.
+    """
+    # connect to the database
+    db = connect()
+    # get a reference to posts collection
+    collection = db['users']
+    # Create a list to hold all update operations
+    bulk_operations = []
+    # process each chunk as tuple pair of post id and comment data
+    for user_id, user_org in chunk_data:
+        # Update using the _id, which is already replaced in chunk data, Don't insert if post doesn't exist
+        operation = UpdateOne(
+            {'_id': user_id}, 
+            {'$addToSet': {'Organizations': user_org}},
+            upsert=False
+        )
+        bulk_operations.append(operation)
+    try:
+        # Execute all operations in a single bulk call
+        collection.bulk_write(bulk_operations)
+    # throw an error if there an an issue.
+    except Exception as e:
+        print(f"Error in bulk update: {e}")
+
+def insert_user_organizations(input_file):
+    """
+    This method Insert User Organizations
+    
+    :param input_file: Name of the CSV file.
+    """
+    # merge the file name with the data_directory provided in globals.py
+    csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
+    chunks = get_csv_chunker(csv_file)
+    # process each chunk
+    for chunk in chunks:
+        # Set chunk data for document
+        chunk_data = []  
+        # convert chunk into a list of tuples
+        df_values = list(chunk.itertuples(index=False, name=None))
+        # iterate over the df_values to create document
+        for elem in df_values:
+            # Collect data from element attributes as document
+            user_org_data = {
+                "UserId": elem[1], # will be removed after mapping 
+                "OrganizationId": elem[2],
+                "JoinDate": elem[3]
+                }
+            # collect comp id as key for each competition entry
+            user_id = elem[1]
+            chunk_data.append((user_id, user_org_data))
+        # first check existing tags ids to check for valid entries
+        existing_org_ids = fetch_existing_ids('organizations', 'Id')
+        # filter up the chunk data based on valid existing ids; do not replace _id with OrganizationId as organizations relates to users
+        valid_chunk_data = filter_and_replace_ids_chunk(chunk_data, existing_org_ids, 'OrganizationId', False)
+        # secondly check existing competetitions ids to check for valid entries against competetitions collection
+        existing_user_ids = fetch_existing_ids('users', 'Id')
+        # filter up the chunk data based on valid existing competitions ids; replace _id with CompetitionId 
+        valid_chunk_data = filter_and_replace_ids_chunk(valid_chunk_data, existing_user_ids, 'UserId', True)
+        # Insert valid data is not empty; then insert record
+        if valid_chunk_data:
+            bulk_update_users_with_organizations(valid_chunk_data)
+
+def bulk_update_users_with_followers(chunk_data):
+    """
+    This method updates users collection with followers insertion.
+    
+    :param chunk_data: the chunk of data containing followers read from the user followers input file.
+    """
+    # connect to the database
+    db = connect()
+    # get a reference to posts collection
+    collection = db['users']
+    # Create a list to hold all update operations
+    bulk_operations = []
+    # process each chunk as tuple pair of post id and comment data
+    for user_id, user_follower in chunk_data:
+        # Update using the _id, which is already replaced in chunk data, Don't insert if post doesn't exist
+        operation = UpdateOne(
+            {'_id': user_id}, 
+            {'$addToSet': {'Followers': user_follower}},
+            upsert=False
+        )
+        bulk_operations.append(operation)
+    try:
+        # Execute all operations in a single bulk call
+        collection.bulk_write(bulk_operations)
+    # throw an error if there an an issue.
+    except Exception as e:
+        print(f"Error in bulk update: {e}")
+
+def insert_user_followers(input_file):
+    """
+    This method Insert User Followers.
+    
+    :param input_file: Name of the CSV file.
+    """
+    # merge the file name with the data_directory provided in globals.py
+    csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
+    chunks = get_csv_chunker(csv_file)
+    # process each chunk
+    for chunk in chunks:
+        # Set chunk data for document
+        chunk_data = []  
+        # convert chunk into a list of tuples
+        df_values = list(chunk.itertuples(index=False, name=None))
+        # iterate over the df_values to create document
+        for elem in df_values:
+            # Collect data from element attributes as document
+            user_fol_data = {
+                "UserId": elem[1], # will be removed after mapping 
+                "FollowingUserId": elem[2],
+                "CreationDate": elem[3]
+                }
+            # collect comp id as key for each competition entry
+            user_id = elem[1]
+            chunk_data.append((user_id, user_fol_data))
+        # first check existing tags ids to check for valid entries
+        existing_org_ids = fetch_existing_ids('Users', 'Id')
+        # filter up the chunk data based on valid existing ids; do not replace _id with OrganizationId as organizations relates to users
+        valid_chunk_data = filter_and_replace_ids_chunk(chunk_data, existing_org_ids, 'FollowingUserId', False)
+        # secondly check existing competetitions ids to check for valid entries against competetitions collection
+        existing_user_ids = fetch_existing_ids('users', 'Id')
+        # filter up the chunk data based on valid existing competitions ids; replace _id with CompetitionId 
+        valid_chunk_data = filter_and_replace_ids_chunk(valid_chunk_data, existing_user_ids, 'UserId', True)
+        # Insert valid data is not empty; then insert record
+        if valid_chunk_data:
+            bulk_update_users_with_followers(valid_chunk_data)
+
+def bulk_update_users_with_achievement(chunk_data):
+    """
+    This method updates users collection with achievements insertion.
+    
+    :param chunk_data: the chunk of data containing achievements read from the user achievements input file.
+    """
+    # connect to the database
+    db = connect()
+    # get a reference to posts collection
+    collection = db['users']
+    # Create a list to hold all update operations
+    bulk_operations = []
+    # process each chunk as tuple pair of post id and comment data
+    for user_id, user_achievement in chunk_data:
+        # Update using the _id, which is already replaced in chunk data, Don't insert if post doesn't exist
+        operation = UpdateOne(
+            {'_id': user_id}, 
+            {'$addToSet': {'Achievements': user_achievement}},
+            upsert=False
+        )
+        bulk_operations.append(operation)
+    try:
+        # Execute all operations in a single bulk call
+        collection.bulk_write(bulk_operations)
+    # throw an error if there an an issue.
+    except Exception as e:
+        print(f"Error in bulk update: {e}")
+
+def insert_user_achievements(input_file):
+    """
+    This method Insert User Achievements.
+    
+    :param input_file: Name of the CSV file.
+    """
+    # merge the file name with the data_directory provided in globals.py
+    csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
+    chunks = get_csv_chunker(csv_file)
+    # process each chunk
+    for chunk in chunks:
+        # Set chunk data for document
+        chunk_data = []  
+        # convert chunk into a list of tuples
+        df_values = list(chunk.itertuples(index=False, name=None))
+        # iterate over the df_values to create document
+        for elem in df_values:
+            # Collect data from element attributes as document
+            user_achievment_data = {
+                "UserId": elem[1], # will be removed after mapping 
+                "AchievementType": elem[2],
+                "Tier": elem[3],
+                "TierAchievementDate": elem[4],
+                "Points": elem[5],
+                "CurrentRanking": elem[6],
+                "HighestRanking": elem[7],
+                "TotalGold": elem[8],
+                "TotalSilver": elem[9],
+                "TotalBronze": elem[10]
+                }
+            # collect comp id as key for each competition entry
+            user_id = elem[1]
+            chunk_data.append((user_id, user_achievment_data))
+        # first check existing tags ids to check for valid entries
+        existing_user_ids = fetch_existing_ids('Users', 'Id')
+        # filter up the chunk data based on valid existing competitions ids; replace _id with CompetitionId 
+        valid_chunk_data = filter_and_replace_ids_chunk(valid_chunk_data, existing_user_ids, 'UserId', True)
+        # Insert valid data is not empty; then insert record
+        if valid_chunk_data:
+            bulk_update_users_with_achievement(valid_chunk_data)
+
+def insert_datasets(input_file):
+    """
+    This method Insert Datasets
+    
+    :param input_file: Name of the CSV file.
+    """
+    # merge the file name with the data_directory provided in globals.py
+    csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
+    chunks = get_csv_chunker(csv_file)
+    # connect to the database
+    db = connect()
+    # get a reference to users collection
+    collection = db['datasets']
+    # process each chunk
+    for chunk in chunks:
+        # Set chunk data for document
+        chunk_data = []  
+        # convert chunk into a list of tuples
+        df_values = list(chunk.itertuples(index=False, name=None))
+        # iterate over the df_values to create document
+        for elem in df_values:
+            # Collect data from element attributes as document
+            document = {
+                "Id": elem[0],
+                "CreatorUserId": elem[1],
+                "ForumId": elem[2],
+                "CreationDate": elem[3],
+                "LastActivityDate": elem[4],
+                "TotalViews": elem[5],
+                "TotalDownloads": elem[6],
+                "TotalVotes": elem[7],
+                "TotalKernels": elem[8],
+                "DatasetTags": []
+            }
+            chunk_data.append(document)
+        # first check existing forums ids to check for valid entries
+        existing_ids = fetch_existing_ids('forums', 'Id')
+        # filter up the chunk data based on valid existing ids; replace _id with ForumId field
+        valid_chunk_data = filter_and_replace_ids(chunk_data, existing_ids, 'ForumId')
+        # first check existing forums ids to check for valid entries
+        existing_user_ids = fetch_existing_ids('users', 'Id')
+        # filter up the chunk data based on valid existing ids; replace _id with ForumId field
+        valid_chunk_data = filter_and_replace_ids(valid_chunk_data, existing_user_ids, 'CreatorUserId')
+        # Insert valid data is not empty; then insert record
+        if valid_chunk_data:
+            collection.insert_many(valid_chunk_data)
+
+def bulk_update_datasets_with_tags(chunk_data):
+    """
+    This method updates dataset collection with tags insertion.
+    
+    :param chunk_data: the chunk of data containing tags read from the datasets tags input file.
+    """
+    # connect to the database
+    db = connect()
+    # get a reference to posts collection
+    collection = db['datasets']
+    # Create a list to hold all update operations
+    bulk_operations = []
+    # process each chunk as tuple pair of post id and comment data
+    for user_id, dataset_tags in chunk_data:
+        # Update using the _id, which is already replaced in chunk data, Don't insert if post doesn't exist
+        operation = UpdateOne(
+            {'_id': user_id}, 
+            {'$addToSet': {'DatasetTags': dataset_tags}},
+            upsert=False
+        )
+        bulk_operations.append(operation)
+    try:
+        # Execute all operations in a single bulk call
+        collection.bulk_write(bulk_operations)
+    # throw an error if there an an issue.
+    except Exception as e:
+        print(f"Error in bulk update: {e}")
+
+def insert_user_achievements(input_file):
+    """
+    This method Insert User Achievements.
+    
+    :param input_file: Name of the CSV file.
+    """
+    # merge the file name with the data_directory provided in globals.py
+    csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
+    chunks = get_csv_chunker(csv_file)
+    # process each chunk
+    for chunk in chunks:
+        # Set chunk data for document
+        chunk_data = []  
+        # convert chunk into a list of tuples
+        df_values = list(chunk.itertuples(index=False, name=None))
+        # iterate over the df_values to create document
+        for elem in df_values:
+            # Collect data from element attributes as document
+            dataset_tags_data = {
+                "DatasetId": elem[1], # will be removed after mapping 
+                "TagId": elem[2],
+                }
+            # collect comp id as key for each competition entry
+            dataset_id = elem[1]
+            chunk_data.append((dataset_id, dataset_tags_data))
+        # first check existing tags ids to check for valid entries
+        # first check existing tags ids to check for valid entries
+        existing_tag_ids = fetch_existing_ids('tags', 'Id')
+        # filter up the chunk data based on valid existing user ids; do not replace _id with TagId as competetions relates to competetions
+        valid_chunk_data = filter_and_replace_ids_chunk(chunk_data, existing_tag_ids, 'TagId', False)
+        # secondly check existing competetitions ids to check for valid entries against competetitions collection
+        existing_data_ids = fetch_existing_ids('datasets', 'Id')
+        # filter up the chunk data based on valid existing competitions ids; replace _id with CompetitionId 
+        valid_chunk_data = filter_and_replace_ids_chunk(valid_chunk_data, existing_data_ids, 'DatasetId', True)
+        # Insert valid data is not empty; then insert record
+        if valid_chunk_data:
+            bulk_update_datasets_with_tags(valid_chunk_data)
+
+def insert_teams(input_file):
+    """
+    This method Insert Teams.
+    
+    :param input_file: Name of the CSV file.
+    """
+    # merge the file name with the data_directory provided in globals.py
+    csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
+    chunks = get_csv_chunker(csv_file)
+    # connect to the database
+    db = connect()
+    # get a reference to users collection
+    collection = db['teams']
+    # process each chunk
+    for chunk in chunks:
+        # Set chunk data for document
+        chunk_data = []  
+        # convert chunk into a list of tuples
+        df_values = list(chunk.itertuples(index=False, name=None))
+        # iterate over the df_values to create document
+        for elem in df_values:
+            # Collect data from element attributes as document
+            document = {
+                "Id": elem[0],
+                "CompetitionId": elem[1],
+                "TeamLeaderId": elem[2],
+                "TeamName": elem[3],
+            }
+            chunk_data.append(document)
+        # first check existing forums ids to check for valid entries
+        existing_ids = fetch_existing_ids('competitions', 'Id')
+        # filter up the chunk data based on valid existing ids; replace _id with ForumId field
+        valid_chunk_data = filter_and_replace_ids(chunk_data, existing_ids, 'CompetitionId')
+        # Insert valid data is not empty; then insert record
+        if valid_chunk_data:
+            collection.insert_many(valid_chunk_data)
+
+def insert_submissions(input_file):
+    """
+    This method Insert Submissions.
+    
+    :param input_file: Name of the CSV file.
+    """
+    # merge the file name with the data_directory provided in globals.py
+    csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
+    chunks = get_csv_chunker(csv_file)
+    # connect to the database
+    db = connect()
+    # get a reference to users collection
+    collection = db['teams']
+    # process each chunk
+    for chunk in chunks:
+        # Set chunk data for document
+        chunk_data = []  
+        # convert chunk into a list of tuples
+        df_values = list(chunk.itertuples(index=False, name=None))
+        # iterate over the df_values to create document
+        for elem in df_values:
+            # Collect data from element attributes as document
+            document = {
+                "Id": elem[0],
+                "SubmittedUserId": elem[1],
+                "TeamId": elem[2],
+                "SourceKernelVersionId": elem[3],
+                "SubmissionDate": elem[4],
+                "ScoreDate": elem[5],
+                "IsAfterDeadline": elem[6],
+                "PublicScoreLeaderboardDisplay": elem[7],
+                "PublicScoreFullPrecision": elem[8],
+                "PrivateScoreLeaderboardDisplay": elem[9],
+                "PrivateScoreFullPrecision": elem[10],
+            }
+            chunk_data.append(document)
+        # first check existing forums ids to check for valid entries
+        existing_ids = fetch_existing_ids('teams', 'Id')
+        # filter up the chunk data based on valid existing ids; replace _id with ForumId field
+        valid_chunk_data = filter_and_replace_ids(chunk_data, existing_ids, 'TeamId')
+        # Insert valid data is not empty; then insert record
+        if valid_chunk_data:
+            collection.insert_many(valid_chunk_data)
+
 def report_db_statistics():
     """
     This method reports the count of records inserted in collections.
