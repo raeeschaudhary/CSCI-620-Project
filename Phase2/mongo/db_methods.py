@@ -256,6 +256,53 @@ def insert_tags(input_file):
         # insert tuple into database
         collection.insert_many(chunk_data)
 
+def insert_competitions(input_file):
+    """
+    This method Insert Competitions
+    
+    :param input_file: Name of the CSV file.
+    """
+    # merge the file name with the data_directory provided in globals.py
+    csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
+    chunks = get_csv_chunker(csv_file)
+    # connect to the database
+    db = connect()
+    # get a reference to users collection
+    collection = db['competitions']
+    # process each chunk
+    for chunk in chunks:
+        # Set chunk data for document
+        chunk_data = []  
+        # convert chunk into a list of tuples
+        df_values = list(chunk.itertuples(index=False, name=None))
+        # iterate over the df_values to create document
+        for elem in df_values:
+            # Collect data from element attributes as document
+            document = {
+                "Id": elem[0],
+                "Slug": elem[1],
+                "Title": elem[2],
+                "ForumId": elem[3],
+                "EnabledDate": elem[4],
+                "DeadlineDate": elem[5],
+                "EvaluationAlgorithmName": elem[6],
+                "MaxTeamSize": elem[7],
+                "TotalTeams": elem[8],
+                "TotalSubmissions": elem[9],
+                "TotalCompetitors": elem[10],
+                "TotalSubmissions": elem[11],
+                "CompetitionTags": []
+            }
+            chunk_data.append(document)
+        # first check existing users ids to check for valid entries
+        existing_ids = fetch_existing_ids('forums', 'Id')
+        # filter up the chunk data based on valid existing ids; replace _id with OwnerUserId field
+        valid_chunk_data = filter_and_replace_ids(chunk_data, existing_ids, 'ForumId')
+        # Insert valid data is not empty; then insert record
+        if valid_chunk_data:
+            collection.insert_many(valid_chunk_data)
+
 def report_db_statistics():
     """
     This method reports the count of records inserted in collections.

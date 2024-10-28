@@ -1,5 +1,4 @@
-from funcs.db_methods import *
-from funcs.queries import *
+from globals import data_directory
 import time
 import pandas as pd
 

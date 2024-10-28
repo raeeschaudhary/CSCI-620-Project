@@ -19,6 +19,18 @@ DatasetCount: _, CompetitionCount: _,
 KernelCount: _,
 }
 
+Competitions:
+{ _id : _,
+Slug: _, Title: _, ForumId: _, 
+EnabledDate: _, DeadlineDate: _, 
+EvaluationAlgorithmName: _,
+MaxTeamSize: _, NumPrizes: _,
+TotalTeams: _, TotalCompetitors: _,
+TotalSubmissions: _,
+CompetitionTags: [{
+TagId: _,  },
+… }],,
+}
 
 Users:
 { _id : _,
@@ -41,11 +53,6 @@ TotalBronze: _,
 … }],
 }
 
-Teams:
-{ _id : _, TeamLeaderId: _, 
-TeamName: _, }
-
-
 Datasets:
 { _id : _,
 CreatorUserId: _,
@@ -61,20 +68,9 @@ TagId: _, },
 … }]
 }
 
-
-Competitions:
-{ _id : _,
-Slug: _, Title: _, ForumId: _, 
-EnabledDate: _, DeadlineDate: _, 
-EvaluationAlgorithmName: _,
-MaxTeamSize: _, NumPrizes: _,
-TotalTeams: _, TotalCompetitors: _,
-TotalSubmissions: _,
-CompetitionTags: [{
-TagId: _,  },
-… }],,
-}
-
+Teams:
+{ _id : _, CompetitionId, TeamLeaderId: _, 
+TeamName: _, }
 
 Submissions:
 { _id : _,

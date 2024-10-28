@@ -32,6 +32,11 @@ if __name__=="__main__":
     insert_tags("Tags.csv")
     print("Tags inserted")
     print('++++++++++++++++++++++++++++++++++++++++++++++')
+    # CompetitionsCleaned
+    print('Inserting Competitions')
+    insert_competitions("CompetitionsCleaned.csv")
+    print("Competitions inserted")
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
     
     # report inserted statistics 
     print('++++++++++++++++++++++++++++++++++++++++++++++')
