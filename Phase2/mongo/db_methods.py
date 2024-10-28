@@ -99,8 +99,12 @@ def filter_and_replace_ids_chunk(chunk_data, existing_ids, key, swap_key=False):
             # Find and update the key (e.g., UserId) with corresponding _id from the collection; mapped by provided dictionary
             sub_chunk_data[key] = existing_ids[str(test_id)]
             # replace the existing _id with object ID to match insertion; if swap_key==True
-            if swap_key == True:
-                _id = existing_ids[_id]
+            # if swap_key == True:
+            #     _id = existing_ids[_id]
+            if swap_key and str(_id) in existing_ids:
+                _id = existing_ids[str(_id)]
+            # else:
+            #     print(f"Warning: ID {_id} not found in existing_ids.")
             # add it to valid data; keep the tuple formation
             valid_chunk_data.append((_id, sub_chunk_data))
     # return all valid chunk data by only having entries with valid (existing ids)
@@ -295,13 +299,79 @@ def insert_competitions(input_file):
                 "CompetitionTags": []
             }
             chunk_data.append(document)
-        # first check existing users ids to check for valid entries
+        # first check existing forums ids to check for valid entries
         existing_ids = fetch_existing_ids('forums', 'Id')
-        # filter up the chunk data based on valid existing ids; replace _id with OwnerUserId field
+        # filter up the chunk data based on valid existing ids; replace _id with ForumId field
         valid_chunk_data = filter_and_replace_ids(chunk_data, existing_ids, 'ForumId')
         # Insert valid data is not empty; then insert record
         if valid_chunk_data:
             collection.insert_many(valid_chunk_data)
+
+def bulk_update_competitions_with_tags(chunk_data):
+    """
+    This method updates competitions collection with tags insertion.
+    
+    :param chunk_data: the chunk of data containing tags read from the competition tags input file.
+    """
+    # connect to the database
+    db = connect()
+    # get a reference to posts collection
+    collection = db['competitions']
+    # Create a list to hold all update operations
+    bulk_operations = []
+    # process each chunk as tuple pair of post id and comment data
+    for comp_id, comp_tag in chunk_data:
+        # Update using the _id, which is already replaced in chunk data, Don't insert if post doesn't exist
+        operation = UpdateOne(
+            {'_id': comp_id}, 
+            {'$addToSet': {'CompetitionTags': comp_tag}},
+            upsert=False
+        )
+        bulk_operations.append(operation)
+    try:
+        # Execute all operations in a single bulk call
+        collection.bulk_write(bulk_operations)
+    # throw an error if there an an issue.
+    except Exception as e:
+        print(f"Error in bulk update: {e}")
+
+def insert_competition_tags(input_file):
+    """
+    This method Insert Competition Tags
+    
+    :param input_file: Name of the CSV file.
+    """
+    # merge the file name with the data_directory provided in globals.py
+    csv_file = data_directory + input_file
+    # read the chunks of file by providing the path to file. 
+    chunks = get_csv_chunker(csv_file)
+    # process each chunk
+    for chunk in chunks:
+        # Set chunk data for document
+        chunk_data = []  
+        # convert chunk into a list of tuples
+        df_values = list(chunk.itertuples(index=False, name=None))
+        # iterate over the df_values to create document
+        for elem in df_values:
+            # Collect data from element attributes as document
+            comp_tag_data = {
+                "CompetitionId": elem[1], # will be removed after mapping 
+                "TagId": elem[2]
+                }
+            # collect comp id as key for each competition entry
+            comp_id = elem[1]
+            chunk_data.append((comp_id, comp_tag_data))
+        # first check existing tags ids to check for valid entries
+        existing_tag_ids = fetch_existing_ids('tags', 'Id')
+        # filter up the chunk data based on valid existing user ids; do not replace _id with TagId as competetions relates to competetions
+        valid_chunk_data = filter_and_replace_ids_chunk(chunk_data, existing_tag_ids, 'TagId', False)
+        # secondly check existing competetitions ids to check for valid entries against competetitions collection
+        existing_comp_ids = fetch_existing_ids('competitions', 'Id')
+        # filter up the chunk data based on valid existing competitions ids; replace _id with CompetitionId 
+        valid_chunk_data = filter_and_replace_ids_chunk(valid_chunk_data, existing_comp_ids, 'CompetitionId', True)
+        # Insert valid data is not empty; then insert record
+        if valid_chunk_data:
+            bulk_update_competitions_with_tags(valid_chunk_data)
 
 def report_db_statistics():
     """
@@ -316,15 +386,15 @@ def report_db_statistics():
         count = db[collection_name].count_documents({})
         print(f"Collection: {collection_name}   Docuemnts: {count}")
         
-        # If the collection is users, count the badges
-        # if collection_name == "users": 
-        #     print(f"Collection: {collection_name}   Users: {count}")
-        #     total_badges = 0
-        #     # Iterate through each document in the collection
-        #     for document in db[collection_name].find():
-        #         badges = document.get('Badges', [])
-        #         total_badges += len(badges)
-        #     print(f"Collection: {collection_name}   Badges: {total_badges}")
+        # If the collection is competitions, count the competitionstags
+        if collection_name == "competitions": 
+            print(f"Collection: {collection_name}   Docuemnts: {count}")
+            total_badges = 0
+            # Iterate through each document in the collection
+            for document in db[collection_name].find():
+                badges = document.get('CompetitionTags', [])
+                total_badges += len(badges)
+            print(f"Collection: {collection_name}   CompetitionTags: {total_badges}")
         # # If the collection is posts, count the comments
         # if collection_name == "posts":
         #     print(f"Collection: {collection_name}   Posts: {count}")
