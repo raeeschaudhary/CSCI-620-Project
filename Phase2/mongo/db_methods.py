@@ -12,7 +12,7 @@ def connect():
     :returns a database client object.
     """
     try:
-        # create a mongodb connection using the db_config provided in globals.py
+        # create a mongodb connection using the mongo_db_config provided in globals.py
         client = MongoClient(host=mongo_db_config['host'], 
                          port=mongo_db_config['port'])
         return client[mongo_db_config['database']]
@@ -22,26 +22,26 @@ def connect():
 
 def get_csv_chunker(csv_file):
     """
-    Takes a input csv file and reads it into chunks.
+    Takes an input csv file and reads it into chunks.
     
     :param csv_file: Path to input csv file.
     :return: pandas chunks to read data in chunks.
     """
     try:
-        # chunk_size is a global variable set it globals.py
+        # chunk_size is a global variable set in globals.py
         # read the chunks based on chunk size and return to function call.
         chunks = pd.read_csv(csv_file, chunksize=chunk_size)
         return chunks
     except:
         # print the error if the file read fails. 
         print("=======================================================")
-        print("Wrong file or file path; ", csv_file, " Does not Exists")
+        print(f"Wrong file or file path; {csv_file} Does not Exists")
         print("=======================================================")
         return None
 
 def fetch_existing_ids(collection, key):
     """
-    fetches the existing keys (primary) from an exisitig collection. To get user ids; collection = 'users', key = 'Id'
+    fetches the existing keys (primary) from an existing collection. To get user ids; collection = 'users', key = 'Id'
     
     :param collection: the name of the collection to search keys.
     :param key: the name of the key to fetch data from the collection. 
@@ -90,7 +90,7 @@ def filter_and_replace_ids_chunk(chunk_data, existing_ids, key, swap_key=False):
     """
     # prepare valid data
     valid_chunk_data = []
-    # process each entry in the chunk to replace keys; now chunk is key: document (userId: bagde)
+    # process each entry in the chunk to replace keys; now chunk is key: document (userId: Achievement)
     for _id, sub_chunk_data in chunk_data:
         # Get the key to replace (UserId) from chunk_data
         test_id = str(sub_chunk_data.get(key))
@@ -139,7 +139,7 @@ def cleaning_database():
 
 def creating_collections():
     """
-    Create a list of collections privded by names in the globals collections variable.
+    Create a list of collections provided by names in collections variable in the globals.py.
     """
     # make a database connection
     db = connect()
