@@ -128,6 +128,36 @@ def clean_chunk_data(chunk_data, keys_to_check):
     # return the cleaned set
     return cleaned_data
 
+def bulk_update_collection_with_subset(chunk_data, collection_name, subset_name):
+    """
+    This method updates teams collection with submissions insertion.
+    
+    :param chunk_data: the chunk of data containing submissions read from the submissions input file.
+    :param collection_name: the name of the collection in the databse to update.
+    :param subset_name: the name of document (array) in the collection to update.
+    """
+    # connect to the database
+    db = connect()
+    # get a reference to posts collection
+    collection = db[collection_name]
+    # Create a list to hold all update operations
+    bulk_operations = []
+    # process each chunk as tuple pair of post id and comment data
+    for main_id, sub_data in chunk_data:
+        # Update using the _id, which is already replaced in chunk data, Don't insert if post doesn't exist
+        operation = UpdateOne(
+            {'_id': main_id}, 
+            {'$addToSet': {subset_name: sub_data}},
+            upsert=False
+        )
+        bulk_operations.append(operation)
+    try:
+        # Execute all operations in a single bulk call
+        collection.bulk_write(bulk_operations)
+    # throw an error if there an an issue.
+    except Exception as e:
+        print(f"Error in bulk update: {e}")
+
 def cleaning_database():
     """
     clean the database (drop collections) for fresh insertion of the record. 
@@ -690,9 +720,9 @@ def bulk_update_datasets_with_tags(chunk_data):
     except Exception as e:
         print(f"Error in bulk update: {e}")
 
-def insert_user_achievements(input_file):
+def insert_dataset_tags(input_file):
     """
-    This method Insert User Achievements.
+    This method Insert Dataset Tags.
     
     :param input_file: Name of the CSV file.
     """
@@ -757,6 +787,7 @@ def insert_teams(input_file):
                 "CompetitionId": elem[1],
                 "TeamLeaderId": elem[2],
                 "TeamName": elem[3],
+                "Submissions": []
             }
             chunk_data.append(document)
         # first check existing forums ids to check for valid entries
@@ -767,9 +798,37 @@ def insert_teams(input_file):
         if valid_chunk_data:
             collection.insert_many(valid_chunk_data)
 
-def insert_submissions(input_file):
+def bulk_update_teams_with_submissions(chunk_data):
     """
-    This method Insert Submissions.
+    This method updates teams collection with submissions insertion.
+    
+    :param chunk_data: the chunk of data containing submissions read from the submissions input file.
+    """
+    # connect to the database
+    db = connect()
+    # get a reference to posts collection
+    collection = db['teams']
+    # Create a list to hold all update operations
+    bulk_operations = []
+    # process each chunk as tuple pair of post id and comment data
+    for team_id, sub_data in chunk_data:
+        # Update using the _id, which is already replaced in chunk data, Don't insert if post doesn't exist
+        operation = UpdateOne(
+            {'_id': team_id}, 
+            {'$addToSet': {'Submissions': sub_data}},
+            upsert=False
+        )
+        bulk_operations.append(operation)
+    try:
+        # Execute all operations in a single bulk call
+        collection.bulk_write(bulk_operations)
+    # throw an error if there an an issue.
+    except Exception as e:
+        print(f"Error in bulk update: {e}")
+
+def insert_submissions_in_teams(input_file):
+    """
+    This method Insert Submissions in Teams.
     
     :param input_file: Name of the CSV file.
     """
@@ -777,10 +836,6 @@ def insert_submissions(input_file):
     csv_file = data_directory + input_file
     # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
-    # connect to the database
-    db = connect()
-    # get a reference to users collection
-    collection = db['teams']
     # process each chunk
     for chunk in chunks:
         # Set chunk data for document
@@ -790,27 +845,39 @@ def insert_submissions(input_file):
         # iterate over the df_values to create document
         for elem in df_values:
             # Collect data from element attributes as document
-            document = {
-                "Id": elem[0],
+            sub_data = {
                 "SubmittedUserId": elem[1],
                 "TeamId": elem[2],
-                "SourceKernelVersionId": elem[3],
-                "SubmissionDate": elem[4],
-                "ScoreDate": elem[5],
-                "IsAfterDeadline": elem[6],
-                "PublicScoreLeaderboardDisplay": elem[7],
-                "PublicScoreFullPrecision": elem[8],
-                "PrivateScoreLeaderboardDisplay": elem[9],
-                "PrivateScoreFullPrecision": elem[10],
+                "SubmissionDate": elem[3],
+                "IsAfterDeadline": elem[4],
+                "PublicScoreLeaderboardDisplay": elem[5],
+                "PrivateScoreLeaderboardDisplay": elem[6],
             }
-            chunk_data.append(document)
+            team_id = elem[2]
+            chunk_data.append((team_id, sub_data))
         # first check existing forums ids to check for valid entries
-        existing_ids = fetch_existing_ids('teams', 'Id')
-        # filter up the chunk data based on valid existing ids; replace _id with ForumId field
-        valid_chunk_data = filter_and_replace_ids(chunk_data, existing_ids, 'TeamId')
+        # first check existing tags ids to check for valid entries
+        existing_team_ids = fetch_existing_ids('teams', 'Id')
+        # filter up the chunk data based on valid existing user ids; do not replace _id with TagId as competetions relates to competetions
+        valid_chunk_data = filter_and_replace_ids_chunk(chunk_data, existing_team_ids, 'TeamId', False)
         # Insert valid data is not empty; then insert record
         if valid_chunk_data:
-            collection.insert_many(valid_chunk_data)
+            bulk_update_teams_with_submissions(valid_chunk_data)
+
+        
+    for chunk in chunks:
+        # first check existing tags ids to check for valid entries
+        # first check existing tags ids to check for valid entries
+        existing_tag_ids = fetch_existing_ids('tags', 'Id')
+        # filter up the chunk data based on valid existing user ids; do not replace _id with TagId as competetions relates to competetions
+        valid_chunk_data = filter_and_replace_ids_chunk(chunk_data, existing_tag_ids, 'TagId', False)
+        # secondly check existing competetitions ids to check for valid entries against competetitions collection
+        existing_data_ids = fetch_existing_ids('datasets', 'Id')
+        # filter up the chunk data based on valid existing competitions ids; replace _id with CompetitionId 
+        valid_chunk_data = filter_and_replace_ids_chunk(valid_chunk_data, existing_data_ids, 'DatasetId', True)
+        # Insert valid data is not empty; then insert record
+        if valid_chunk_data:
+            bulk_update_datasets_with_tags(valid_chunk_data)
 
 def report_db_statistics():
     """
@@ -827,46 +894,45 @@ def report_db_statistics():
         
         # If the collection is competitions, count the competitionstags
         if collection_name == "competitions": 
-            print(f"Collection: {collection_name}   Docuemnts: {count}")
-            total_badges = 0
+            total_comps = 0
             # Iterate through each document in the collection
             for document in db[collection_name].find():
-                badges = document.get('CompetitionTags', [])
-                total_badges += len(badges)
-            print(f"Collection: {collection_name}   CompetitionTags: {total_badges}")
-        # # If the collection is posts, count the comments
-        # if collection_name == "posts":
-        #     print(f"Collection: {collection_name}   Posts: {count}")
-        #     total_comments = 0
-        #     total_tags = 0
-        #     # Iterate through each document in the collection
-        #     for document in db[collection_name].find():
-        #         tags = document.get('Tags', [])
-        #         comments = document.get('Comments', [])
-        #         total_tags += len(tags)
-        #         total_comments += len(comments)
-        #     print(f"Collection: {collection_name}   Comments: {total_comments}")
-        #     print(f"Collection: {collection_name}   Tags: {total_tags}")
-
-def list_indexes_all():
-    """
-    This method reports the list of indexes on users and posts collections.
-
-    :returns a list of indexes.
-    """
-    # list indexes 
-    indexes_list = []
-    # connect to the database
-    db = connect()
-    # get the posts collection
-    posts_collection = db['posts'] 
-    # get posts indexes and append to the list
-    for index in posts_collection.list_indexes():
-        indexes_list.append(index)
-    # get the users collection
-    users_collection = db['users'] 
-    # get users indexes and append to the list
-    for index in users_collection.list_indexes():
-        indexes_list.append(index)
-    # return the combined list
-    return indexes_list
+                comps = document.get('CompetitionTags', [])
+                total_comps += len(comps)
+            print(f"Collection: {collection_name}   CompetitionTags: {total_comps}")
+        # If the collection is users, count the Organizations, Followers, Achievements
+        elif collection_name == "users": 
+            total_orgs = 0
+            # Iterate through each document in the collection
+            for document in db[collection_name].find():
+                orgs = document.get('Organizations', [])
+                total_orgs += len(orgs)
+            print(f"Collection: {collection_name}   Organizations: {total_orgs}")
+            total_foll = 0
+            # Iterate through each document in the collection
+            for document in db[collection_name].find():
+                folls = document.get('Followers', [])
+                total_foll += len(folls)
+            print(f"Collection: {collection_name}   Followers: {total_foll}")
+            total_achi = 0
+            # Iterate through each document in the collection
+            for document in db[collection_name].find():
+                achi = document.get('Achievements', [])
+                total_achi += len(achi)
+            print(f"Collection: {collection_name}   Achievements: {total_achi}")
+        # If the collection is datasets, count the DatasetTags
+        elif collection_name == "datasets": 
+            dataset_tags = 0
+            # Iterate through each document in the collection
+            for document in db[collection_name].find():
+                tags = document.get('DatasetTags', [])
+                dataset_tags += len(tags)
+            print(f"Collection: {collection_name}   DatasetTags: {dataset_tags}")
+         # If the collection is teams, count the Organizations, Followers, Achievements
+        elif collection_name == "teams": 
+            totalsubs = 0
+            # Iterate through each document in the collection
+            for document in db[collection_name].find():
+                subs = document.get('Submissions', [])
+                totalsubs += len(subs)
+            print(f"Collection: {collection_name}   Submissions: {totalsubs}")

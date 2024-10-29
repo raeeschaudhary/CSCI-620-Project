@@ -29,4 +29,4 @@ cleaned_files = ["Users", "Tags", "Forums", "Organizations", "UserOrganizations"
 input_files = ["Users", "Tags", "Forums", "Organizations", "UserOrganizations", "UserFollowers", "Datasets", "DatasetTags",
                "Competitions", "CompetitionTags", "Teams", "Submissions", "UserAchievements"]
 
-collections = ['organizations', 'forums', 'tags', 'competitions', 'users', 'datasets']
+collections = ['organizations', 'forums', 'tags', 'competitions', 'users', 'datasets', 'teams']

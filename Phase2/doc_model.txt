@@ -70,14 +70,14 @@ TagId: _, },
 
 Teams:
 { _id : _, CompetitionId, TeamLeaderId: _, 
-TeamName: _, }
-
-Submissions:
+TeamName: _, 
+Submissions: [
 { _id : _,
 SubmittedUserId: _, SubmissionDate: _,
 TeamId: _, IsAfterDeadline: _,
 PublicScoreLeaderboardDisplay: _,
 PrivateScoreLeaderboardDisplay: _,
+}]
 }
 
 
