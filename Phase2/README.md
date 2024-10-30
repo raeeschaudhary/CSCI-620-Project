@@ -23,7 +23,13 @@
 7. Some cleaning is necessary for some files; Run the clean_files.py, e.g., `python clean_files.py` (takes about 95 seconds)
     - This will clean and re-write some files in the same data directory where the files are located (provided in step 5).
     - This requires that all necessary from files `input_files`  (Step 1) are present in the data directory.
-8. Run `app.py` e.g., `python app.py` from the terminal to create and populate the database. (takes about 1.5 hours)
+8. Run `mongo_app.py` e.g., `python mongo_app.py` from the terminal to create and populate the database.
+    - Insertion upto teams would be fast. (around 25 minutes)
+    - Updates in Teams (7.6M) for Submissions (15M) could take around 2 hours.
+        - To test features only, stop the code once few chunks of `Submissions` are processed. Comment the code in `mongo_app.py` upto `insert_submissions_in_teams()` method and rerun.
+    - Updates in Users (20M) for Achievements (81M) could take more than 12 hours.
+        - To test features only, stop the code once few chunks of `Achievements` are processed. Comment the code in `mongo_app.py` upto `insert_user_achievements()` method and rerun.
+9. If the code is run fully, given the amount of time the evaluator has. We confirm that the number of inserted records match with Phase 1. 
 
 ## Directory structures
     ├── mongo
@@ -37,6 +43,7 @@
 	│   └── queries.py
     ├── app.py
     ├── clean_files.py
+    ├── mongo_app.py
     ├── create_schema.sql
     ├── queries.py
     ├── README.md
