@@ -201,7 +201,7 @@ def insert_organizations(input_file):
     # get a reference to users collection
     collection = db['organizations']
     # get a counter just for output tracking
-    counter = -1
+    counter = 0
     # process each chunk
     for chunk in chunks:
         # Increment and print the counter
@@ -240,7 +240,7 @@ def insert_forums(input_file):
     # get a reference to users collection
     collection = db['forums']
     # get a counter just for output tracking
-    counter = -1
+    counter = 0
     # process each chunk
     for chunk in chunks:
         # Increment and print the counter
@@ -277,7 +277,7 @@ def insert_tags(input_file):
     # get a reference to users collection
     collection = db['tags']
     # get a counter just for output tracking
-    counter = -1
+    counter = 0
     # process each chunk
     for chunk in chunks:
         # Increment and print the counter
@@ -320,7 +320,7 @@ def insert_competitions(input_file):
     # get a reference to users collection
     collection = db['competitions']
     # get a counter just for output tracking
-    counter = -1
+    counter = 0
     # process each chunk
     for chunk in chunks:
         # Increment and print the counter
@@ -368,7 +368,7 @@ def insert_competition_tags(input_file):
     # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
     # get a counter just for output tracking
-    counter = -1
+    counter = 0
     # process each chunk
     for chunk in chunks:
         # Increment and print the counter
@@ -415,7 +415,7 @@ def insert_users(input_file):
     # get a reference to users collection
     collection = db['users']
     # get a counter just for output tracking
-    counter = -1
+    counter = 0
     # process each chunk
     for chunk in chunks:
         # Increment and print the counter
@@ -453,7 +453,7 @@ def insert_user_organizations(input_file):
     # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
     # get a counter just for output tracking
-    counter = -1
+    counter = 0
     # process each chunk
     for chunk in chunks:
         # Increment and print the counter
@@ -497,7 +497,7 @@ def insert_user_followers(input_file):
     # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
     # get a counter just for output tracking
-    counter = -1
+    counter = 0
     # process each chunk
     for chunk in chunks:
         # Increment and print the counter
@@ -539,7 +539,7 @@ def insert_user_achievements(input_file):
     # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
     # get a counter just for output tracking
-    counter = -1
+    counter = 0
     # process each chunk
     for chunk in chunks:
         # Increment and print the counter
@@ -590,7 +590,7 @@ def insert_datasets(input_file):
     # get a reference to users collection
     collection = db['datasets']
     # get a counter just for output tracking
-    counter = -1
+    counter = 0
     # process each chunk
     for chunk in chunks:
         # Increment and print the counter
@@ -639,7 +639,7 @@ def insert_dataset_tags(input_file):
     # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
     # get a counter just for output tracking
-    counter = -1
+    counter = 0
     # process each chunk
     for chunk in chunks:
         # Increment and print the counter
@@ -687,7 +687,7 @@ def insert_teams(input_file):
     # get a reference to users collection
     collection = db['teams']
     # get a counter just for output tracking
-    counter = -1
+    counter = 0
     # process each chunk
     for chunk in chunks:
         # Increment and print the counter
@@ -727,7 +727,7 @@ def insert_submissions_in_teams(input_file):
     # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
     # get a counter just for output tracking
-    counter = -1
+    counter = 0
     # process each chunk
     for chunk in chunks:
         # Increment and print the counter
