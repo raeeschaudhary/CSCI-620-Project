@@ -24,12 +24,12 @@
     - This will clean and re-write some files in the same data directory where the files are located (provided in step 5).
     - This requires that all necessary from files `input_files`  (Step 1) are present in the data directory.
 8. Run `mongo_app.py` e.g., `python mongo_app.py` from the terminal to create and populate the database.
-    - Insertion upto teams would be fast. (around 25 minutes)
-    - Updates in Teams (7.6M) for Submissions (15M) could take around 2 hours.
-        - To test features only, stop the code once few chunks of `Submissions` are processed. Comment the code in `mongo_app.py` upto `insert_submissions_in_teams()` method and rerun.
-    - Updates in Users (20M) for Achievements (81M) could take more than 12 hours.
-        - To test features only, stop the code once few chunks of `Achievements` are processed. Comment the code in `mongo_app.py` upto `insert_user_achievements()` method and rerun.
-9. If the code is run fully, given the amount of time the evaluator has. We confirm that the number of inserted records match with Phase 1. 
+    - Insertion upto teams would be fast. (around 45 minutes)
+    - Updates in Teams (7.6M) for Submissions (15M) could take around 75 minutes. 1-2 Failures occur where document size exceeds MongoDB specified limit. Error unknown.
+    - Updates in Users (20M) for Achievements (81M) could take more than 95 minutes. Code can be stopped after this.
+    - Reporting documents and sub-documents count takes around 75 minutes as it iterates over all documents and sub-documents to count. If not needed, stop the code. 
+9. If the code is run fully, given the amount of time the evaluator has. We confirm that the number of inserted records match with Phase 1 (except few missings in team submissions). 
+10. Optional - To remove keys like IDs that were used to map records with _id attribute run `mongo_rem_keys.py` e.g., `python mongo_rem_keys.py` from the terminal.
 
 ## Directory structures
     ├── mongo

@@ -88,6 +88,9 @@ if __name__=="__main__":
 
     # Submissions
     print('Inserting Submissions')
+    print('******************************************************************************************************************************')
+    print("HEADS UP: This can take 75 minutes inserting 13.3M records in 7.6M teams. There are around 297 chunks of 50K each.")
+    print('******************************************************************************************************************************')
     insert_submissions_in_teams("SubmissionsCleaned.csv")
     print("\nSubmissions inserted")
     print('++++++++++++++++++++++++++++++++++++++++++++++')
@@ -95,7 +98,7 @@ if __name__=="__main__":
     # UserAchievements
     print('Inserting User Achievements in Users')
     print('******************************************************************************************************************************')
-    print("This is the last insertion. There are around 810 chunks of 100K each. Could take 40 hours inserting 81M records in 20M users.")
+    print("HEADS UP: Last Insertion. This can take 95 minutes inserting 81M records in 20M Users. There are around 1640 chunks of 50K each.")
     print('******************************************************************************************************************************')
     insert_user_achievements("UserAchievements.csv")
     print("\nUsers Achievements inserted")
@@ -103,15 +106,13 @@ if __name__=="__main__":
 
     # report inserted statistics 
     print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print('******************************************************************************************************************************')
+    print("HEADS UP: This reports the inserted documents and sub-documents taking around 75 minutes. If you do not want to see it you can safely skip running this code.")
+    print('******************************************************************************************************************************')
     print("Report DB Statistics")
     report_db_statistics()
     print('++++++++++++++++++++++++++++++++++++++++++++++')
 
-    # removing keys used for mapping 
-    print('++++++++++++++++++++++++++++++++++++++++++++++')
-    print("Removing old primary keys and mapping keys")
-    remove_mapping_keys()
-    print('++++++++++++++++++++++++++++++++++++++++++++++')
 
     end_time = time.time()
     run_time = end_time - start_time
