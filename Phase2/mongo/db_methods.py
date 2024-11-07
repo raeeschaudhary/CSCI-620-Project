@@ -233,7 +233,7 @@ def insert_forums(input_file):
             # Collect data from element attributes as document
             document = {
                 "Id": elem[0],
-                "ParForumentId": elem[1],
+                "ParentForumId": elem[1],
                 "Title": elem[2]
             }
             chunk_data.append(document)
@@ -674,7 +674,6 @@ def insert_submissions_in_teams(input_file):
             # Collect data from element attributes as document
             sub_data = {
                 "SubmittedUserId": elem[1],
-                "TeamId": elem[2],
                 "SubmissionDate": elem[3],
                 "IsAfterDeadline": elem[4],
                 "PublicScoreLeaderboardDisplay": elem[5],
