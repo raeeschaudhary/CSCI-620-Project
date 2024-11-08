@@ -674,6 +674,7 @@ def insert_submissions_in_teams(input_file):
             # Collect data from element attributes as document
             sub_data = {
                 "SubmittedUserId": elem[1],
+                "TeamId": elem[2],
                 "SubmissionDate": datetime.strptime(elem[3], '%m/%d/%Y'),
                 "IsAfterDeadline": elem[4],
                 "PublicScoreLeaderboardDisplay": elem[5],
