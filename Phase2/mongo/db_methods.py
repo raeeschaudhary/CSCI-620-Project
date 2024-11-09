@@ -233,7 +233,7 @@ def insert_forums(input_file):
             # Collect data from element attributes as document
             document = {
                 "Id": elem[0],
-                "ParForumentId": elem[1],
+                "ParentForumId": elem[1],
                 "Title": elem[2]
             }
             chunk_data.append(document)
@@ -318,8 +318,8 @@ def insert_competitions(input_file):
                 "Slug": elem[1],
                 "Title": elem[2],
                 "ForumId": elem[3],
-                "EnabledDate": elem[4],
-                "DeadlineDate": elem[5],
+                "EnabledDate": datetime.strptime(elem[4], '%m/%d/%Y %H:%M:%S'),
+                "DeadlineDate": datetime.strptime(elem[5], '%m/%d/%Y %H:%M:%S'),
                 "EvaluationAlgorithmName": elem[6],
                 "MaxTeamSize": elem[7],
                 "TotalTeams": elem[8],
@@ -364,7 +364,7 @@ def insert_competition_tags(input_file):
         for elem in df_values:
             # Collect data from element attributes as document
             comp_tag_data = {
-                "CompetitionId": elem[1], # will be removed after mapping 
+                "CompetitionId": elem[1], # can be removed after mapping 
                 "TagId": elem[2]
                 }
             # collect comp id as key for each competition entry
@@ -451,7 +451,7 @@ def insert_user_organizations(input_file):
             user_org_data = {
                 "UserId": elem[1], # will be removed after mapping 
                 "OrganizationId": elem[2],
-                "JoinDate": elem[3]
+                "JoinDate": datetime.strptime(elem[3], '%m/%d/%Y')
                 }
             # collect user_id as key for each user entry
             user_id = elem[1]
@@ -493,7 +493,7 @@ def insert_user_followers(input_file):
             user_fol_data = {
                 "UserId": elem[1], # will be removed after mapping 
                 "FollowingUserId": elem[2],
-                "CreationDate": elem[3]
+                "CreationDate": datetime.strptime(elem[3], '%m/%d/%Y')
                 }
             # collect user_id as key for each users entry
             user_id = elem[1]
@@ -542,8 +542,8 @@ def insert_datasets(input_file):
                 "Id": elem[0],
                 "CreatorUserId": elem[1],
                 "ForumId": elem[2],
-                "CreationDate": elem[3],
-                "LastActivityDate": elem[4],
+                "CreationDate": datetime.strptime(elem[3], '%m/%d/%Y %H:%M:%S'),
+                "LastActivityDate": datetime.strptime(elem[4], '%m/%d/%Y'),
                 "TotalViews": elem[5],
                 "TotalDownloads": elem[6],
                 "TotalVotes": elem[7],
@@ -675,7 +675,7 @@ def insert_submissions_in_teams(input_file):
             sub_data = {
                 "SubmittedUserId": elem[1],
                 "TeamId": elem[2],
-                "SubmissionDate": elem[3],
+                "SubmissionDate": datetime.strptime(elem[3], '%m/%d/%Y'),
                 "IsAfterDeadline": elem[4],
                 "PublicScoreLeaderboardDisplay": elem[5],
                 "PrivateScoreLeaderboardDisplay": elem[6],

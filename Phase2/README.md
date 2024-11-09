@@ -23,7 +23,7 @@
 7. Some cleaning is necessary for some files; Run the clean_files.py, e.g., `python clean_files.py` (takes about 95 seconds)
     - This will clean and re-write some files in the same data directory where the files are located (provided in step 5).
     - This requires that all necessary from files `input_files`  (Step 1) are present in the data directory.
-8. Run `mongo_app.py` e.g., `python mongo_app.py` from the terminal to create and populate the database.
+8. Run `mongo_app.py` e.g., `python mongo_app.py` from the terminal to create and populate the database. (Expect all to run in 3.5 hours)
     - Insertion upto teams would be fast. (around 45 minutes)
     - Updates in Teams (7.6M) for Submissions (15M) could take around 75 minutes. 1-2 Failures occur where document size exceeds MongoDB specified limit. Error unknown.
     - Updates in Users (20M) for Achievements (81M) could take more than 95 minutes. Code can be stopped after this.
