@@ -9,7 +9,7 @@
 6. Run Indexes.
 7. Restart the db.
 8. Re-Run the queries.
-9. Run FDs. 
+9. Run FDs by running `generate_fds.py`
 
 # Populate Mongo DB.
 1. Navigate to root folder. Setup the dataset if you do not have it from phase 1. 
