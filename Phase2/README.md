@@ -4,11 +4,12 @@
     - We assume that the database is popoulated. If it is not populated, please use the project Phase 1 to populate the database. 
 2. Activate your virtual environment. (unless you have or can install psycopg2==2.9.9 and pandas==2.2.2 in your existing environment)
 3. Install the python package from requirements.txt e.g., `pip install psycopg2==2.9.9` and `pip install pandas==2.2.2` (if you do not have these.)
-4. Navigate to `globals.py` in the root directory to provide SQL database path and credentials using `sql_config`. Save the file.
-5. Run queries. 
-6. Run Indexes.
+4. Navigate to `globals.py` in the root directory to provide SQL database path and credentials using `sql_db_config`. Save the file.
+5. Run queries by running `execute_queries.py` e.g., `python execute_queries.py`. (2 minutes)
+6. Run Indexes. `execute_indexes.py` e.g., `python execute_indexes.py`. (3 minutes)
 7. Restart the db.
-8. Re-Run the queries.
+8. Re-Run the queries. `mongo_app.py` e.g., `python mongo_app.py`
+    - Optional Run `execute_drop_index.py` e.g., `python execute_drop_index.py` to drop indexes before re-creating.
 9. Run FDs by running `generate_fds.py`
 
 # Populate Mongo DB.

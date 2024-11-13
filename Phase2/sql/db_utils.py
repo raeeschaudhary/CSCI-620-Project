@@ -16,11 +16,11 @@ def connect():
     :return: connection to postgres database server.
     """
     return psycopg2.connect(
-        dbname=db_config['database'],
-        user=db_config['user'],
-        password=db_config['password'],
-        host=db_config['host'],
-        port=db_config['port']
+        dbname=sql_db_config['database'],
+        user=sql_db_config['user'],
+        password=sql_db_config['password'],
+        host=sql_db_config['host'],
+        port=sql_db_config['port']
     )
 
 def exec_sql_file(path):
