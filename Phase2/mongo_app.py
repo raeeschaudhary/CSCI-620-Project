@@ -1,8 +1,6 @@
 from mongo.db_methods import *
 import time
 
-glo = "hello"
-
 if __name__=="__main__":
     start_time = time.time()
 
