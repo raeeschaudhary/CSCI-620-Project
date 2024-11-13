@@ -1,7 +1,7 @@
 from collections import defaultdict
 import ast
 
-from CISC620Project.Phase2.sql.db_utils import connect
+from sql.db_utils import connect
 
 
 def generate_combinations(columnNames, size):
