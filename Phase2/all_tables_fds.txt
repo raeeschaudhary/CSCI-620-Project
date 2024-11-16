@@ -1,18 +1,18 @@
 Table: Users
   {'id'} -> {'username'}
   {'username'} -> {'id'}
-  {'displayname', 'id'} -> {'username'}
+  {'id', 'displayname'} -> {'username'}
   {'registerdate', 'id'} -> {'username'}
-  {'id', 'performancetier'} -> {'username'}
+  {'performancetier', 'id'} -> {'username'}
   {'id', 'country'} -> {'username'}
-  {'displayname', 'username'} -> {'id'}
+  {'username', 'displayname'} -> {'id'}
   {'registerdate', 'username'} -> {'id'}
   {'performancetier', 'username'} -> {'id'}
   {'username', 'country'} -> {'id'}
   {'registerdate', 'displayname'} -> {'id'}
   {'registerdate', 'displayname'} -> {'username'}
-  {'displayname', 'performancetier'} -> {'id'}
-  {'displayname', 'performancetier'} -> {'username'}
+  {'performancetier', 'displayname'} -> {'id'}
+  {'performancetier', 'displayname'} -> {'username'}
   {'displayname', 'country'} -> {'id'}
   {'displayname', 'country'} -> {'username'}
   {'registerdate', 'performancetier'} -> {'id'}
@@ -40,22 +40,22 @@ Table: Tags
   {'parenttagid', 'id'} -> {'fullpath'}
   {'name', 'id'} -> {'slug'}
   {'name', 'id'} -> {'fullpath'}
-  {'id', 'slug'} -> {'name'}
-  {'id', 'slug'} -> {'fullpath'}
-  {'fullpath', 'id'} -> {'name'}
-  {'fullpath', 'id'} -> {'slug'}
+  {'slug', 'id'} -> {'name'}
+  {'slug', 'id'} -> {'fullpath'}
+  {'id', 'fullpath'} -> {'name'}
+  {'id', 'fullpath'} -> {'slug'}
   {'description', 'id'} -> {'name'}
   {'description', 'id'} -> {'slug'}
   {'description', 'id'} -> {'fullpath'}
-  {'datasetcount', 'id'} -> {'name'}
-  {'datasetcount', 'id'} -> {'slug'}
-  {'datasetcount', 'id'} -> {'fullpath'}
+  {'id', 'datasetcount'} -> {'name'}
+  {'id', 'datasetcount'} -> {'slug'}
+  {'id', 'datasetcount'} -> {'fullpath'}
   {'competitioncount', 'id'} -> {'name'}
   {'competitioncount', 'id'} -> {'slug'}
   {'competitioncount', 'id'} -> {'fullpath'}
-  {'kernelcount', 'id'} -> {'name'}
-  {'kernelcount', 'id'} -> {'slug'}
-  {'kernelcount', 'id'} -> {'fullpath'}
+  {'id', 'kernelcount'} -> {'name'}
+  {'id', 'kernelcount'} -> {'slug'}
+  {'id', 'kernelcount'} -> {'fullpath'}
   {'parenttagid', 'name'} -> {'id'}
   {'parenttagid', 'name'} -> {'slug'}
   {'parenttagid', 'name'} -> {'fullpath'}
@@ -65,18 +65,18 @@ Table: Tags
   {'parenttagid', 'fullpath'} -> {'id'}
   {'parenttagid', 'fullpath'} -> {'name'}
   {'parenttagid', 'fullpath'} -> {'slug'}
-  {'parenttagid', 'description'} -> {'id'}
-  {'parenttagid', 'description'} -> {'name'}
-  {'parenttagid', 'description'} -> {'slug'}
-  {'parenttagid', 'description'} -> {'fullpath'}
+  {'description', 'parenttagid'} -> {'id'}
+  {'description', 'parenttagid'} -> {'name'}
+  {'description', 'parenttagid'} -> {'slug'}
+  {'description', 'parenttagid'} -> {'fullpath'}
   {'parenttagid', 'datasetcount'} -> {'id'}
   {'parenttagid', 'datasetcount'} -> {'name'}
   {'parenttagid', 'datasetcount'} -> {'slug'}
   {'parenttagid', 'datasetcount'} -> {'fullpath'}
-  {'parenttagid', 'competitioncount'} -> {'id'}
-  {'parenttagid', 'competitioncount'} -> {'name'}
-  {'parenttagid', 'competitioncount'} -> {'slug'}
-  {'parenttagid', 'competitioncount'} -> {'fullpath'}
+  {'competitioncount', 'parenttagid'} -> {'id'}
+  {'competitioncount', 'parenttagid'} -> {'name'}
+  {'competitioncount', 'parenttagid'} -> {'slug'}
+  {'competitioncount', 'parenttagid'} -> {'fullpath'}
   {'parenttagid', 'kernelcount'} -> {'id'}
   {'parenttagid', 'kernelcount'} -> {'name'}
   {'parenttagid', 'kernelcount'} -> {'slug'}
@@ -85,44 +85,44 @@ Table: Tags
   {'name', 'slug'} -> {'fullpath'}
   {'name', 'fullpath'} -> {'id'}
   {'name', 'fullpath'} -> {'slug'}
-  {'name', 'description'} -> {'id'}
-  {'name', 'description'} -> {'slug'}
-  {'name', 'description'} -> {'fullpath'}
+  {'description', 'name'} -> {'id'}
+  {'description', 'name'} -> {'slug'}
+  {'description', 'name'} -> {'fullpath'}
   {'name', 'datasetcount'} -> {'id'}
   {'name', 'datasetcount'} -> {'slug'}
   {'name', 'datasetcount'} -> {'fullpath'}
-  {'name', 'competitioncount'} -> {'id'}
-  {'name', 'competitioncount'} -> {'slug'}
-  {'name', 'competitioncount'} -> {'fullpath'}
+  {'competitioncount', 'name'} -> {'id'}
+  {'competitioncount', 'name'} -> {'slug'}
+  {'competitioncount', 'name'} -> {'fullpath'}
   {'name', 'kernelcount'} -> {'id'}
   {'name', 'kernelcount'} -> {'slug'}
   {'name', 'kernelcount'} -> {'fullpath'}
-  {'fullpath', 'slug'} -> {'id'}
-  {'fullpath', 'slug'} -> {'name'}
+  {'slug', 'fullpath'} -> {'id'}
+  {'slug', 'fullpath'} -> {'name'}
   {'description', 'slug'} -> {'id'}
   {'description', 'slug'} -> {'name'}
   {'description', 'slug'} -> {'fullpath'}
-  {'datasetcount', 'slug'} -> {'id'}
-  {'datasetcount', 'slug'} -> {'name'}
-  {'datasetcount', 'slug'} -> {'fullpath'}
+  {'slug', 'datasetcount'} -> {'id'}
+  {'slug', 'datasetcount'} -> {'name'}
+  {'slug', 'datasetcount'} -> {'fullpath'}
   {'competitioncount', 'slug'} -> {'id'}
   {'competitioncount', 'slug'} -> {'name'}
   {'competitioncount', 'slug'} -> {'fullpath'}
-  {'kernelcount', 'slug'} -> {'id'}
-  {'kernelcount', 'slug'} -> {'name'}
-  {'kernelcount', 'slug'} -> {'fullpath'}
-  {'fullpath', 'description'} -> {'id'}
-  {'fullpath', 'description'} -> {'name'}
-  {'fullpath', 'description'} -> {'slug'}
-  {'fullpath', 'datasetcount'} -> {'id'}
-  {'fullpath', 'datasetcount'} -> {'name'}
-  {'fullpath', 'datasetcount'} -> {'slug'}
-  {'fullpath', 'competitioncount'} -> {'id'}
-  {'fullpath', 'competitioncount'} -> {'name'}
-  {'fullpath', 'competitioncount'} -> {'slug'}
-  {'fullpath', 'kernelcount'} -> {'id'}
-  {'fullpath', 'kernelcount'} -> {'name'}
-  {'fullpath', 'kernelcount'} -> {'slug'}
+  {'slug', 'kernelcount'} -> {'id'}
+  {'slug', 'kernelcount'} -> {'name'}
+  {'slug', 'kernelcount'} -> {'fullpath'}
+  {'description', 'fullpath'} -> {'id'}
+  {'description', 'fullpath'} -> {'name'}
+  {'description', 'fullpath'} -> {'slug'}
+  {'datasetcount', 'fullpath'} -> {'id'}
+  {'datasetcount', 'fullpath'} -> {'name'}
+  {'datasetcount', 'fullpath'} -> {'slug'}
+  {'competitioncount', 'fullpath'} -> {'id'}
+  {'competitioncount', 'fullpath'} -> {'name'}
+  {'competitioncount', 'fullpath'} -> {'slug'}
+  {'kernelcount', 'fullpath'} -> {'id'}
+  {'kernelcount', 'fullpath'} -> {'name'}
+  {'kernelcount', 'fullpath'} -> {'slug'}
   {'description', 'datasetcount'} -> {'id'}
   {'description', 'datasetcount'} -> {'name'}
   {'description', 'datasetcount'} -> {'slug'}
@@ -149,7 +149,7 @@ Table: Tags
   {'competitioncount', 'kernelcount'} -> {'fullpath'}
 
 Table: Forums
-  {'parentforumid', 'title'} -> {'id'}
+  {'title', 'parentforumid'} -> {'id'}
 
 Table: Organizations
   {'id'} -> {'name'}
@@ -159,16 +159,16 @@ Table: Organizations
   {'slug'} -> {'id'}
   {'slug'} -> {'name'}
   {'name', 'id'} -> {'slug'}
-  {'id', 'slug'} -> {'name'}
+  {'slug', 'id'} -> {'name'}
   {'creationdate', 'id'} -> {'name'}
   {'creationdate', 'id'} -> {'slug'}
   {'description', 'id'} -> {'name'}
   {'description', 'id'} -> {'slug'}
   {'name', 'slug'} -> {'id'}
-  {'name', 'creationdate'} -> {'id'}
-  {'name', 'creationdate'} -> {'slug'}
-  {'name', 'description'} -> {'id'}
-  {'name', 'description'} -> {'slug'}
+  {'creationdate', 'name'} -> {'id'}
+  {'creationdate', 'name'} -> {'slug'}
+  {'description', 'name'} -> {'id'}
+  {'description', 'name'} -> {'slug'}
   {'creationdate', 'slug'} -> {'id'}
   {'creationdate', 'slug'} -> {'name'}
   {'description', 'slug'} -> {'id'}
@@ -180,37 +180,37 @@ Table: Organizations
 Table: UserOrganizations
   {'organizationid', 'userid'} -> {'id'}
   {'joindate', 'userid'} -> {'id'}
-  {'organizationid', 'joindate'} -> {'id'}
+  {'joindate', 'organizationid'} -> {'id'}
 
 Table: UserFollowers
   {'followinguserid', 'userid'} -> {'id'}
   {'creationdate', 'userid'} -> {'id'}
-  {'creationdate', 'followinguserid'} -> {'id'}
+  {'followinguserid', 'creationdate'} -> {'id'}
 
 Table: DatasetsCleaned
   {'id'} -> {'forumid'}
   {'forumid'} -> {'id'}
-  {'creatoruserid', 'id'} -> {'forumid'}
+  {'id', 'creatoruserid'} -> {'forumid'}
   {'creationdate', 'id'} -> {'forumid'}
-  {'lastactivitydate', 'id'} -> {'forumid'}
+  {'id', 'lastactivitydate'} -> {'forumid'}
   {'totalviews', 'id'} -> {'forumid'}
-  {'totaldownloads', 'id'} -> {'forumid'}
-  {'totalvotes', 'id'} -> {'forumid'}
+  {'id', 'totaldownloads'} -> {'forumid'}
+  {'id', 'totalvotes'} -> {'forumid'}
   {'totalkernels', 'id'} -> {'forumid'}
-  {'creatoruserid', 'forumid'} -> {'id'}
-  {'creatoruserid', 'creationdate'} -> {'id'}
-  {'creatoruserid', 'creationdate'} -> {'forumid'}
+  {'forumid', 'creatoruserid'} -> {'id'}
+  {'creationdate', 'creatoruserid'} -> {'id'}
+  {'creationdate', 'creatoruserid'} -> {'forumid'}
   {'creatoruserid', 'lastactivitydate'} -> {'id'}
   {'creatoruserid', 'lastactivitydate'} -> {'forumid'}
-  {'creatoruserid', 'totalviews'} -> {'id'}
-  {'creatoruserid', 'totalviews'} -> {'forumid'}
-  {'creatoruserid', 'totaldownloads'} -> {'id'}
-  {'creatoruserid', 'totaldownloads'} -> {'forumid'}
+  {'totalviews', 'creatoruserid'} -> {'id'}
+  {'totalviews', 'creatoruserid'} -> {'forumid'}
+  {'totaldownloads', 'creatoruserid'} -> {'id'}
+  {'totaldownloads', 'creatoruserid'} -> {'forumid'}
   {'creatoruserid', 'totalvotes'} -> {'id'}
   {'creatoruserid', 'totalvotes'} -> {'forumid'}
-  {'creatoruserid', 'totalkernels'} -> {'id'}
-  {'creatoruserid', 'totalkernels'} -> {'forumid'}
-  {'forumid', 'creationdate'} -> {'id'}
+  {'totalkernels', 'creatoruserid'} -> {'id'}
+  {'totalkernels', 'creatoruserid'} -> {'forumid'}
+  {'creationdate', 'forumid'} -> {'id'}
   {'forumid', 'lastactivitydate'} -> {'id'}
   {'forumid', 'totalviews'} -> {'id'}
   {'forumid', 'totaldownloads'} -> {'id'}
@@ -226,26 +226,26 @@ Table: DatasetsCleaned
   {'creationdate', 'totalvotes'} -> {'forumid'}
   {'creationdate', 'totalkernels'} -> {'id'}
   {'creationdate', 'totalkernels'} -> {'forumid'}
-  {'lastactivitydate', 'totalviews'} -> {'id'}
-  {'lastactivitydate', 'totalviews'} -> {'forumid'}
-  {'lastactivitydate', 'totaldownloads'} -> {'id'}
-  {'lastactivitydate', 'totaldownloads'} -> {'forumid'}
-  {'lastactivitydate', 'totalvotes'} -> {'id'}
-  {'lastactivitydate', 'totalvotes'} -> {'forumid'}
-  {'lastactivitydate', 'totalkernels'} -> {'id'}
-  {'lastactivitydate', 'totalkernels'} -> {'forumid'}
+  {'totalviews', 'lastactivitydate'} -> {'id'}
+  {'totalviews', 'lastactivitydate'} -> {'forumid'}
+  {'totaldownloads', 'lastactivitydate'} -> {'id'}
+  {'totaldownloads', 'lastactivitydate'} -> {'forumid'}
+  {'totalvotes', 'lastactivitydate'} -> {'id'}
+  {'totalvotes', 'lastactivitydate'} -> {'forumid'}
+  {'totalkernels', 'lastactivitydate'} -> {'id'}
+  {'totalkernels', 'lastactivitydate'} -> {'forumid'}
   {'totalviews', 'totaldownloads'} -> {'id'}
   {'totalviews', 'totaldownloads'} -> {'forumid'}
-  {'totalvotes', 'totalviews'} -> {'id'}
-  {'totalvotes', 'totalviews'} -> {'forumid'}
+  {'totalviews', 'totalvotes'} -> {'id'}
+  {'totalviews', 'totalvotes'} -> {'forumid'}
   {'totalviews', 'totalkernels'} -> {'id'}
   {'totalviews', 'totalkernels'} -> {'forumid'}
-  {'totalvotes', 'totaldownloads'} -> {'id'}
-  {'totalvotes', 'totaldownloads'} -> {'forumid'}
+  {'totaldownloads', 'totalvotes'} -> {'id'}
+  {'totaldownloads', 'totalvotes'} -> {'forumid'}
   {'totalkernels', 'totaldownloads'} -> {'id'}
   {'totalkernels', 'totaldownloads'} -> {'forumid'}
-  {'totalvotes', 'totalkernels'} -> {'id'}
-  {'totalvotes', 'totalkernels'} -> {'forumid'}
+  {'totalkernels', 'totalvotes'} -> {'id'}
+  {'totalkernels', 'totalvotes'} -> {'forumid'}
 
 Table: DatasetTags
   {'datasetid', 'tagid'} -> {'id'}
@@ -256,41 +256,41 @@ Table: CompetitionsCleaned
   {'title', 'id'} -> {'slug'}
   {'forumid', 'id'} -> {'slug'}
   {'enableddate', 'id'} -> {'slug'}
-  {'deadlinedate', 'id'} -> {'slug'}
-  {'evaluationalgorithmname', 'id'} -> {'slug'}
+  {'id', 'deadlinedate'} -> {'slug'}
+  {'id', 'evaluationalgorithmname'} -> {'slug'}
   {'maxteamsize', 'id'} -> {'slug'}
   {'id', 'numprizes'} -> {'slug'}
   {'totalteams', 'id'} -> {'slug'}
-  {'id', 'totalcompetitors'} -> {'slug'}
+  {'totalcompetitors', 'id'} -> {'slug'}
   {'totalsubmissions', 'id'} -> {'slug'}
   {'title', 'slug'} -> {'id'}
   {'forumid', 'slug'} -> {'id'}
   {'enableddate', 'slug'} -> {'id'}
-  {'deadlinedate', 'slug'} -> {'id'}
-  {'evaluationalgorithmname', 'slug'} -> {'id'}
+  {'slug', 'deadlinedate'} -> {'id'}
+  {'slug', 'evaluationalgorithmname'} -> {'id'}
   {'maxteamsize', 'slug'} -> {'id'}
   {'slug', 'numprizes'} -> {'id'}
-  {'totalteams', 'slug'} -> {'id'}
+  {'slug', 'totalteams'} -> {'id'}
   {'totalcompetitors', 'slug'} -> {'id'}
-  {'totalsubmissions', 'slug'} -> {'id'}
+  {'slug', 'totalsubmissions'} -> {'id'}
   {'forumid', 'title'} -> {'id'}
   {'forumid', 'title'} -> {'slug'}
   {'enableddate', 'title'} -> {'id'}
   {'enableddate', 'title'} -> {'slug'}
-  {'deadlinedate', 'title'} -> {'id'}
-  {'deadlinedate', 'title'} -> {'slug'}
-  {'evaluationalgorithmname', 'title'} -> {'id'}
-  {'evaluationalgorithmname', 'title'} -> {'slug'}
-  {'maxteamsize', 'title'} -> {'id'}
-  {'maxteamsize', 'title'} -> {'slug'}
+  {'title', 'deadlinedate'} -> {'id'}
+  {'title', 'deadlinedate'} -> {'slug'}
+  {'title', 'evaluationalgorithmname'} -> {'id'}
+  {'title', 'evaluationalgorithmname'} -> {'slug'}
+  {'title', 'maxteamsize'} -> {'id'}
+  {'title', 'maxteamsize'} -> {'slug'}
   {'title', 'numprizes'} -> {'id'}
   {'title', 'numprizes'} -> {'slug'}
-  {'totalteams', 'title'} -> {'id'}
-  {'totalteams', 'title'} -> {'slug'}
+  {'title', 'totalteams'} -> {'id'}
+  {'title', 'totalteams'} -> {'slug'}
   {'title', 'totalcompetitors'} -> {'id'}
   {'title', 'totalcompetitors'} -> {'slug'}
-  {'totalsubmissions', 'title'} -> {'id'}
-  {'totalsubmissions', 'title'} -> {'slug'}
+  {'title', 'totalsubmissions'} -> {'id'}
+  {'title', 'totalsubmissions'} -> {'slug'}
   {'forumid', 'enableddate'} -> {'id'}
   {'forumid', 'enableddate'} -> {'slug'}
   {'forumid', 'deadlinedate'} -> {'id'}
@@ -321,165 +321,118 @@ Table: CompetitionsCleaned
   {'enableddate', 'totalcompetitors'} -> {'slug'}
   {'enableddate', 'totalsubmissions'} -> {'id'}
   {'enableddate', 'totalsubmissions'} -> {'slug'}
-  {'deadlinedate', 'evaluationalgorithmname'} -> {'id'}
-  {'deadlinedate', 'evaluationalgorithmname'} -> {'slug'}
-  {'deadlinedate', 'maxteamsize'} -> {'id'}
-  {'deadlinedate', 'maxteamsize'} -> {'slug'}
-  {'deadlinedate', 'numprizes'} -> {'id'}
-  {'deadlinedate', 'numprizes'} -> {'slug'}
-  {'deadlinedate', 'totalteams'} -> {'id'}
-  {'deadlinedate', 'totalteams'} -> {'slug'}
-  {'deadlinedate', 'totalcompetitors'} -> {'id'}
-  {'deadlinedate', 'totalcompetitors'} -> {'slug'}
-  {'deadlinedate', 'totalsubmissions'} -> {'id'}
-  {'deadlinedate', 'totalsubmissions'} -> {'slug'}
+  {'evaluationalgorithmname', 'deadlinedate'} -> {'id'}
+  {'evaluationalgorithmname', 'deadlinedate'} -> {'slug'}
+  {'maxteamsize', 'deadlinedate'} -> {'id'}
+  {'maxteamsize', 'deadlinedate'} -> {'slug'}
+  {'numprizes', 'deadlinedate'} -> {'id'}
+  {'numprizes', 'deadlinedate'} -> {'slug'}
+  {'totalteams', 'deadlinedate'} -> {'id'}
+  {'totalteams', 'deadlinedate'} -> {'slug'}
+  {'totalcompetitors', 'deadlinedate'} -> {'id'}
+  {'totalcompetitors', 'deadlinedate'} -> {'slug'}
+  {'totalsubmissions', 'deadlinedate'} -> {'id'}
+  {'totalsubmissions', 'deadlinedate'} -> {'slug'}
   {'maxteamsize', 'evaluationalgorithmname'} -> {'id'}
   {'maxteamsize', 'evaluationalgorithmname'} -> {'slug'}
   {'evaluationalgorithmname', 'numprizes'} -> {'id'}
   {'evaluationalgorithmname', 'numprizes'} -> {'slug'}
   {'totalteams', 'evaluationalgorithmname'} -> {'id'}
   {'totalteams', 'evaluationalgorithmname'} -> {'slug'}
-  {'evaluationalgorithmname', 'totalcompetitors'} -> {'id'}
-  {'evaluationalgorithmname', 'totalcompetitors'} -> {'slug'}
+  {'totalcompetitors', 'evaluationalgorithmname'} -> {'id'}
+  {'totalcompetitors', 'evaluationalgorithmname'} -> {'slug'}
   {'totalsubmissions', 'evaluationalgorithmname'} -> {'id'}
   {'totalsubmissions', 'evaluationalgorithmname'} -> {'slug'}
   {'maxteamsize', 'numprizes'} -> {'id'}
   {'maxteamsize', 'numprizes'} -> {'slug'}
   {'maxteamsize', 'totalteams'} -> {'id'}
   {'maxteamsize', 'totalteams'} -> {'slug'}
-  {'maxteamsize', 'totalcompetitors'} -> {'id'}
-  {'maxteamsize', 'totalcompetitors'} -> {'slug'}
-  {'totalsubmissions', 'maxteamsize'} -> {'id'}
-  {'totalsubmissions', 'maxteamsize'} -> {'slug'}
+  {'totalcompetitors', 'maxteamsize'} -> {'id'}
+  {'totalcompetitors', 'maxteamsize'} -> {'slug'}
+  {'maxteamsize', 'totalsubmissions'} -> {'id'}
+  {'maxteamsize', 'totalsubmissions'} -> {'slug'}
   {'totalteams', 'numprizes'} -> {'id'}
   {'totalteams', 'numprizes'} -> {'slug'}
   {'totalcompetitors', 'numprizes'} -> {'id'}
   {'totalcompetitors', 'numprizes'} -> {'slug'}
   {'totalsubmissions', 'numprizes'} -> {'id'}
   {'totalsubmissions', 'numprizes'} -> {'slug'}
-  {'totalteams', 'totalcompetitors'} -> {'id'}
-  {'totalteams', 'totalcompetitors'} -> {'slug'}
+  {'totalcompetitors', 'totalteams'} -> {'id'}
+  {'totalcompetitors', 'totalteams'} -> {'slug'}
   {'totalsubmissions', 'totalteams'} -> {'id'}
   {'totalsubmissions', 'totalteams'} -> {'slug'}
-  {'totalsubmissions', 'totalcompetitors'} -> {'id'}
-  {'totalsubmissions', 'totalcompetitors'} -> {'slug'}
+  {'totalcompetitors', 'totalsubmissions'} -> {'id'}
+  {'totalcompetitors', 'totalsubmissions'} -> {'slug'}
 
 Table: CompetitionTags
   {'competitionid', 'tagid'} -> {'id'}
 
 Table: TeamsCleaned
-  {'teamleaderid', 'competitionid'} -> {'id'}
-  {'teamname', 'competitionid'} -> {'id'}
-  {'teamleaderid', 'teamname'} -> {'id'}
+  {'competitionid', 'teamleaderid'} -> {'id'}
+  {'competitionid', 'teamname'} -> {'id'}
+  {'teamname', 'teamleaderid'} -> {'id'}
 
 Table: SubmissionsCleaned
   {'teamid', 'submitteduserid'} -> {'id'}
-  {'submitteduserid', 'submissiondate'} -> {'id'}
-  {'submitteduserid', 'isafterdeadline'} -> {'id'}
+  {'submissiondate', 'submitteduserid'} -> {'id'}
+  {'isafterdeadline', 'submitteduserid'} -> {'id'}
   {'publicscoreleaderboarddisplay', 'submitteduserid'} -> {'id'}
   {'privatescoreleaderboarddisplay', 'submitteduserid'} -> {'id'}
   {'teamid', 'submissiondate'} -> {'id'}
-  {'teamid', 'isafterdeadline'} -> {'id'}
+  {'isafterdeadline', 'teamid'} -> {'id'}
   {'publicscoreleaderboarddisplay', 'teamid'} -> {'id'}
   {'privatescoreleaderboarddisplay', 'teamid'} -> {'id'}
   {'isafterdeadline', 'submissiondate'} -> {'id'}
   {'publicscoreleaderboarddisplay', 'submissiondate'} -> {'id'}
   {'privatescoreleaderboarddisplay', 'submissiondate'} -> {'id'}
-  {'publicscoreleaderboarddisplay', 'isafterdeadline'} -> {'id'}
-  {'privatescoreleaderboarddisplay', 'isafterdeadline'} -> {'id'}
+  {'isafterdeadline', 'publicscoreleaderboarddisplay'} -> {'id'}
+  {'isafterdeadline', 'privatescoreleaderboarddisplay'} -> {'id'}
   {'privatescoreleaderboarddisplay', 'publicscoreleaderboarddisplay'} -> {'id'}
 
 Table: UserAchievements
-  {'id'} -> {'currentranking'}
-  {'currentranking'} -> {'id'}
-  {'id', 'userid'} -> {'currentranking'}
-  {'achievementtype', 'id'} -> {'currentranking'}
-  {'tier', 'id'} -> {'currentranking'}
-  {'tierachievementdate', 'id'} -> {'currentranking'}
-  {'id', 'points'} -> {'currentranking'}
-  {'id', 'highestranking'} -> {'currentranking'}
-  {'totalgold', 'id'} -> {'currentranking'}
-  {'totalsilver', 'id'} -> {'currentranking'}
-  {'id', 'totalbronze'} -> {'currentranking'}
   {'achievementtype', 'userid'} -> {'id'}
-  {'achievementtype', 'userid'} -> {'currentranking'}
   {'tier', 'userid'} -> {'id'}
-  {'tier', 'userid'} -> {'currentranking'}
   {'tierachievementdate', 'userid'} -> {'id'}
-  {'tierachievementdate', 'userid'} -> {'currentranking'}
   {'points', 'userid'} -> {'id'}
-  {'points', 'userid'} -> {'currentranking'}
   {'currentranking', 'userid'} -> {'id'}
   {'highestranking', 'userid'} -> {'id'}
-  {'highestranking', 'userid'} -> {'currentranking'}
   {'totalgold', 'userid'} -> {'id'}
-  {'totalgold', 'userid'} -> {'currentranking'}
   {'totalsilver', 'userid'} -> {'id'}
-  {'totalsilver', 'userid'} -> {'currentranking'}
   {'totalbronze', 'userid'} -> {'id'}
-  {'totalbronze', 'userid'} -> {'currentranking'}
-  {'achievementtype', 'tier'} -> {'id'}
-  {'achievementtype', 'tier'} -> {'currentranking'}
-  {'tierachievementdate', 'achievementtype'} -> {'id'}
-  {'tierachievementdate', 'achievementtype'} -> {'currentranking'}
+  {'tier', 'achievementtype'} -> {'id'}
+  {'achievementtype', 'tierachievementdate'} -> {'id'}
   {'achievementtype', 'points'} -> {'id'}
-  {'achievementtype', 'points'} -> {'currentranking'}
   {'currentranking', 'achievementtype'} -> {'id'}
-  {'achievementtype', 'highestranking'} -> {'id'}
-  {'achievementtype', 'highestranking'} -> {'currentranking'}
-  {'totalgold', 'achievementtype'} -> {'id'}
-  {'totalgold', 'achievementtype'} -> {'currentranking'}
-  {'achievementtype', 'totalsilver'} -> {'id'}
-  {'achievementtype', 'totalsilver'} -> {'currentranking'}
-  {'achievementtype', 'totalbronze'} -> {'id'}
-  {'achievementtype', 'totalbronze'} -> {'currentranking'}
-  {'tierachievementdate', 'tier'} -> {'id'}
-  {'tierachievementdate', 'tier'} -> {'currentranking'}
+  {'highestranking', 'achievementtype'} -> {'id'}
+  {'achievementtype', 'totalgold'} -> {'id'}
+  {'totalsilver', 'achievementtype'} -> {'id'}
+  {'totalbronze', 'achievementtype'} -> {'id'}
+  {'tier', 'tierachievementdate'} -> {'id'}
   {'tier', 'points'} -> {'id'}
-  {'tier', 'points'} -> {'currentranking'}
   {'currentranking', 'tier'} -> {'id'}
-  {'tier', 'highestranking'} -> {'id'}
-  {'tier', 'highestranking'} -> {'currentranking'}
-  {'totalgold', 'tier'} -> {'id'}
-  {'totalgold', 'tier'} -> {'currentranking'}
-  {'tier', 'totalsilver'} -> {'id'}
-  {'tier', 'totalsilver'} -> {'currentranking'}
-  {'tier', 'totalbronze'} -> {'id'}
-  {'tier', 'totalbronze'} -> {'currentranking'}
+  {'highestranking', 'tier'} -> {'id'}
+  {'tier', 'totalgold'} -> {'id'}
+  {'totalsilver', 'tier'} -> {'id'}
+  {'totalbronze', 'tier'} -> {'id'}
   {'tierachievementdate', 'points'} -> {'id'}
-  {'tierachievementdate', 'points'} -> {'currentranking'}
   {'currentranking', 'tierachievementdate'} -> {'id'}
-  {'tierachievementdate', 'highestranking'} -> {'id'}
-  {'tierachievementdate', 'highestranking'} -> {'currentranking'}
+  {'highestranking', 'tierachievementdate'} -> {'id'}
   {'totalgold', 'tierachievementdate'} -> {'id'}
-  {'totalgold', 'tierachievementdate'} -> {'currentranking'}
-  {'tierachievementdate', 'totalsilver'} -> {'id'}
-  {'tierachievementdate', 'totalsilver'} -> {'currentranking'}
-  {'tierachievementdate', 'totalbronze'} -> {'id'}
-  {'tierachievementdate', 'totalbronze'} -> {'currentranking'}
+  {'totalsilver', 'tierachievementdate'} -> {'id'}
+  {'totalbronze', 'tierachievementdate'} -> {'id'}
   {'currentranking', 'points'} -> {'id'}
   {'highestranking', 'points'} -> {'id'}
-  {'highestranking', 'points'} -> {'currentranking'}
   {'totalgold', 'points'} -> {'id'}
-  {'totalgold', 'points'} -> {'currentranking'}
   {'totalsilver', 'points'} -> {'id'}
-  {'totalsilver', 'points'} -> {'currentranking'}
   {'totalbronze', 'points'} -> {'id'}
-  {'totalbronze', 'points'} -> {'currentranking'}
   {'currentranking', 'highestranking'} -> {'id'}
-  {'totalgold', 'currentranking'} -> {'id'}
-  {'currentranking', 'totalsilver'} -> {'id'}
+  {'currentranking', 'totalgold'} -> {'id'}
+  {'totalsilver', 'currentranking'} -> {'id'}
   {'currentranking', 'totalbronze'} -> {'id'}
-  {'totalgold', 'highestranking'} -> {'id'}
-  {'totalgold', 'highestranking'} -> {'currentranking'}
+  {'highestranking', 'totalgold'} -> {'id'}
   {'totalsilver', 'highestranking'} -> {'id'}
-  {'totalsilver', 'highestranking'} -> {'currentranking'}
-  {'totalbronze', 'highestranking'} -> {'id'}
-  {'totalbronze', 'highestranking'} -> {'currentranking'}
-  {'totalgold', 'totalsilver'} -> {'id'}
-  {'totalgold', 'totalsilver'} -> {'currentranking'}
-  {'totalgold', 'totalbronze'} -> {'id'}
-  {'totalgold', 'totalbronze'} -> {'currentranking'}
+  {'highestranking', 'totalbronze'} -> {'id'}
+  {'totalsilver', 'totalgold'} -> {'id'}
+  {'totalbronze', 'totalgold'} -> {'id'}
   {'totalsilver', 'totalbronze'} -> {'id'}
-  {'totalsilver', 'totalbronze'} -> {'currentranking'}
 

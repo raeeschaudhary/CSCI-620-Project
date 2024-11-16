@@ -22,7 +22,7 @@ data_directory = 'C:\\Users\\mr2714\\Desktop\\venvs\\pdata\\'
 chunk_size = 100000
 
 # this is the limit on generate FDs code, can be increaed or decreased. 
-limit_size = 100000
+limit_size = 10000
 
 # these are the list of tables in the db; We use it check table results; to avoid sql injection
 cleaned_files = ["Users", "Tags", "Forums", "Organizations", "UserOrganizations", "UserFollowers", "DatasetsCleaned", "DatasetTags", 
