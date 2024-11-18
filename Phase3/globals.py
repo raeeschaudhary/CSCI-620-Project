@@ -1,17 +1,10 @@
 # Provide the SQL db credentials for your machine
 sql_db_config = {
     'host': 'localhost',
-    'database': 'bdp1',
+    'database': 'bdp3',
     'user': 'postgres',
     'password': 'root',
     'port': '5432'
-}
-
-# Provide the mongodb credentials for your machine
-mongo_db_config = {
-    'host': 'localhost',
-    'port': 27017,
-    'database': 'bdp2'
 }
 
 # provide the dataset folder; make sure to include the last slash(es).
