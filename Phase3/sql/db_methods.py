@@ -92,12 +92,16 @@ def insert_users(input_file, query):
     # merge the file name with the data_directory provided in globals.py
     csv_file = data_directory + input_file
     chunks = get_csv_chunker(csv_file)
+    # get a counter just for output tracking
+    counter = 0
     # process each chunk
     for chunk in chunks:
+        print(f"\rProcessed Chunks: {counter} of 205", end="")
         # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
         # insert tuple into database
         execute_df_values(query, df_values)
+
 
 def insert_tags(input_file, query):
     """

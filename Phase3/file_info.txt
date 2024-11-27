@@ -1,0 +1,36 @@
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+File: C:\Users\mr2714\Desktop\venvs\pdata\Users.csv
+Total Records: 20485253
+Key information with max value lengths, longest values, and null counts:
+Key: Country
+Longest Value Length: 33
+Longest Value: Falkland Islands (Islas Malvinas)
+Null count: 19192222
+Unique Count: 50
+Key: DisplayName
+Longest Value Length: 255
+Longest Value: Lorem ipsum dolor sit amet, nonummy ligula volutpat hac integer nonummy. Suspendisse ultricies, congue etiam tellus, erat libero, nulla eleifend, mauris pellentesque. Suspendisse integer praesent vel, integer gravida mauris, fringilla vehicula lacinia non
+Null count: 314
+Unique Count: 50
+Key: Id
+Longest Value Length: 8
+Longest Value: 10000000
+Null count: 0
+Unique Count: 50
+Key: PerformanceTier
+Longest Value Length: 1
+Longest Value: 5
+Null count: 0
+Unique Count: 50
+Key: RegisterDate
+Longest Value Length: 10
+Longest Value: 03/24/2011
+Null count: 0
+Unique Count: 50
+Key: UserName
+Longest Value Length: 50
+Longest Value: auvdpqyicoarfaicjifbthcbxttzkaeghuncqaoragvmsgnsqu
+Null count: 1
+Unique Count: 50
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
