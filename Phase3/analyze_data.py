@@ -106,8 +106,8 @@ if __name__ == "__main__":
     # Name of the output file to store results of analysis
     output_file = 'file_info.txt'
     # Specify the field name to check for null values (e.g., 'username')
-    field_name = 'UserName'
+    field_name = 'SubmittedUserId'
     # Call the method to explore files.
-    save_results_to_file(['Users'], output_file, field_name=field_name)
+    save_results_to_file(['SubmissionsCleaned'], output_file, field_name=field_name)
     print('File Results Stored to ', output_file)
     print('++++++++++++++++++++++++++++++++++++++++++++++')
