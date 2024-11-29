@@ -338,3 +338,472 @@ Key: TotalViews
 Longest Value Length: 8
 Longest Value: 11264594
 Null count: 0
+Unique Count: 50
+Key: TotalVotes
+Longest Value Length: 5
+Longest Value: 11593
+Null count: 0
+Unique Count: 50
+Key: Type
+Longest Value Length: 7
+Longest Value: Dataset
+Null count: 0
+Unique Count: 40
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+File: C:\Users\mr2714\Desktop\venvs\pdata\DatasetTags.csv
+Total Records: 366505
+Key information with max value lengths, longest values, and null counts:
+Key: DatasetId
+Longest Value Length: 7
+Longest Value: 1000072
+Null count: 0
+Unique Count: 50
+Key: Id
+Longest Value Length: 7
+Longest Value: 1000023
+Null count: 0
+Unique Count: 50
+Key: TagId
+Longest Value Length: 5
+Longest Value: 11104
+Null count: 0
+Unique Count: 50
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+File: C:\Users\mr2714\Desktop\venvs\pdata\Competitions.csv
+Total Records: 5695
+Key information with max value lengths, longest values, and null counts:
+Key: BanTeamMergers
+Longest Value Length: 5
+Longest Value: False
+Null count: 0
+Unique Count: 2
+Key: CanQualifyTiers
+Longest Value Length: 5
+Longest Value: False
+Null count: 0
+Unique Count: 2
+Key: CompetitionTypeId
+Longest Value Length: 1
+Longest Value: 1
+Null count: 0
+Unique Count: 1
+Key: DeadlineDate
+Longest Value Length: 19
+Longest Value: 04/07/2019 23:59:00
+Null count: 0
+Unique Count: 3307
+Key: EnableSubmissionModelAttachments
+Longest Value Length: 5
+Longest Value: False
+Null count: 0
+Unique Count: 1
+Key: EnableSubmissionModelHashes
+Longest Value Length: 5
+Longest Value: False
+Null count: 0
+Unique Count: 1
+Key: EnableTeamModels
+Longest Value Length: 5
+Longest Value: False
+Null count: 0
+Unique Count: 2
+Key: EnabledDate
+Longest Value Length: 19
+Longest Value: 04/05/2019 20:14:39
+Null count: 0
+Unique Count: 5672
+Key: EvaluationAlgorithmAbbreviation
+Longest Value Length: 57
+Longest Value: IntersectionOverUnionObjectSegmentationWithClassification
+Null count: 1
+Unique Count: 198
+Key: EvaluationAlgorithmDescription
+Longest Value Length: 240
+Longest Value: The metric is an mean average accuracy between solution and submission camera centers.     Prior to calculate the metric, a function performs exhaustive registration (like RANSAC, but not random, considering     all possible configurations)
+Null count: 26
+Unique Count: 169
+Key: EvaluationAlgorithmIsMax
+Longest Value Length: 5
+Longest Value: False
+Null count: 1
+Unique Count: 2
+Key: EvaluationAlgorithmName
+Longest Value Length: 66
+Longest Value: Mean Columnwise Area Under Receiver Operating Characteristic Curve
+Null count: 1
+Unique Count: 194
+Key: FinalLeaderboardHasBeenVerified
+Longest Value Length: 4
+Longest Value: True
+Null count: 0
+Unique Count: 1
+Key: ForumId
+Longest Value Length: 7
+Longest Value: 1257654
+Null count: 0
+Unique Count: 5693
+Key: HasKernels
+Longest Value Length: 5
+Longest Value: False
+Null count: 0
+Unique Count: 2
+Key: HasLeaderboard
+Longest Value Length: 5
+Longest Value: False
+Null count: 0
+Unique Count: 2
+Key: HostName
+Longest Value Length: 0
+Longest Value: 
+Null count: 5695
+Unique Count: 0
+Key: HostSegmentTitle
+Longest Value Length: 15
+Longest Value: Getting Started
+Null count: 0
+Unique Count: 7
+Key: Id
+Longest Value Length: 5
+Longest Value: 13979
+Null count: 0
+Unique Count: 5695
+Key: LeaderboardPercentage
+Longest Value Length: 3
+Longest Value: 100
+Null count: 0
+Unique Count: 90
+Key: MaxDailySubmissions
+Longest Value Length: 7
+Longest Value: 1000000
+Null count: 0
+Unique Count: 41
+Key: MaxTeamSize
+Longest Value Length: 2
+Longest Value: 20
+Null count: 0
+Unique Count: 11
+Key: ModelSubmissionDeadlineDate
+Longest Value Length: 19
+Longest Value: 09/21/2012 23:59:00
+Null count: 5681
+Unique Count: 14
+Key: NumPrizes
+Longest Value Length: 2
+Longest Value: 10
+Null count: 0
+Unique Count: 13
+Key: NumScoredSubmissions
+Longest Value Length: 8
+Longest Value: 10000000
+Null count: 0
+Unique Count: 36
+Key: OnlyAllowKernelSubmissions
+Longest Value Length: 5
+Longest Value: False
+Null count: 0
+Unique Count: 2
+Key: OrganizationId
+Longest Value Length: 6
+Longest Value: 3838.0
+Null count: 5195
+Unique Count: 176
+Key: ProhibitNewEntrantsDeadlineDate
+Longest Value Length: 19
+Longest Value: 02/26/2023 23:59:00
+Null count: 5333
+Unique Count: 312
+Key: RewardQuantity
+Longest Value Length: 9
+Longest Value: 1000000.0
+Null count: 4281
+Unique Count: 68
+Key: RewardType
+Longest Value Length: 9
+Longest Value: Knowledge
+Null count: 4775
+Unique Count: 7
+Key: ScoreTruncationNumDecimals
+Longest Value Length: 2
+Longest Value: 10
+Null count: 0
+Unique Count: 9
+Key: Slug
+Longest Value Length: 77
+Longest Value: challenges-in-representation-learning-facial-expression-recognition-challenge
+Null count: 0
+Unique Count: 5695
+Key: Subtitle
+Longest Value Length: 227
+Longest Value: Going grocery shopping, we all have to do it, some even enjoy it, but can you predict it? dunnhumby is looking to build a model to better predict when supermarket shoppers will next visit the store and how much they will spend.
+Null count: 8
+Unique Count: 4810
+Key: TeamMergerDeadlineDate
+Longest Value Length: 19
+Longest Value: 02/26/2023 23:59:00
+Null count: 5339
+Unique Count: 309
+Key: TeamModelDeadlineDate
+Longest Value Length: 19
+Longest Value: 03/31/2023 00:00:00
+Null count: 5407
+Unique Count: 233
+Key: Title
+Longest Value Length: 92
+Longest Value: Oropharynx Cancer (OPC) Radiomics Challenge :: Human Papilloma Virus (HPV) Status Prediction
+Null count: 0
+Unique Count: 5316
+Key: TotalCompetitors
+Longest Value Length: 4
+Longest Value: 1573
+Null count: 0
+Unique Count: 720
+Key: TotalSubmissions
+Longest Value Length: 6
+Longest Value: 104129
+Null count: 0
+Unique Count: 1477
+Key: TotalTeams
+Longest Value Length: 4
+Longest Value: 1440
+Null count: 0
+Unique Count: 695
+Key: UserRankMultiplier
+Longest Value Length: 5
+Longest Value: 1e-16
+Null count: 0
+Unique Count: 8
+Key: ValidationSetName
+Longest Value Length: 0
+Longest Value: 
+Null count: 5695
+Unique Count: 0
+Key: ValidationSetValue
+Longest Value Length: 0
+Longest Value: 
+Null count: 5695
+Unique Count: 0
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+File: C:\Users\mr2714\Desktop\venvs\pdata\CompetitionTags.csv
+Total Records: 1046
+Key information with max value lengths, longest values, and null counts:
+Key: CompetitionId
+Longest Value Length: 5
+Longest Value: 10012
+Null count: 0
+Unique Count: 440
+Key: Id
+Longest Value Length: 5
+Longest Value: 37826
+Null count: 0
+Unique Count: 1046
+Key: TagId
+Longest Value Length: 5
+Longest Value: 14102
+Null count: 0
+Unique Count: 127
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+File: C:\Users\mr2714\Desktop\venvs\pdata\Teams.csv
+Total Records: 7675480
+Key information with max value lengths, longest values, and null counts:
+Key: CompetitionId
+Longest Value Length: 5
+Longest Value: 10001
+Null count: 0
+Unique Count: 50
+Key: Id
+Longest Value Length: 8
+Longest Value: 10000000
+Null count: 0
+Unique Count: 50
+Key: IsBenchmark
+Longest Value Length: 5
+Longest Value: False
+Null count: 0
+Unique Count: 50
+Key: LastSubmissionDate
+Longest Value Length: 10
+Longest Value: 05/04/2010
+Null count: 6857623
+Unique Count: 50
+Key: Medal
+Longest Value Length: 3
+Longest Value: 3.0
+Null count: 7615391
+Unique Count: 50
+Key: MedalAwardDate
+Longest Value Length: 10
+Longest Value: 09/06/2018
+Null count: 7595127
+Unique Count: 50
+Key: PrivateLeaderboardRank
+Longest Value Length: 6
+Longest Value: 1077.0
+Null count: 6875126
+Unique Count: 50
+Key: PrivateLeaderboardSubmissionId
+Longest Value Length: 10
+Longest Value: 12781798.0
+Null count: 6871421
+Unique Count: 50
+Key: PublicLeaderboardRank
+Longest Value Length: 6
+Longest Value: 1067.0
+Null count: 6875096
+Unique Count: 50
+Key: PublicLeaderboardSubmissionId
+Longest Value Length: 10
+Longest Value: 12781798.0
+Null count: 6871391
+Unique Count: 50
+Key: ScoreFirstSubmittedDate
+Longest Value Length: 0
+Longest Value: 
+Null count: 7675480
+Unique Count: 0
+Key: TeamLeaderId
+Longest Value Length: 10
+Longest Value: 10130601.0
+Null count: 26313
+Unique Count: 50
+Key: TeamName
+Longest Value Length: 255
+Longest Value: erggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+Null count: 845
+Unique Count: 50
+Key: WriteUpForumTopicId
+Longest Value Length: 8
+Longest Value: 103747.0
+Null count: 7670741
+Unique Count: 50
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+File: C:\Users\mr2714\Desktop\venvs\pdata\Submissions.csv
+Total Records: 14801034
+Key information with max value lengths, longest values, and null counts:
+Key: Id
+Longest Value Length: 8
+Longest Value: 10000000
+Null count: 0
+Unique Count: 50
+Key: IsAfterDeadline
+Longest Value Length: 5
+Longest Value: False
+Null count: 0
+Unique Count: 50
+Key: PrivateScoreFullPrecision
+Longest Value Length: 24
+Longest Value: -2.4910790855140672e+148
+Null count: 584178
+Unique Count: 50
+Key: PrivateScoreLeaderboardDisplay
+Longest Value Length: 55
+Longest Value: 1172300364698904524762914042776038131989632516096.00000
+Null count: 584178
+Unique Count: 50
+Key: PublicScoreFullPrecision
+Longest Value Length: 24
+Longest Value: -4.1855869471090157e+102
+Null count: 584178
+Unique Count: 50
+Key: PublicScoreLeaderboardDisplay
+Longest Value Length: 55
+Longest Value: 1172300364698904524762914042776038131989632516096.00000
+Null count: 583990
+Unique Count: 50
+Key: ScoreDate
+Longest Value Length: 10
+Longest Value: 02/18/2014
+Null count: 534044
+Unique Count: 50
+Key: SourceKernelVersionId
+Longest Value Length: 11
+Longest Value: 103043325.0
+Null count: 9748357
+Unique Count: 50
+Key: SubmissionDate
+Longest Value Length: 10
+Longest Value: 02/18/2014
+Null count: 0
+Unique Count: 50
+Key: SubmittedUserId
+Longest Value Length: 9
+Longest Value: 1001247.0
+Null count: 1346
+Unique Count: 50
+Key: TeamId
+Longest Value Length: 8
+Longest Value: 10092503
+Null count: 0
+Unique Count: 50
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+File: C:\Users\mr2714\Desktop\venvs\pdata\UserAchievements.csv
+Total Records: 81940708
+Key information with max value lengths, longest values, and null counts:
+Key: AchievementType
+Longest Value Length: 12
+Longest Value: Competitions
+Null count: 0
+Unique Count: 50
+Key: CurrentRanking
+Longest Value Length: 7
+Longest Value: 12595.0
+Null count: 81912703
+Unique Count: 50
+Key: HighestRanking
+Longest Value Length: 8
+Longest Value: 111334.0
+Null count: 81912198
+Unique Count: 50
+Key: Id
+Longest Value Length: 9
+Longest Value: 102805049
+Null count: 0
+Unique Count: 50
+Key: Points
+Longest Value Length: 6
+Longest Value: 127784
+Null count: 0
+Unique Count: 50
+Key: Tier
+Longest Value Length: 1
+Longest Value: 1
+Null count: 0
+Unique Count: 50
+Key: TierAchievementDate
+Longest Value Length: 10
+Longest Value: 07/15/2016
+Null count: 494151
+Unique Count: 50
+Key: TotalBronze
+Longest Value Length: 5
+Longest Value: 12158
+Null count: 0
+Unique Count: 50
+Key: TotalGold
+Longest Value Length: 3
+Longest Value: 154
+Null count: 0
+Unique Count: 50
+Key: TotalSilver
+Longest Value Length: 3
+Longest Value: 231
+Null count: 0
+Unique Count: 50
+Key: UserId
+Longest Value Length: 8
+Longest Value: 10000000
+Null count: 0
+Unique Count: 50
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
