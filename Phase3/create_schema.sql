@@ -20,7 +20,8 @@ DROP TABLE IF EXISTS Tags CASCADE;
 
 CREATE TABLE Tags (
     Id INTEGER PRIMARY KEY,
-    ParentTagId FLOAT,
+    ParentTagId INTEGER,
+    -- ALTER TABLE tags ADD CONSTRAINT fk_ParentTagId FOREIGN KEY (ParentTagId) REFERENCES Tags(Id) ON DELETE CASCADE; -- will be added after cleaning
     Name VARCHAR(50) NOT NULL,
     Slug VARCHAR(85) NOT NULL,
     FullPath VARCHAR(95) NOT NULL,
@@ -36,8 +37,8 @@ DROP TABLE IF EXISTS Forums CASCADE;
 
 CREATE TABLE Forums (
     Id INTEGER PRIMARY KEY,
-    ParentForumId FLOAT,
-    Title VARCHAR(100)
+    ParentForumId INTEGER NOT NULL,
+    Title VARCHAR(100) NOT NULL
 );
 
 -- -- Organizations
@@ -148,7 +149,8 @@ CREATE TABLE TeamsCleaned (
     Id INTEGER PRIMARY KEY,
     CompetitionId INTEGER NOT NULL,
     FOREIGN KEY (CompetitionId) REFERENCES CompetitionsCleaned (Id),
-    TeamLeaderId FLOAT, -- need to clean from float to int in Phase 3
+    TeamLeaderId INTEGER NOT NULL,
+    FOREIGN KEY (TeamLeaderId) REFERENCES Users (Id),
     TeamName VARCHAR(260)
 );
 
@@ -158,7 +160,8 @@ DROP TABLE IF EXISTS SubmissionsCleaned CASCADE;
 
 CREATE TABLE SubmissionsCleaned (
     Id INTEGER PRIMARY KEY,
-    SubmittedUserId FLOAT, -- need to clean float to int Phase 3
+    SubmittedUserId INTEGER,
+    FOREIGN KEY (SubmittedUserId) REFERENCES Users (Id),
     TeamId INTEGER NOT NULL,
     FOREIGN KEY (TeamId) REFERENCES TeamsCleaned (Id),
     SubmissionDate DATE NOT NULL,
@@ -177,7 +180,7 @@ CREATE TABLE UserAchievements (
     FOREIGN KEY (UserId) REFERENCES Users (Id),
     AchievementType VARCHAR(15) NOT NULL,
     Tier SMALLINT NOT NULL,
-    TierAchievementDate VARCHAR(30), --  this should be DATE but needs cleaning
+    TierAchievementDate DATE,
     Points INTEGER NOT NULL,
     CurrentRanking FLOAT,
     HighestRanking FLOAT,
