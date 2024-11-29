@@ -76,17 +76,17 @@ if __name__=="__main__":
     # insert_teams("TeamsCleaned.csv", teams_insert_query)
     # print("\nTeams Created")
 
-    # SubmissionsCleaned
-    print('++++++++++++++++++++++++++++++++++++++++++++++')
-    print("Inserting Submissions")
-    insert_submissions("SubmissionsCleaned.csv", submission_insert_query)
-    print("\nSubmissions Created")
+    # # # SubmissionsCleaned
+    # print('++++++++++++++++++++++++++++++++++++++++++++++')
+    # print("Inserting Submissions")
+    # insert_submissions("SubmissionsCleaned.csv", submission_insert_query)
+    # print("\nSubmissions Created")
 
     # # UserAchievements
-    # print('++++++++++++++++++++++++++++++++++++++++++++++')
-    # print("Inserting User Achievements")
-    # insert_user_achievements("UserAchievements.csv", user_achievements_insert_query)
-    # print("UserAchievements Created")
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Inserting User Achievements")
+    insert_user_achievements("UserAchievements.csv", user_achievements_insert_query)
+    print("\nUserAchievements Created")
 
 
     print("=================================================")

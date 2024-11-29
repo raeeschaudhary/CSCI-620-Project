@@ -79,6 +79,31 @@ def clean_chunk_remove_none(chunk_data, loc, float_check=False):
         cleaned_chunk.append(cleaned_tuple)
     return cleaned_chunk
 
+def clean_chunk_remove_none_dates(chunk_data, loc, float_check=False):
+    """
+    Extract ids from chunk_data on give location to compare FK ids with existing Ids in the database just the floats.
+    
+    :param chunk_data: the chunk of the data to be processed.
+    :param loc: location of the attribute in the chunk_data tuple to be extracted
+    :return: list of values extracted from chunk_data at loc.
+    """
+    cleaned_chunk = []
+    # iterate through each row in the chunk_data
+    for data in chunk_data:
+        # get the value at the specified location
+        value = data[loc]
+        # check if the value is NaN, ignore it
+        if pd.isna(value):
+            continue
+        else:
+            # leave it as is
+            cleaned_value = value          
+        # replace the value at loc with the cleaned value and add the tuple to the cleaned_list
+        cleaned_tuple = tuple(cleaned_value if idx == loc else data[idx] for idx in range(len(data)))
+        # append the cleaned tuple to the cleaned_list
+        cleaned_chunk.append(cleaned_tuple)
+    return cleaned_chunk
+
 
 def check_valid_fk_ids(table, ids):
     """
@@ -529,10 +554,16 @@ def insert_user_achievements(input_file, query):
     csv_file = data_directory + input_file
     # read the chunks of file by providing the path to file. 
     chunks = get_csv_chunker(csv_file)
+    # get a counter just for output tracking
+    counter = 0
     # process each chunk
     for chunk in chunks:
+        counter += 1
+        print(f"\rProcessed Chunks: {counter} of 820", end="")
         # convert chunk into a list of tuples
         df_values = list(chunk.itertuples(index=False, name=None))
+        # convert the df_values parent forum Id from float to integer. 
+        df_values = clean_chunk_remove_none_dates(df_values, -7, True)
         # get the FK ids from the chunck; provide the FK index
         users_ids = extract_ids_from_chunk(df_values, -10)
         # compare ids with the ids already existing in the primary table for FK ids; provide the primary table; valid_ids are returned as set

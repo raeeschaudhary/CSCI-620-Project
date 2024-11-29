@@ -156,19 +156,19 @@
 
 -- -- CleanedSubmissions
 
-DROP TABLE IF EXISTS SubmissionsCleaned CASCADE;
+-- DROP TABLE IF EXISTS SubmissionsCleaned CASCADE;
 
-CREATE TABLE SubmissionsCleaned (
-    Id INTEGER PRIMARY KEY,
-    SubmittedUserId INTEGER,
-    FOREIGN KEY (SubmittedUserId) REFERENCES Users (Id),
-    TeamId INTEGER NOT NULL,
-    FOREIGN KEY (TeamId) REFERENCES TeamsCleaned (Id),
-    SubmissionDate DATE NOT NULL,
-    IsAfterDeadline BOOLEAN NOT NULL,
-    PublicScoreLeaderboardDisplay FLOAT,
-    PrivateScoreLeaderboardDisplay FLOAT
-);
+-- CREATE TABLE SubmissionsCleaned (
+--     Id INTEGER PRIMARY KEY,
+--     SubmittedUserId INTEGER,
+--     FOREIGN KEY (SubmittedUserId) REFERENCES Users (Id),
+--     TeamId INTEGER NOT NULL,
+--     FOREIGN KEY (TeamId) REFERENCES TeamsCleaned (Id),
+--     SubmissionDate DATE NOT NULL,
+--     IsAfterDeadline BOOLEAN NOT NULL,
+--     PublicScoreLeaderboardDisplay FLOAT,
+--     PrivateScoreLeaderboardDisplay FLOAT
+-- );
 
 -- -- -- UserAchievements
 
@@ -180,7 +180,7 @@ CREATE TABLE UserAchievements (
     FOREIGN KEY (UserId) REFERENCES Users (Id),
     AchievementType VARCHAR(15) NOT NULL,
     Tier SMALLINT NOT NULL,
-    TierAchievementDate VARCHAR(30), --  this should be DATE but needs cleaning
+    TierAchievementDate DATE, --  this should be DATE but needs cleaning
     Points INTEGER NOT NULL,
     CurrentRanking FLOAT,
     HighestRanking FLOAT,
