@@ -4,6 +4,7 @@ import pandas as pd
 from collections import defaultdict
 from itertools import combinations
 import warnings
+import time
 
 
 class KaggleAssociationMiner:
@@ -394,6 +395,8 @@ def print_analysis_results(analysis_type, frequent_itemsets, rules, df, top_n=10
         print(f"Average downloads per dataset: {df['totaldownloads'].mean():.2f}")
 
 if __name__ == "__main__":
+    start_time = time.time()
+
     db_params = sql_db_config
 
     miner = KaggleAssociationMiner(**db_params)
@@ -425,3 +428,9 @@ if __name__ == "__main__":
     )
 
     print_analysis_results(analysis_type, frequent_itemsets, rules, df)
+
+
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    end_time = time.time()
+    run_time = end_time - start_time
+    print("Total running time: ", run_time, " seconds")
