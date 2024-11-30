@@ -1,5 +1,5 @@
 import time
-from sql.clean_methods import *
+from sql.filtering_methods import *
 
 if __name__=="__main__":
     start_time = time.time()

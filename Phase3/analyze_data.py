@@ -1,5 +1,6 @@
 from globals import *
 import pandas as pd
+import time
 
 def analyze_csv(file_path, chunksize=10000, field_name=None):
     """
@@ -100,7 +101,9 @@ def save_results_to_file(file_paths, output_file, field_name=None):
             f.write("\n")
 
 
-if __name__ == "__main__":   
+if __name__ == "__main__":
+    start_time = time.time()
+
     print('++++++++++++++++++++++++++++++++++++++++++++++')
     print("Exploring Files")
     # name of the output file to store results of analysis
@@ -111,3 +114,7 @@ if __name__ == "__main__":
     save_results_to_file(input_files, output_file, field_name=field_name)
     print('File Results Stored to ', output_file)
     print('++++++++++++++++++++++++++++++++++++++++++++++')
+
+    end_time = time.time()
+    run_time = end_time - start_time
+    print("Total running time: ", run_time, " seconds")

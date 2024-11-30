@@ -106,7 +106,7 @@ CREATE TABLE DatasetTags (
     DatasetId INTEGER NOT NULL,
     FOREIGN KEY (DatasetId) REFERENCES DatasetsCleaned (Id),
     TagId INTEGER NOT NULL,
-    FOREIGN KEY (TagId) REFERENCES Tags (Id)
+    FOREIGN KEY (TagId) REFERENCES Tags (Id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- -- -- CompetitionsCleaned

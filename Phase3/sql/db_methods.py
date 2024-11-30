@@ -1,8 +1,6 @@
 from globals import chunk_size, data_directory, cleaned_files
 from sql.db_utils import *
 import pandas as pd
-from sql.queries import all_queries, index_queries, drop_queries
-
 
 def extract_ids_from_chunk(chunk_data, loc):
     """
