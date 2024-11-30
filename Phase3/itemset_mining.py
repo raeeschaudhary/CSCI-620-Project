@@ -109,31 +109,6 @@ class KaggleAssociationMiner:
         GROUP BY d.id, d.totalviews, d.totaldownloads, d.totalvotes, d.totalkernels
         """
 
-    def get_user_achievements_query(self):
-        """
-        Generate SQL query for user achievement patterns.
-
-        Returns
-        -------
-        str
-            SQL query string for fetching user achievement data
-        """
-        return """
-        SELECT 
-            u.id as user_id,
-            u.performancetier,
-            STRING_AGG(DISTINCT ua.achievementtype || '_' || ua.tier::text, ',') as achievements,
-            SUM(ua.totalgold) as total_gold,
-            SUM(ua.totalsilver) as total_silver,
-            SUM(ua.totalbronze) as total_bronze,
-            COUNT(DISTINCT o.id) as organization_count
-        FROM users u
-        LEFT JOIN userachievements ua ON u.id = ua.userid
-        LEFT JOIN userorganizations uo ON u.id = uo.userid
-        LEFT JOIN organizations o ON uo.organizationid = o.id
-        GROUP BY u.id, u.performancetier
-        """
-
     def get_user_organization_query(self):
         """
         Generate SQL query for user organization participation patterns.
@@ -164,8 +139,7 @@ class KaggleAssociationMiner:
         Parameters
         ----------
         analysis_type : str
-            Type of analysis to perform ('competition_tags', 'dataset_tags',
-            'user_achievements', or 'user_organizations')
+            Type of analysis to perform ('competition_tags', 'dataset_tags',or 'user_organizations')
 
         Returns
         -------
@@ -181,7 +155,6 @@ class KaggleAssociationMiner:
         query_mapping = {
             'competition_tags': self.get_competition_tags_query,
             'dataset_tags': self.get_dataset_tags_query,
-            'user_achievements': self.get_user_achievements_query,
             'user_organizations': self.get_user_organization_query
         }
 
@@ -348,7 +321,7 @@ class KaggleAssociationMiner:
         ----------
         analysis_type : str
             Type of analysis to perform ('competition_tags', 'dataset_tags',
-            'user_achievements', or 'user_organizations')
+            or 'user_organizations')
         min_support : float, optional (default=0.01)
             Minimum support threshold
         min_confidence : float, optional (default=0.5)
@@ -367,7 +340,6 @@ class KaggleAssociationMiner:
         item_column_mapping = {
             'competition_tags': 'tags',
             'dataset_tags': 'tags',
-            'user_achievements': 'achievements',
             'user_organizations': 'organizations'
         }
 
@@ -420,17 +392,13 @@ def print_analysis_results(analysis_type, frequent_itemsets, rules, df, top_n=10
         print("\nDataset Statistics:")
         print(f"Average views per dataset: {df['totalviews'].mean():.2f}")
         print(f"Average downloads per dataset: {df['totaldownloads'].mean():.2f}")
-    elif analysis_type == 'user_achievements':
-        print("\nAchievement Statistics:")
-        print(f"Average gold medals per user: {df['total_gold'].mean():.2f}")
-        print(f"Average silver medals per user: {df['total_silver'].mean():.2f}")
 
 if __name__ == "__main__":
     db_params = sql_db_config
 
     miner = KaggleAssociationMiner(**db_params)
 
-    # Analyze 'competition_tags', 'dataset_tags', 'user_achievements', 'user_organizations'
+    # Analyze 'competition_tags', 'dataset_tags', 'user_organizations'
     analysis_type = 'competition_tags'
     frequent_itemsets, rules, df = miner.analyze(
         analysis_type=analysis_type,
@@ -449,16 +417,7 @@ if __name__ == "__main__":
 
     print_analysis_results(analysis_type, frequent_itemsets, rules, df)
 
-    analysis_type = 'user_achievements'
-    frequent_itemsets, rules, df = miner.analyze(
-        analysis_type=analysis_type,
-        min_support=0.02,
-        min_confidence=0.6
-    )
-
-    print_analysis_results(analysis_type, frequent_itemsets, rules, df)
-
-    analysis_type = 'user_organisations'
+    analysis_type = 'user_organizations'
     frequent_itemsets, rules, df = miner.analyze(
         analysis_type=analysis_type,
         min_support=0.01,
