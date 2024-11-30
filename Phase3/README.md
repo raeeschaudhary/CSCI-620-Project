@@ -10,10 +10,10 @@
 7. Navigage back to root folder.
 8. Run `analyze_data.py` e.g., `python analyze_data.py` to analyze original dataset before any operations. (11 minutes)
     - The output will be saved in `file_info.txt` in the root folder. 
-9. Run `filter_data.py` e.g., `python filter_data.py` to filter the dataset into subset columns (as used in Phase 1). (2 minutes)
+9. Run `filter_data.py` e.g., `python filter_data.py` to filter the dataset into subset columns (as used in Phase 1). (5 minutes)
     - This will filter data and re-write some files in the same `data_directory` where the files are located (provided in step 5).
     - This requires that all necessary from files `input_files` (Step 1) are present in the data directory.
-10. Run `insert_data_clean.py` e.g., `python insert_data_clean.py` from to apply cleaning, insertion, and database constraints. (Expect all to run in 75 minutes)
+10. Run `insert_data_clean.py` e.g., `python insert_data_clean.py` from to apply cleaning, insertion, and database constraints. (expect all to run in 90 minutes)
 
 # Itemset Mining
 1. After following upto Step 10 from above. Navigate back to the root.

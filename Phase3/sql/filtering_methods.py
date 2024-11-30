@@ -1,4 +1,4 @@
-from globals import data_directory
+from globals import data_directory, cleaned_files
 import pandas as pd
 
 
@@ -40,3 +40,12 @@ def convert_columns_to_int(csv_file, output_file, columns_to_convert):
         df[columns_to_convert] = df[columns_to_convert].astype('Int64')
     # save the cleaned DataFrame to a new CSV file
     df.to_csv(output_file, index=False)
+
+def check_print_duplicates():
+    """
+    Checks duplicates and prints the count of duplicates on filtered files.
+    """
+    for file in cleaned_files:
+        df =  pd.read_csv(data_directory + file + '.csv')
+        duplicates = df[df.duplicated()]
+        print(f'file: {file}.csv, duplicates: {len(duplicates)}')
