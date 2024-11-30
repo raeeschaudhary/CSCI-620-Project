@@ -90,7 +90,7 @@ if __name__=="__main__":
 
     print('++++++++++++++++++++++++++++++++++++++++++++++')
     print("Finalizing the Schema")
-    run_schema_script('sql_clean.sql')
+    run_schema_script('sql_final.sql')
     print("Database Schema Finalized")
 
     print("=================================================")
@@ -101,3 +101,8 @@ if __name__=="__main__":
     end_time = time.time()
     run_time = end_time - start_time
     print("Total running time: ", run_time, " seconds")
+
+    with open('c1.txt', 'w') as f:
+        # just writing file to check code completion remotely
+        f.write("++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
+        f.write(f"Total Time: {run_time}\n")

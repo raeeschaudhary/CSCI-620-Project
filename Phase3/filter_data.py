@@ -1,5 +1,5 @@
 import time
-from sql.clean_methods import *
+from sql.filtering_methods import *
 
 if __name__=="__main__":
     start_time = time.time()
@@ -50,6 +50,13 @@ if __name__=="__main__":
     output_file = 'SubmissionsCleaned.csv'
     clean_csv_columns_to_keep(input_file, output_file, columns_to_keep)
     print('++++++++++++++++++++++++++++++++++++++++++++++')
+
+    ### check for duplicates
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+    print("Checking for Duplicates")
+    check_print_duplicates()
+    print('++++++++++++++++++++++++++++++++++++++++++++++')
+
 
     end_time = time.time()
     run_time = end_time - start_time

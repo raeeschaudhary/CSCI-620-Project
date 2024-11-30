@@ -20,8 +20,7 @@ DROP TABLE IF EXISTS Tags CASCADE;
 
 CREATE TABLE Tags (
     Id INTEGER PRIMARY KEY,
-    ParentTagId INTEGER,
-    -- ALTER TABLE tags ADD CONSTRAINT fk_ParentTagId FOREIGN KEY (ParentTagId) REFERENCES Tags(Id) ON DELETE CASCADE; -- will be added after cleaning
+    ParentTagId INTEGER, -- self FK will be added later.
     Name VARCHAR(50) NOT NULL,
     Slug VARCHAR(85) NOT NULL,
     FullPath VARCHAR(95) NOT NULL,
@@ -106,7 +105,7 @@ CREATE TABLE DatasetTags (
     DatasetId INTEGER NOT NULL,
     FOREIGN KEY (DatasetId) REFERENCES DatasetsCleaned (Id),
     TagId INTEGER NOT NULL,
-    FOREIGN KEY (TagId) REFERENCES Tags (Id)
+    FOREIGN KEY (TagId) REFERENCES Tags (Id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- -- -- CompetitionsCleaned
@@ -138,7 +137,7 @@ CREATE TABLE CompetitionTags (
     CompetitionId INTEGER NOT NULL,
     FOREIGN KEY (CompetitionId) REFERENCES CompetitionsCleaned (Id),
     TagId INTEGER NOT NULL,
-    FOREIGN KEY (TagId) REFERENCES Tags (Id)
+    FOREIGN KEY (TagId) REFERENCES Tags (Id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- -- -- CleanedTeams
